@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
         datePicker.setMinDate(DateUtils.getTimeMiles(1995, 1, 12));
         datePicker.setTextSize(19);
 
+
         datePicker.setDataSelectListener(new DatePicker.DataSelectListener() {
             @Override
             public void onDateSelected(long date, int day, int month, int year) {
