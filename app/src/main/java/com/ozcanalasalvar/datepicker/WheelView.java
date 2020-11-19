@@ -23,18 +23,19 @@ import java.util.List;
 
 public class WheelView extends ScrollView {
     public String TAG = WheelView.class.getSimpleName();
-//    public static final String DAY = "Day";
-//    public static final String MONTH = "month";
-//    public static final String YEAR = "Year";
-//
-//    public void setTag(String tag) {
-//        this.TAG = tag;
-//    }
+
+    private int displayItemCount;
+    private int selectedIndex = 1;
+    public static final int OFF_SET_DEFAULT = 1;
+    private int offset = OFF_SET_DEFAULT;
+    private boolean configChanged = false;
+    private int initialY;
+    private Runnable scrollerTask;
+    private int newCheck = 50;
 
     public interface OnWheelViewListener {
         void onSelected(int selectedIndex, String item);
     }
-
 
     private Context context;
     private LinearLayout views;
@@ -54,14 +55,15 @@ public class WheelView extends ScrollView {
         init(context);
     }
 
-    List<String> items;
+    private List<String> items;
     private int textSize = 19;
     private int ALIGNMENT = View.TEXT_ALIGNMENT_CENTER;
     private int GRAVITY = Gravity.CENTER;
     private int minValidIndex = 0;
     private int maxValidIndex = Integer.MAX_VALUE;
 
-    private List<String> getItems() {
+
+    public List<String> getItems() {
         return items;
     }
 
@@ -80,25 +82,12 @@ public class WheelView extends ScrollView {
 
     }
 
-
-    public static final int OFF_SET_DEFAULT = 1;
-    int offset = OFF_SET_DEFAULT;
-    private boolean configChanged = false;
-
-    public int getOffset() {
-        return offset;
-    }
-
     public void setOffset(int offset) {
         if (this.offset != offset) {
             configChanged = true;
         }
         this.offset = offset;
     }
-
-    int displayItemCount;
-
-    int selectedIndex = 1;
 
 
     private void init(Context context) {
@@ -160,11 +149,6 @@ public class WheelView extends ScrollView {
 
     }
 
-    int initialY;
-
-    Runnable scrollerTask;
-    int newCheck = 50;
-
     public void startScrollerTask() {
 
         initialY = getScrollY();
@@ -208,8 +192,6 @@ public class WheelView extends ScrollView {
 
     private LinearLayout createView(String item) {
         LinearLayout viewContainer = new LinearLayout(context);
-//        viewContainer.setGravity(Gravity.CENTER);
-
         TextView tv = new TextView(context);
         tv.setClickable(true);
         LayoutParams textLP = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -276,11 +258,7 @@ public class WheelView extends ScrollView {
             if (maxValidIndex <= 0)
                 maxValidIndex = items.size();
             if (position == i) {
-                if (position >= minValidIndex && position <= maxValidIndex) {
-                    item.setTextColor(Color.parseColor("#000000"));
-                } else {
-                    item.setTextColor(Color.parseColor("#999999"));
-                }
+                item.setTextColor(Color.parseColor("#000000"));
                 if (item.getTextSize() != textSize)
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
 
@@ -338,8 +316,8 @@ public class WheelView extends ScrollView {
     private static final int SCROLL_DIRECTION_UP = 0;
     private static final int SCROLL_DIRECTION_DOWN = 1;
 
-    Paint paint;
-    int viewWidth;
+    private Paint paint;
+    private int viewWidth;
 
     @Override
     public void setBackground(Drawable background) {
@@ -415,7 +393,6 @@ public class WheelView extends ScrollView {
     public int getSelectedIndex() {
         return selectedIndex - offset;
     }
-
 
     @Override
     public void fling(int velocityY) {

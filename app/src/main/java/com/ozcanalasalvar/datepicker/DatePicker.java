@@ -10,24 +10,29 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
+import com.ozcanalasalvar.datepicker.factory.DatePickerFactory;
+import com.ozcanalasalvar.datepicker.factory.FactoryListener;
+
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class DatePicker extends LinearLayout {
+public class DatePicker extends LinearLayout implements FactoryListener {
 
     private Context context;
     private LinearLayout container;
     private int offset = 3;
 
-    private DateModel minDate;
-    private DateModel maxDate;
-    private DateModel date;
+    private DatePickerFactory factory;
 
     private WheelView dayView;
     private WheelView monthView;
     private WheelView yearView;
     private WheelView emptyView1;
     private WheelView emptyView2;
+
+    private int monthMin = 0;
 
     private final static int MAX_TEXT_SIZE = 19;
     private int textSize = 19;
@@ -56,24 +61,17 @@ public class DatePicker extends LinearLayout {
     private void init(Context context) {
         this.context = context;
         this.setOrientation(LinearLayout.HORIZONTAL);
+
+        factory = new DatePickerFactory(this);
+
         container = new LinearLayout(context);
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         container.setLayoutParams(layoutParams);
         container.setOrientation(LinearLayout.HORIZONTAL);
         this.addView(container);
-        setUpInitialDates();
         setUpInitialViews();
     }
 
-    private void setUpInitialDates() {
-        int minYear = 1970;
-        int minMonth = 0;//max 11
-        int maxYear = 2050;
-        int maxMonth = 12;
-        minDate = new DateModel(DateUtils.getTimeMiles(minYear, minMonth, 1));
-        maxDate = new DateModel(DateUtils.getTimeMiles(maxYear, maxMonth, 1));
-        date = new DateModel(DateUtils.getCurrentTime());
-    }
 
     private void setUpInitialViews() {
         container.addView(createEmptyView1(context));
@@ -85,7 +83,7 @@ public class DatePicker extends LinearLayout {
     }
 
     public void setUpCalendar() {
-        Log.i("Calendar", "setUp = " + date.toString());
+        Log.i("Calendar", "setUp = " + factory.getSelectedDate().toString());
         setUpYearView();
         setUpMonthView();
         setUpDayView();
@@ -106,10 +104,7 @@ public class DatePicker extends LinearLayout {
     }
 
     private void notifyMonthView() {
-        int min = (date.getYear() != minDate.getYear() && date.getMonth() != minDate.getMonth()) ? 0 : minDate.getMonth();
-        int max = (date.getYear() == maxDate.getYear() && date.getMonth() >= maxDate.getMonth()) ? maxDate.getMonth() : monthView.items.size();
-        monthView.setValidIndex(min, max);
-        monthView.setSelection(date.getMonth());
+        setUpMonthView();
     }
 
     private void notifyDayView() {
@@ -117,6 +112,10 @@ public class DatePicker extends LinearLayout {
     }
 
     private void setUpYearView() {
+        DateModel maxDate = factory.getMaxDate();
+        DateModel minDate = factory.getMinDate();
+        DateModel date = factory.getSelectedDate();
+
         Log.i("Calendar", "setUpYearView = " + date.toString());
         int yearCount = Math.abs(minDate.getYear() - maxDate.getYear()) + 1;
         List<String> years = new ArrayList<>();
@@ -128,73 +127,68 @@ public class DatePicker extends LinearLayout {
         yearView.setTextSize(textSize);
         yearView.setAlignment(View.TEXT_ALIGNMENT_CENTER);
         yearView.setGravity(Gravity.END);
-        yearView.setOffset(offset);
         yearView.setItems(years);
         yearView.setSelection(years.indexOf("" + date.getYear()));
     }
 
     private void setUpMonthView() {
+        DateModel maxDate = factory.getMaxDate();
+        DateModel minDate = factory.getMinDate();
+        DateModel date = factory.getSelectedDate();
         Log.i("Calendar", "setUpMonthView = " + date.toString());
 
-        List<String> months = new ArrayList<>();
-        months.add("January");
-        months.add("February");
-        months.add("March");
-        months.add("April");
-        months.add("May");
-        months.add("June");
-        months.add("July");
-        months.add("August");
-        months.add("September");
-        months.add("October");
-        months.add("November");
-        months.add("December");
+        List<String> monthsArray = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
+        int max = monthsArray.size();
+        if (date.getYear() == maxDate.getYear()) {
+            max = maxDate.getMonth() + 1;
+        }
+        if (date.getYear() == minDate.getYear()) {
+            monthMin = minDate.getMonth();
+        } else
+            monthMin = 0;
+
+        List<String> months = new ArrayList<>();
+        for (int i = monthMin; i < max; i++) {
+            months.add(monthsArray.get(i));
+        }
+
+        Log.i("date", "month min= " + monthMin);
+        Log.i("date", "month max= " + max);
+
+        monthView.setValidIndex(monthMin, max);
         monthView.setTextSize(textSize);
         monthView.setGravity(Gravity.START);
         monthView.setAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         monthView.setOffset(offset);
         monthView.setItems(months);
-
-        int min = (date.getYear() == minDate.getYear() && date.getMonth() == minDate.getMonth()) ? minDate.getMonth() : 0;
-        int max = (date.getYear() == maxDate.getYear() && date.getMonth() == maxDate.getMonth()) ? maxDate.getMonth() : monthView.items.size();
-        monthView.setValidIndex(min, max);
-        monthView.setSelection(date.getMonth());
+        monthView.setSelection(date.getMonth() - monthMin);
     }
 
     private void setUpDayView() {
+        DateModel maxDate = factory.getMaxDate();
+        DateModel minDate = factory.getMinDate();
+        DateModel date = factory.getSelectedDate();
         Log.i("Calendar", "setUpDayView = " + date.toString());
+
+        int max = DateUtils.getMonthDayCount(date.getDate());
+        int min = 0;
+        if (date.getYear() == maxDate.getYear() && date.getMonth() == maxDate.getMonth()) {
+            max = maxDate.getDay();
+        }
+        if (date.getYear() == minDate.getYear() && date.getMonth() == minDate.getMonth()) {
+            min = minDate.getDay() - 1;
+        }
+
         List<String> days = new ArrayList<>();
-        int count = DateUtils.getMonthDayCount(date.getDate());
-        for (int i = 0; i < count; i++) {
+        for (int i = min; i < max; i++) {
             days.add("" + (i + 1));
         }
-        int min = 0;
-        int max = 0;
-        if (date.getYear() == maxDate.getYear()) {
-            if (date.getMonth() == maxDate.getMonth()) {
-                max = maxDate.getDay() - 1;
-            } else if (date.getMonth() > maxDate.getMonth()) {
-                max = -1;
-            } else
-                max = days.size();
 
-            if (date.getMonth() == minDate.getMonth()) {
-                min = minDate.getDay() - 1;
-            } else if (date.getMonth() < minDate.getMonth()) {
-                min = days.size();
-            } else
-                min = -1;
+        Log.i("date", "day min= " + min);
+        Log.i("date", "day max= " + max);
 
-        } else {
-            max = days.size();
-            min = -1;
-        }
-
-        Log.i("date", "min= " + min);
-        Log.i("date", "max= " + max);
-
-        dayView.setValidIndex(min, max);
+        dayView.setValidIndex(0, max);
         dayView.setOffset(offset);
         dayView.setTextSize(textSize);
         dayView.setGravity(Gravity.END);
@@ -211,10 +205,11 @@ public class DatePicker extends LinearLayout {
         yearView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
-                date.setYear(Integer.parseInt(item));
-                notifyMonthView();
-                notifyDayView();
-                notifyDateSelect();
+                factory.setSelectedYear(Integer.parseInt(item));
+//                date.setYear(Integer.parseInt(item));
+//                notifyMonthView();
+//                notifyDayView();
+//                notifyDateSelect();
             }
         });
         LinearLayout ly = wheelContainerView(2.0f);
@@ -230,10 +225,10 @@ public class DatePicker extends LinearLayout {
         monthView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
-                date.setMonth(selectedIndex);
-                notifyMonthView();
-                notifyDayView();
-                notifyDateSelect();
+                factory.setSelectedMonth(monthMin + selectedIndex);
+//                date.setMonth(monthMin + selectedIndex);
+//                notifyDayView();
+//                notifyDateSelect();
             }
         });
         LinearLayout ly = wheelContainerView(2.0f);
@@ -249,9 +244,9 @@ public class DatePicker extends LinearLayout {
         dayView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
-                date.setDay(selectedIndex + 1);
-                notifyDayView();
-                notifyDateSelect();
+                factory.setSelectedDay(selectedIndex + 1);
+//                date.setDay(selectedIndex + 1);
+//                notifyDateSelect();
             }
         });
         LinearLayout ly = wheelContainerView(2.0f);
@@ -295,8 +290,8 @@ public class DatePicker extends LinearLayout {
      * @param date
      */
     public void setMinDate(long date) {
-        this.minDate = new DateModel(date);
-        setUpCalendar();
+        factory.setMinDate(date);
+//        setUpCalendar();
     }
 
     /**
@@ -305,8 +300,8 @@ public class DatePicker extends LinearLayout {
      * @param date
      */
     public void setMaxDate(long date) {
-        this.maxDate = new DateModel(date);
-        setUpCalendar();
+        factory.setMaxDate(date);
+//        setUpCalendar();
     }
 
     /**
@@ -315,29 +310,30 @@ public class DatePicker extends LinearLayout {
      * @param date
      */
     public void setDate(long date) {
-        this.date = new DateModel(date);
-        setUpCalendar();
+        factory.setSelectedDate(date);
+//        this.date = new DateModel(date);
+//        setUpCalendar();
     }
 
     /**
      * @return minDate
      */
     public long getMinDate() {
-        return minDate.getDate();
+        return factory.getMinDate().getDate();
     }
 
     /**
      * @return maxDate
      */
     public long getMaxDate() {
-        return maxDate.getDate();
+        return factory.getMaxDate().getDate();
     }
 
     /**
      * @return date
      */
     public long getDate() {
-        return date.getDate();
+        return factory.getSelectedDate().getDate();
     }
 
     public int getOffset() {
@@ -354,17 +350,41 @@ public class DatePicker extends LinearLayout {
         setUpCalendar();
     }
 
-    private DataSelectListener dataSelectListener;
+    @Override
+    public void onYearChanged() {
+        notifyMonthView();
+        notifyDayView();
+        notifyDateSelect();
+    }
 
-    public void setDataSelectListener(DataSelectListener dataSelectListener) {
-        this.dataSelectListener = dataSelectListener;
+    @Override
+    public void onMonthChanged() {
+        notifyDayView();
+        notifyDateSelect();
+    }
+
+    @Override
+    public void onDayChanged() {
+        notifyDateSelect();
+    }
+
+    @Override
+    public void onConfigsChanged() {
+        setUpCalendar();
     }
 
     public interface DataSelectListener {
         void onDateSelected(long date, int day, int month, int year);
     }
 
+    private DataSelectListener dataSelectListener;
+
+    public void setDataSelectListener(DataSelectListener dataSelectListener) {
+        this.dataSelectListener = dataSelectListener;
+    }
+
     private void notifyDateSelect() {
+        DateModel date = factory.getSelectedDate();
         dataSelectListener.onDateSelected(date.getDate(), date.getDay(), date.getMonth(), date.getYear());
     }
 }

@@ -22,7 +22,6 @@ public class DateModel {
 
     public void setYear(int year) {
         this.year = year;
-        updateModel();
     }
 
     public int getMonth() {
@@ -31,7 +30,6 @@ public class DateModel {
 
     public void setMonth(int month) {
         this.month = month;
-        updateModel();
     }
 
     public int getDay() {
@@ -40,7 +38,6 @@ public class DateModel {
 
     public void setDay(int day) {
         this.day = day;
-        updateModel();
     }
 
     public long getDate() {
@@ -54,7 +51,7 @@ public class DateModel {
         this.year = DateUtils.getYear(date);
     }
 
-    private void updateModel() {
+    public void updateModel() {
         setDate(DateUtils.getTimeMiles(this.year, this.month, this.day));
     }
 
