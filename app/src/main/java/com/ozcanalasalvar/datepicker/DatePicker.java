@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import com.ozcanalasalvar.datepicker.factory.DatePickerFactory;
 import com.ozcanalasalvar.datepicker.factory.FactoryListener;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,19 +22,16 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     private Context context;
     private LinearLayout container;
     private int offset = 3;
-
     private DatePickerFactory factory;
-
     private WheelView dayView;
     private WheelView monthView;
     private WheelView yearView;
     private WheelView emptyView1;
     private WheelView emptyView2;
-
     private int monthMin = 0;
+    private int textSize = 19;
 
     private final static int MAX_TEXT_SIZE = 19;
-    private int textSize = 19;
 
 
     public DatePicker(Context context) {
@@ -122,7 +118,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
         for (int i = 0; i < yearCount; i++) {
             years.add("" + (minDate.getYear() + i));
         }
-        yearView.setValidIndex(years.indexOf("" + minDate.getYear()), years.indexOf("" + maxDate.getYear()));
         yearView.setOffset(offset);
         yearView.setTextSize(textSize);
         yearView.setAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -156,7 +151,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
         Log.i("date", "month min= " + monthMin);
         Log.i("date", "month max= " + max);
 
-        monthView.setValidIndex(monthMin, max);
         monthView.setTextSize(textSize);
         monthView.setGravity(Gravity.START);
         monthView.setAlignment(View.TEXT_ALIGNMENT_TEXT_START);
@@ -188,7 +182,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
         Log.i("date", "day min= " + min);
         Log.i("date", "day max= " + max);
 
-        dayView.setValidIndex(0, max);
         dayView.setOffset(offset);
         dayView.setTextSize(textSize);
         dayView.setGravity(Gravity.END);
@@ -206,10 +199,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
             @Override
             public void onSelected(int selectedIndex, String item) {
                 factory.setSelectedYear(Integer.parseInt(item));
-//                date.setYear(Integer.parseInt(item));
-//                notifyMonthView();
-//                notifyDayView();
-//                notifyDateSelect();
             }
         });
         LinearLayout ly = wheelContainerView(2.0f);
@@ -226,9 +215,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
             @Override
             public void onSelected(int selectedIndex, String item) {
                 factory.setSelectedMonth(monthMin + selectedIndex);
-//                date.setMonth(monthMin + selectedIndex);
-//                notifyDayView();
-//                notifyDateSelect();
             }
         });
         LinearLayout ly = wheelContainerView(2.0f);
@@ -245,8 +231,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
             @Override
             public void onSelected(int selectedIndex, String item) {
                 factory.setSelectedDay(selectedIndex + 1);
-//                date.setDay(selectedIndex + 1);
-//                notifyDateSelect();
             }
         });
         LinearLayout ly = wheelContainerView(2.0f);
@@ -291,7 +275,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
      */
     public void setMinDate(long date) {
         factory.setMinDate(date);
-//        setUpCalendar();
     }
 
     /**
@@ -301,7 +284,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
      */
     public void setMaxDate(long date) {
         factory.setMaxDate(date);
-//        setUpCalendar();
     }
 
     /**
@@ -311,8 +293,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
      */
     public void setDate(long date) {
         factory.setSelectedDate(date);
-//        this.date = new DateModel(date);
-//        setUpCalendar();
     }
 
     /**

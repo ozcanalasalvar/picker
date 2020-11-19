@@ -31,7 +31,7 @@ public class WheelView extends ScrollView {
     private boolean configChanged = false;
     private int initialY;
     private Runnable scrollerTask;
-    private int newCheck = 50;
+    private final int newCheck = 50;
 
     public interface OnWheelViewListener {
         void onSelected(int selectedIndex, String item);
@@ -59,8 +59,6 @@ public class WheelView extends ScrollView {
     private int textSize = 19;
     private int ALIGNMENT = View.TEXT_ALIGNMENT_CENTER;
     private int GRAVITY = Gravity.CENTER;
-    private int minValidIndex = 0;
-    private int maxValidIndex = Integer.MAX_VALUE;
 
 
     public List<String> getItems() {
@@ -174,11 +172,6 @@ public class WheelView extends ScrollView {
         this.textSize = textSize;
     }
 
-    public void setValidIndex(int min, int max) {
-        this.minValidIndex = min + offset;
-        this.maxValidIndex = max + offset;
-    }
-
     public void setAlignment(int alignment) {
         this.ALIGNMENT = alignment;
     }
@@ -255,8 +248,7 @@ public class WheelView extends ScrollView {
             if (null == item) {
                 return;
             }
-            if (maxValidIndex <= 0)
-                maxValidIndex = items.size();
+
             if (position == i) {
                 item.setTextColor(Color.parseColor("#000000"));
                 if (item.getTextSize() != textSize)
