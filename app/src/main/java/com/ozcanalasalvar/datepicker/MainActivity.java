@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DatePicker datePicker = findViewById(R.id.date_picker);
-        datePicker.setOffset(3);
+//        datePicker.setOffset(3);
         datePicker.setMaxDate(DateUtils.getTimeMiles(2050, 10, 25));
         datePicker.setDate(DateUtils.getCurrentTime());
         datePicker.setMinDate(DateUtils.getTimeMiles(1995, 1, 12));

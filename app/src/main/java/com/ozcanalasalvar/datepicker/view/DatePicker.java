@@ -1,6 +1,8 @@
 package com.ozcanalasalvar.datepicker.view;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -10,11 +12,13 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
+import com.ozcanalasalvar.datepicker.R;
 import com.ozcanalasalvar.datepicker.model.DateModel;
 import com.ozcanalasalvar.datepicker.factory.DatePickerFactory;
 import com.ozcanalasalvar.datepicker.factory.FactoryListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DatePicker extends LinearLayout implements FactoryListener {
@@ -31,6 +35,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     private int textSize = 19;
 
     private final static int MAX_TEXT_SIZE = 19;
+    private final static int MAX_OFFSET = 3;
 
 
     public DatePicker(Context context) {
@@ -40,17 +45,36 @@ public class DatePicker extends LinearLayout implements FactoryListener {
 
     public DatePicker(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        setAttributes(context, attrs);
         init(context);
     }
 
     public DatePicker(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setAttributes(context, attrs);
         init(context);
     }
 
     public DatePicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        setAttributes(context, attrs);
         init(context);
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private void setAttributes(Context context, @Nullable AttributeSet attrs) {
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DatePicker);
+        final int N = a.getIndexCount();
+        for (int i = 0; i < N; ++i) {
+            int attr = a.getIndex(i);
+            switch (attr) {
+                case R.styleable.DatePicker_offset:
+                    this.offset = Math.min(a.getInteger(attr, 3), MAX_OFFSET);
+                    init(context);
+                    break;
+            }
+        }
+        a.recycle();
     }
 
     private void init(Context context) {

@@ -3,6 +3,7 @@ package com.ozcanalasalvar.datepicker.factory;
 import com.ozcanalasalvar.datepicker.model.DateModel;
 import com.ozcanalasalvar.datepicker.utils.DateUtils;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +15,7 @@ public class DatePickerFactory {
     private FactoryListener listener;
     private int monthMin;
 
+    private static final DateFormatSymbols dfs = new DateFormatSymbols();
 
     public DatePickerFactory(FactoryListener listener) {
         this.listener = listener;
@@ -95,9 +97,9 @@ public class DatePickerFactory {
     }
 
     public List<String> getMonthList() {
-        List<String> monthsArray = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-
-        int max = monthsArray.size();
+        String[] monthsArray = dfs.getMonths();
+        List<String> monthsList = Arrays.asList(monthsArray);
+        int max = monthsList.size();
         if (selectedDate.getYear() == maxDate.getYear()) {
             max = maxDate.getMonth() + 1;
         }
@@ -108,7 +110,7 @@ public class DatePickerFactory {
 
         List<String> months = new ArrayList<>();
         for (int i = monthMin; i < max; i++) {
-            months.add(monthsArray.get(i));
+            months.add(monthsList.get(i));
         }
         return months;
     }
