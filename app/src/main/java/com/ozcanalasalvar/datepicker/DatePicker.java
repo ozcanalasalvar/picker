@@ -142,7 +142,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
                 factory.setSelectedYear(Integer.parseInt(item));
             }
         });
-        LinearLayout ly = wheelContainerView(2.0f);
+        LinearLayout ly = wheelContainerView(3.0f);
         ly.addView(yearView);
         return ly;
     }
@@ -158,7 +158,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
                 factory.setSelectedMonth(factory.getMonthMin() + selectedIndex);
             }
         });
-        LinearLayout ly = wheelContainerView(2.0f);
+        LinearLayout ly = wheelContainerView(3.0f);
         ly.addView(monthView);
         return ly;
     }
@@ -174,7 +174,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
                 factory.setSelectedDay(selectedIndex + 1);
             }
         });
-        LinearLayout ly = wheelContainerView(2.0f);
+        LinearLayout ly = wheelContainerView(3.0f);
         ly.addView(dayView);
         return ly;
     }
@@ -182,7 +182,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
 
     private LinearLayout createEmptyView1(Context context) {
         emptyView1 = createEmptyWheel(context);
-        LinearLayout ly = wheelContainerView(1.0f);
+        LinearLayout ly = wheelContainerView(1.5f);
         ly.addView(emptyView1);
         return ly;
     }
