@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         datePicker.setDataSelectListener(new DatePicker.DataSelectListener() {
             @Override
             public void onDateSelected(long date, int day, int month, int year) {
-                Toast.makeText(getApplicationContext(), "" + day + "/" + month + "/" + year, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "" + day + "/" + (month+1) + "/" + year, Toast.LENGTH_LONG).show();
             }
         });
     }

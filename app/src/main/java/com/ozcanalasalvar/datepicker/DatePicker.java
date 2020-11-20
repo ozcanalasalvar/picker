@@ -28,7 +28,6 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     private WheelView yearView;
     private WheelView emptyView1;
     private WheelView emptyView2;
-    private int monthMin = 0;
     private int textSize = 19;
 
     private final static int MAX_TEXT_SIZE = 19;
@@ -99,25 +98,9 @@ public class DatePicker extends LinearLayout implements FactoryListener {
         emptyView2.setItems(array);
     }
 
-    private void notifyMonthView() {
-        setUpMonthView();
-    }
-
-    private void notifyDayView() {
-        setUpDayView();
-    }
-
     private void setUpYearView() {
-        DateModel maxDate = factory.getMaxDate();
-        DateModel minDate = factory.getMinDate();
         DateModel date = factory.getSelectedDate();
-
-        Log.i("Calendar", "setUpYearView = " + date.toString());
-        int yearCount = Math.abs(minDate.getYear() - maxDate.getYear()) + 1;
-        List<String> years = new ArrayList<>();
-        for (int i = 0; i < yearCount; i++) {
-            years.add("" + (minDate.getYear() + i));
-        }
+        List<String> years = factory.getYearList();
         yearView.setOffset(offset);
         yearView.setTextSize(textSize);
         yearView.setAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -127,61 +110,19 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     }
 
     private void setUpMonthView() {
-        DateModel maxDate = factory.getMaxDate();
-        DateModel minDate = factory.getMinDate();
+        List<String> months = factory.getMonthList();
         DateModel date = factory.getSelectedDate();
-        Log.i("Calendar", "setUpMonthView = " + date.toString());
-
-        List<String> monthsArray = Arrays.asList("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-
-        int max = monthsArray.size();
-        if (date.getYear() == maxDate.getYear()) {
-            max = maxDate.getMonth() + 1;
-        }
-        if (date.getYear() == minDate.getYear()) {
-            monthMin = minDate.getMonth();
-        } else
-            monthMin = 0;
-
-        List<String> months = new ArrayList<>();
-        for (int i = monthMin; i < max; i++) {
-            months.add(monthsArray.get(i));
-        }
-
-        Log.i("date", "month min= " + monthMin);
-        Log.i("date", "month max= " + max);
-
         monthView.setTextSize(textSize);
         monthView.setGravity(Gravity.START);
         monthView.setAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         monthView.setOffset(offset);
         monthView.setItems(months);
-        monthView.setSelection(date.getMonth() - monthMin);
+        monthView.setSelection(date.getMonth() - factory.getMonthMin());
     }
 
     private void setUpDayView() {
-        DateModel maxDate = factory.getMaxDate();
-        DateModel minDate = factory.getMinDate();
         DateModel date = factory.getSelectedDate();
-        Log.i("Calendar", "setUpDayView = " + date.toString());
-
-        int max = DateUtils.getMonthDayCount(date.getDate());
-        int min = 0;
-        if (date.getYear() == maxDate.getYear() && date.getMonth() == maxDate.getMonth()) {
-            max = maxDate.getDay();
-        }
-        if (date.getYear() == minDate.getYear() && date.getMonth() == minDate.getMonth()) {
-            min = minDate.getDay() - 1;
-        }
-
-        List<String> days = new ArrayList<>();
-        for (int i = min; i < max; i++) {
-            days.add("" + (i + 1));
-        }
-
-        Log.i("date", "day min= " + min);
-        Log.i("date", "day max= " + max);
-
+        List<String> days = factory.getDayList();
         dayView.setOffset(offset);
         dayView.setTextSize(textSize);
         dayView.setGravity(Gravity.END);
@@ -214,7 +155,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
         monthView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
             @Override
             public void onSelected(int selectedIndex, String item) {
-                factory.setSelectedMonth(monthMin + selectedIndex);
+                factory.setSelectedMonth(factory.getMonthMin() + selectedIndex);
             }
         });
         LinearLayout ly = wheelContainerView(2.0f);
@@ -332,14 +273,14 @@ public class DatePicker extends LinearLayout implements FactoryListener {
 
     @Override
     public void onYearChanged() {
-        notifyMonthView();
-        notifyDayView();
+        setUpMonthView();
+        setUpDayView();
         notifyDateSelect();
     }
 
     @Override
     public void onMonthChanged() {
-        notifyDayView();
+        setUpDayView();
         notifyDateSelect();
     }
 
