@@ -32,6 +32,7 @@ public class WheelView extends ScrollView {
     private int initialY;
     private Runnable scrollerTask;
     private final int newCheck = 50;
+    public boolean isNightTheme = false;
 
     public interface OnWheelViewListener {
         void onSelected(int selectedIndex, String item);
@@ -250,7 +251,7 @@ public class WheelView extends ScrollView {
             }
 
             if (position == i) {
-                item.setTextColor(Color.parseColor("#000000"));
+                item.setTextColor(Color.parseColor(!isNightTheme ? "#000000" : "#FFFFFF"));
                 if (item.getTextSize() != textSize)
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
 
@@ -260,13 +261,13 @@ public class WheelView extends ScrollView {
             } else if (i < position) {
                 if (i == position - 1) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 2);
-                    item.setTextColor(Color.parseColor("#999999"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ? "#999999" : "#dfdfdf"));
                 } else if (i == position - 2) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 3);
                     item.setTextColor(Color.parseColor("#bbbbbb"));
                 } else {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 4);
-                    item.setTextColor(Color.parseColor("#dfdfdf"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ? "#dfdfdf" : "#999999"));
                 }
                 String text = item.getText().toString();
                 text = "  " + text.trim();
@@ -276,13 +277,13 @@ public class WheelView extends ScrollView {
             if (i > position) {
                 if (i == position + 1) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 2);
-                    item.setTextColor(Color.parseColor("#999999"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ? "#999999" : "#dfdfdf"));
                 } else if (i == position + 2) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 3);
                     item.setTextColor(Color.parseColor("#bbbbbb"));
                 } else {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 4);
-                    item.setTextColor(Color.parseColor("#dfdfdf"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ? "#dfdfdf" : "#999999"));
                 }
                 String text = item.getText().toString();
                 text = "  " + text.trim();

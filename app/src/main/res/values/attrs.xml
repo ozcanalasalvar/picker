@@ -2,5 +2,6 @@
 <resources>
     <declare-styleable name="DatePicker">
         <attr name="offset" format="integer" />
+        <attr name="darkModeEnabled" format="boolean" />
     </declare-styleable>
 </resources>

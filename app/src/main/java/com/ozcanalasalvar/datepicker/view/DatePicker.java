@@ -2,6 +2,7 @@ package com.ozcanalasalvar.datepicker.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -36,7 +37,9 @@ public class DatePicker extends LinearLayout implements FactoryListener {
 
     private final static int MAX_TEXT_SIZE = 19;
     private final static int MAX_OFFSET = 3;
+    private boolean darkModeEnabled = true;
 
+    private boolean isNightTheme = false;
 
     public DatePicker(Context context) {
         super(context);
@@ -70,7 +73,9 @@ public class DatePicker extends LinearLayout implements FactoryListener {
             switch (attr) {
                 case R.styleable.DatePicker_offset:
                     this.offset = Math.min(a.getInteger(attr, 3), MAX_OFFSET);
-                    init(context);
+                    break;
+                case R.styleable.DatePicker_darkModeEnabled:
+                    this.darkModeEnabled = a.getBoolean(attr, true);
                     break;
             }
         }
@@ -89,6 +94,20 @@ public class DatePicker extends LinearLayout implements FactoryListener {
         setUpInitialViews();
     }
 
+    private void checkDarkMode() {
+        int nightModeFlags =
+                getContext().getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                isNightTheme = true;
+                break;
+            case Configuration.UI_MODE_NIGHT_NO:
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                isNightTheme = false;
+                break;
+        }
+    }
 
     private void setUpInitialViews() {
         container.addView(createEmptyView1(context));
@@ -101,6 +120,11 @@ public class DatePicker extends LinearLayout implements FactoryListener {
 
     public void setUpCalendar() {
         Log.i("Calendar", "setUp = " + factory.getSelectedDate().toString());
+        if (darkModeEnabled) {
+            checkDarkMode();
+        } else {
+            isNightTheme = false;
+        }
         setUpYearView();
         setUpMonthView();
         setUpDayView();
@@ -123,6 +147,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     private void setUpYearView() {
         DateModel date = factory.getSelectedDate();
         List<String> years = factory.getYearList();
+        yearView.isNightTheme = isNightTheme;
         yearView.setOffset(offset);
         yearView.setTextSize(textSize);
         yearView.setAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -134,6 +159,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     private void setUpMonthView() {
         List<String> months = factory.getMonthList();
         DateModel date = factory.getSelectedDate();
+        monthView.isNightTheme = isNightTheme;
         monthView.setTextSize(textSize);
         monthView.setGravity(Gravity.START);
         monthView.setAlignment(View.TEXT_ALIGNMENT_TEXT_START);
@@ -145,6 +171,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     private void setUpDayView() {
         DateModel date = factory.getSelectedDate();
         List<String> days = factory.getDayList();
+        dayView.isNightTheme = isNightTheme;
         dayView.setOffset(offset);
         dayView.setTextSize(textSize);
         dayView.setGravity(Gravity.END);
@@ -313,6 +340,21 @@ public class DatePicker extends LinearLayout implements FactoryListener {
 
     @Override
     public void onConfigsChanged() {
+        setUpCalendar();
+    }
+
+    /**
+     * @return
+     */
+    public boolean isDarkModeEnabled() {
+        return darkModeEnabled;
+    }
+
+    /**
+     * @param darkModeEnabled
+     */
+    public void setDarkModeEnabled(boolean darkModeEnabled) {
+        this.darkModeEnabled = darkModeEnabled;
         setUpCalendar();
     }
 

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_gravity="center">
 
         <com.ozcanalasalvar.datepicker.view.DatePicker
             android:id="@+id/date_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:offset="3" />
-
+            app:offset="3"
+            app:darkModeEnabled="true"/>
     </LinearLayout>
 </FrameLayout>
