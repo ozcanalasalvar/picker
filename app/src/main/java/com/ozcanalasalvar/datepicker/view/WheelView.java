@@ -261,13 +261,13 @@ public class WheelView extends ScrollView {
             } else if (i < position) {
                 if (i == position - 1) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 2);
-                    item.setTextColor(Color.parseColor(!isNightTheme ? "#999999" : "#dfdfdf"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ? "#999999" : "#767676"));
                 } else if (i == position - 2) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 3);
-                    item.setTextColor(Color.parseColor("#bbbbbb"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ?"#bbbbbb":"#555555"));
                 } else {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 4);
-                    item.setTextColor(Color.parseColor(!isNightTheme ? "#dfdfdf" : "#999999"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ? "#dfdfdf" : "#333333"));
                 }
                 String text = item.getText().toString();
                 text = "  " + text.trim();
@@ -277,13 +277,13 @@ public class WheelView extends ScrollView {
             if (i > position) {
                 if (i == position + 1) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 2);
-                    item.setTextColor(Color.parseColor(!isNightTheme ? "#999999" : "#dfdfdf"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ? "#999999" : "#767676"));
                 } else if (i == position + 2) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 3);
-                    item.setTextColor(Color.parseColor("#bbbbbb"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ?"#bbbbbb":"#555555"));
                 } else {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 4);
-                    item.setTextColor(Color.parseColor(!isNightTheme ? "#dfdfdf" : "#999999"));
+                    item.setTextColor(Color.parseColor(!isNightTheme ? "#dfdfdf" : "#333333"));
                 }
                 String text = item.getText().toString();
                 text = "  " + text.trim();
