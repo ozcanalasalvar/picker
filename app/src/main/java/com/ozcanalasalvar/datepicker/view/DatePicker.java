@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.datepicker;
+package com.ozcanalasalvar.datepicker.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -10,11 +10,11 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
+import com.ozcanalasalvar.datepicker.model.DateModel;
 import com.ozcanalasalvar.datepicker.factory.DatePickerFactory;
 import com.ozcanalasalvar.datepicker.factory.FactoryListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DatePicker extends LinearLayout implements FactoryListener {
@@ -56,9 +56,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     private void init(Context context) {
         this.context = context;
         this.setOrientation(LinearLayout.HORIZONTAL);
-
         factory = new DatePickerFactory(this);
-
         container = new LinearLayout(context);
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         container.setLayoutParams(layoutParams);

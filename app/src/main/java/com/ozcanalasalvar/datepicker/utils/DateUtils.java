@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.datepicker;
+package com.ozcanalasalvar.datepicker.utils;
 
 import java.util.Calendar;
 

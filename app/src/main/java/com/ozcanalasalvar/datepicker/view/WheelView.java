@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.datepicker;
+package com.ozcanalasalvar.datepicker.view;
 
 import android.app.Activity;
 import android.content.Context;

@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <com.ozcanalasalvar.datepicker.DatePicker
+        <com.ozcanalasalvar.datepicker.view.DatePicker
             android:id="@+id/date_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

@@ -1,5 +1,7 @@
-package com.ozcanalasalvar.datepicker;
+package com.ozcanalasalvar.datepicker.model;
 
+
+import com.ozcanalasalvar.datepicker.utils.DateUtils;
 
 public class DateModel {
 

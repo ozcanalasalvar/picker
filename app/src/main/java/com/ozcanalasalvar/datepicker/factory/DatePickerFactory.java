@@ -1,7 +1,7 @@
 package com.ozcanalasalvar.datepicker.factory;
 
-import com.ozcanalasalvar.datepicker.DateModel;
-import com.ozcanalasalvar.datepicker.DateUtils;
+import com.ozcanalasalvar.datepicker.model.DateModel;
+import com.ozcanalasalvar.datepicker.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
