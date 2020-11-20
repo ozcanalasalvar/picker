@@ -77,6 +77,9 @@ public class DatePicker extends LinearLayout implements FactoryListener {
                 case R.styleable.DatePicker_darkModeEnabled:
                     this.darkModeEnabled = a.getBoolean(attr, true);
                     break;
+                case R.styleable.DatePicker_textSize:
+                    this.textSize = Math.min(a.getInt(attr, MAX_TEXT_SIZE), MAX_TEXT_SIZE);
+                    break;
             }
         }
         a.recycle();

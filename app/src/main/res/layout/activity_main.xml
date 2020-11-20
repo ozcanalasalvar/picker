@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:darkModeEnabled="true"
-            app:offset="3" />
+            app:offset="3"
+            app:textSize="19" />
     </LinearLayout>
 </FrameLayout>

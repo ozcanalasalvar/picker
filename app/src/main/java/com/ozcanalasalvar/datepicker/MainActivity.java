@@ -20,10 +20,11 @@ public class MainActivity extends AppCompatActivity {
         DatePicker datePicker = findViewById(R.id.date_picker);
 //        datePicker.setOffset(3);
 //        datePicker.setDarkModeEnabled(true);
+//        datePicker.setTextSize(19);
         datePicker.setMaxDate(DateUtils.getTimeMiles(2050, 10, 25));
         datePicker.setDate(DateUtils.getCurrentTime());
         datePicker.setMinDate(DateUtils.getTimeMiles(1995, 1, 12));
-        datePicker.setTextSize(19);
+
 
         datePicker.setDataSelectListener(new DatePicker.DataSelectListener() {
             @Override
