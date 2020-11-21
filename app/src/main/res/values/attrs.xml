@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="DatePicker">
+    <declare-styleable name="Picker">
         <attr name="offset" format="integer" />
         <attr name="darkModeEnabled" format="boolean" />
         <attr name="textSize" format="integer" />

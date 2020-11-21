@@ -66,18 +66,18 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
 
     @SuppressLint("NonConstantResourceId")
     private void setAttributes(Context context, @Nullable AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DatePicker);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Picker);
         final int N = a.getIndexCount();
         for (int i = 0; i < N; ++i) {
             int attr = a.getIndex(i);
             switch (attr) {
-                case R.styleable.DatePicker_offset:
+                case R.styleable.Picker_offset:
                     this.offset = Math.min(a.getInteger(attr, 3), MAX_OFFSET);
                     break;
-                case R.styleable.DatePicker_darkModeEnabled:
+                case R.styleable.Picker_darkModeEnabled:
                     this.darkModeEnabled = a.getBoolean(attr, true);
                     break;
-                case R.styleable.DatePicker_textSize:
+                case R.styleable.Picker_textSize:
                     this.textSize = Math.min(a.getInt(attr, MAX_TEXT_SIZE), MAX_TEXT_SIZE);
                     break;
             }
