@@ -188,12 +188,7 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
         yearView = new WheelView(context);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         yearView.setLayoutParams(lp);
-        yearView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
-            @Override
-            public void onSelected(int selectedIndex, String item) {
-                factory.setSelectedYear(Integer.parseInt(item));
-            }
-        });
+        yearView.setOnWheelViewListener((selectedIndex, item) -> factory.setSelectedYear(Integer.parseInt(item)));
         LinearLayout ly = wheelContainerView(3.0f);
         ly.addView(yearView);
         return ly;
@@ -204,12 +199,7 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
         monthView = new WheelView(context);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         monthView.setLayoutParams(lp);
-        monthView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
-            @Override
-            public void onSelected(int selectedIndex, String item) {
-                factory.setSelectedMonth(factory.getMonthMin() + selectedIndex);
-            }
-        });
+        monthView.setOnWheelViewListener((selectedIndex, item) -> factory.setSelectedMonth(factory.getMonthMin() + selectedIndex));
         LinearLayout ly = wheelContainerView(3.0f);
         ly.addView(monthView);
         return ly;
@@ -220,12 +210,7 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
         dayView = new WheelView(context);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dayView.setLayoutParams(lp);
-        dayView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
-            @Override
-            public void onSelected(int selectedIndex, String item) {
-                factory.setSelectedDay(selectedIndex + 1);
-            }
-        });
+        dayView.setOnWheelViewListener((selectedIndex, item) -> factory.setSelectedDay(selectedIndex + 1));
         LinearLayout ly = wheelContainerView(3.0f);
         ly.addView(dayView);
         return ly;

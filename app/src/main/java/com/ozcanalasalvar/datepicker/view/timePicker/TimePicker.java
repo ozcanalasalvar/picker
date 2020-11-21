@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 import com.ozcanalasalvar.datepicker.R;
 import com.ozcanalasalvar.datepicker.factory.TimeFactory;
 import com.ozcanalasalvar.datepicker.factory.TimeFactoryListener;
-import com.ozcanalasalvar.datepicker.model.DateModel;
 import com.ozcanalasalvar.datepicker.view.WheelView;
 
 import java.util.ArrayList;
@@ -102,6 +101,7 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
         } else {
             isNightTheme = false;
         }
+        container.removeAllViews();
         container.addView(createEmptyView1(context));
         container.addView(createHourView(context));
         container.addView(createMinuteView(context));
@@ -129,12 +129,7 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
         minuteView = new WheelView(context);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         minuteView.setLayoutParams(lp);
-        minuteView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
-            @Override
-            public void onSelected(int selectedIndex, String item) {
-                factory.setMinute(selectedIndex);
-            }
-        });
+        minuteView.setOnWheelViewListener((selectedIndex, item) -> factory.setMinute(selectedIndex));
         List<String> minutes = new ArrayList<>();
         for (int i = 0; i < 60; i++) {
             String str = "";
@@ -149,7 +144,7 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
         minuteView.setAlignment(View.TEXT_ALIGNMENT_CENTER);
         minuteView.setGravity(Gravity.CENTER);
         minuteView.setItems(minutes);
-        minuteView.setSelection(factory.getMinute() - 1);
+        minuteView.setSelection(factory.getMinute());
         LinearLayout ly = wheelContainerView(1.0f);
         ly.addView(minuteView);
         return ly;
@@ -159,12 +154,7 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
         hourView = new WheelView(context);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         hourView.setLayoutParams(lp);
-        hourView.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
-            @Override
-            public void onSelected(int selectedIndex, String item) {
-                factory.setHour(selectedIndex + 1);
-            }
-        });
+        hourView.setOnWheelViewListener((selectedIndex, item) -> factory.setHour(selectedIndex));
         List<String> hours = new ArrayList<>();
         for (int i = 0; i < 24; i++) {
             String str = "";
@@ -179,7 +169,7 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
         hourView.setAlignment(View.TEXT_ALIGNMENT_CENTER);
         hourView.setGravity(Gravity.CENTER);
         hourView.setItems(hours);
-        hourView.setSelection(factory.getHour() - 1);
+        hourView.setSelection(factory.getHour());
         LinearLayout ly = wheelContainerView(1.0f);
         ly.addView(hourView);
         return ly;
@@ -229,12 +219,16 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
     }
 
     @Override
-    public void onHourChanged() {
+    public void onHourChanged(int hour) {
+        if (hourView.getSelectedIndex() != hour)
+            hourView.setSelection(hour);
         notifyTimeSelect();
     }
 
     @Override
-    public void onMinuteChanged() {
+    public void onMinuteChanged(int minute) {
+        if (minuteView.getSelectedIndex() != minute)
+            minuteView.setSelection(minute);
         notifyTimeSelect();
     }
 
@@ -244,7 +238,7 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
 
     private TimeSelectListener timeSelectListener;
 
-    public void setDataSelectListener(TimeSelectListener dataSelectListener) {
+    public void setTimeSelectListener(TimeSelectListener dataSelectListener) {
         this.timeSelectListener = dataSelectListener;
     }
 
@@ -252,4 +246,40 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
         if (timeSelectListener != null)
             timeSelectListener.onTimeSelected(factory.getHour(), factory.getMinute());
     }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+        setUpInitialViews();
+    }
+
+    public void setTextSize(int textSize) {
+        this.textSize = Math.min(textSize, MAX_TEXT_SIZE);
+        setUpInitialViews();
+    }
+
+    public void setHour(int hour) {
+        factory.setHour(hour);
+    }
+
+    public int getHour() {
+        return factory.getHour();
+    }
+
+    public void setMinute(int minute) {
+        factory.setMinute(minute);
+    }
+
+    public int getMinute() {
+        return factory.getMinute();
+    }
+
+    public void setTime(int hour, int minute) {
+        factory.setHour(hour);
+        factory.setMinute(minute);
+    }
+
 }

@@ -2,7 +2,7 @@ package com.ozcanalasalvar.datepicker.factory;
 
 public interface TimeFactoryListener {
 
-    void onHourChanged();
+    void onHourChanged(int hour);
 
-    void onMinuteChanged();
+    void onMinuteChanged(int minute);
 }

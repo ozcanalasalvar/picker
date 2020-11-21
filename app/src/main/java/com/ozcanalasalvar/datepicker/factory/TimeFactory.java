@@ -19,8 +19,10 @@ public class TimeFactory {
     }
 
     public void setHour(int hour) {
+        if (hour > 23)
+            hour = 23;
         this.hour = hour;
-        listener.onHourChanged();
+        listener.onHourChanged(hour);
     }
 
     public int getMinute() {
@@ -28,8 +30,10 @@ public class TimeFactory {
     }
 
     public void setMinute(int minute) {
+        if (minute > 59)
+            minute = 59;
         this.minute = minute;
-        listener.onMinuteChanged();
+        listener.onMinuteChanged(minute);
     }
 
 }

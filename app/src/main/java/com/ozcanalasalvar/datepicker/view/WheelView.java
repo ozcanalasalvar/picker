@@ -1,5 +1,6 @@
 package com.ozcanalasalvar.datepicker.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -17,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.ozcanalasalvar.datepicker.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -251,7 +254,7 @@ public class WheelView extends ScrollView {
             }
 
             if (position == i) {
-                item.setTextColor(Color.parseColor(!isNightTheme ? "#000000" : "#FFFFFF"));
+                item.setTextColor(context.getColor(R.color.color_text));
                 if (item.getTextSize() != textSize)
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
 
@@ -261,13 +264,13 @@ public class WheelView extends ScrollView {
             } else if (i < position) {
                 if (i == position - 1) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 2);
-                    item.setTextColor(Color.parseColor(!isNightTheme ? "#999999" : "#767676"));
+                    item.setTextColor(context.getColor(R.color.color_grey));
                 } else if (i == position - 2) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 3);
-                    item.setTextColor(Color.parseColor(!isNightTheme ?"#bbbbbb":"#555555"));
+                    item.setTextColor(context.getColor(R.color.color_grey1));
                 } else {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 4);
-                    item.setTextColor(Color.parseColor(!isNightTheme ? "#dfdfdf" : "#333333"));
+                    item.setTextColor(context.getColor(R.color.color_grey2));
                 }
                 String text = item.getText().toString();
                 text = "  " + text.trim();
@@ -277,13 +280,13 @@ public class WheelView extends ScrollView {
             if (i > position) {
                 if (i == position + 1) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 2);
-                    item.setTextColor(Color.parseColor(!isNightTheme ? "#999999" : "#767676"));
+                    item.setTextColor(context.getColor(R.color.color_grey));
                 } else if (i == position + 2) {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 3);
-                    item.setTextColor(Color.parseColor(!isNightTheme ?"#bbbbbb":"#555555"));
+                    item.setTextColor(context.getColor(R.color.color_grey1));
                 } else {
                     item.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize - 4);
-                    item.setTextColor(Color.parseColor(!isNightTheme ? "#dfdfdf" : "#333333"));
+                    item.setTextColor(context.getColor(R.color.color_grey2));
                 }
                 String text = item.getText().toString();
                 text = "  " + text.trim();
@@ -321,7 +324,7 @@ public class WheelView extends ScrollView {
 
         if (null == paint) {
             paint = new Paint();
-            paint.setColor(Color.parseColor("#bbbbbb"));
+            paint.setColor(context.getColor(R.color.color_grey2));
             paint.setStrokeWidth(dip2px(1f));
         }
 
@@ -342,6 +345,7 @@ public class WheelView extends ScrollView {
 
             }
 
+            @SuppressLint("WrongConstant")
             @Override
             public int getOpacity() {
                 return 0;
