@@ -35,7 +35,7 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
     private WheelView emptyView2;
     private int textSize = 19;
 
-    private final static int MAX_TEXT_SIZE = 19;
+    private final static int MAX_TEXT_SIZE = 20;
     private final static int MAX_OFFSET = 3;
     private boolean darkModeEnabled = true;
 
@@ -211,7 +211,7 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dayView.setLayoutParams(lp);
         dayView.setOnWheelViewListener((selectedIndex, item) -> factory.setSelectedDay(selectedIndex + 1));
-        LinearLayout ly = wheelContainerView(3.0f);
+        LinearLayout ly = wheelContainerView(2.0f);
         ly.addView(dayView);
         return ly;
     }

@@ -28,7 +28,7 @@ public class TimePicker extends LinearLayout implements TimeFactoryListener {
     private int offset = 3;
     private int textSize = 19;
 
-    private final static int MAX_TEXT_SIZE = 19;
+    private final static int MAX_TEXT_SIZE = 20;
     private final static int MAX_OFFSET = 3;
     private boolean darkModeEnabled = true;
 

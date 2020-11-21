@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="openDatePicker"
             android:text="datePicker" />
@@ -23,12 +23,12 @@
             android:onClick="openTimePicker"
             android:text="timePicker" />
 
-        <com.ozcanalasalvar.datepicker.view.timePicker.TimePicker
-            android:id="@+id/numberPicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:offset="2"
-            app:textSize="19" />
+<!--        <com.ozcanalasalvar.datepicker.view.timePicker.TimePicker-->
+<!--            android:id="@+id/numberPicker"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:offset="2"-->
+<!--            app:textSize="19" />-->
 
     </LinearLayout>
 </FrameLayout>

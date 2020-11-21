@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                 .from(this)
                 .offset(3)
                 .darkModeEnabled(true)
-                .textSize(19)
+                .textSize(20)
                 .endDate(DateUtils.getTimeMiles(2050, 10, 25))
                 .currentDate(DateUtils.getCurrentTime())
                 .startDate(DateUtils.getTimeMiles(1995, 0, 1))
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         TimePickerPopup popup = new TimePickerPopup.Builder()
                 .from(this)
                 .offset(3)
-                .textSize(17)
+                .textSize(19)
                 .setTime(12, 12)
                 .listener(new TimePickerPopup.OnTimeSelectListener() {
                     @Override
