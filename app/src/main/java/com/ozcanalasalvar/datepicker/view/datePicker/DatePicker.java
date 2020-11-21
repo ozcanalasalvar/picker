@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.datepicker.view;
+package com.ozcanalasalvar.datepicker.view.datePicker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,13 +16,13 @@ import androidx.annotation.Nullable;
 import com.ozcanalasalvar.datepicker.R;
 import com.ozcanalasalvar.datepicker.model.DateModel;
 import com.ozcanalasalvar.datepicker.factory.DatePickerFactory;
-import com.ozcanalasalvar.datepicker.factory.FactoryListener;
+import com.ozcanalasalvar.datepicker.factory.DateFactoryListener;
+import com.ozcanalasalvar.datepicker.view.WheelView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class DatePicker extends LinearLayout implements FactoryListener {
+public class DatePicker extends LinearLayout implements DateFactoryListener {
 
     private Context context;
     private LinearLayout container;
@@ -114,9 +114,9 @@ public class DatePicker extends LinearLayout implements FactoryListener {
 
     private void setUpInitialViews() {
         container.addView(createEmptyView1(context));
-        container.addView(createMonthPickerView(context));
-        container.addView(createDayPickerView(context));
-        container.addView(createYearPickerView(context));
+        container.addView(createMonthView(context));
+        container.addView(createDayView(context));
+        container.addView(createYearView(context));
         container.addView(createEmptyView2(context));
         setUpCalendar();
     }
@@ -184,7 +184,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
         dayView.setSelection((date.getDay() - 1)); //Day start from 1
     }
 
-    private LinearLayout createYearPickerView(Context context) {
+    private LinearLayout createYearView(Context context) {
         yearView = new WheelView(context);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         yearView.setLayoutParams(lp);
@@ -200,7 +200,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     }
 
 
-    private LinearLayout createMonthPickerView(Context context) {
+    private LinearLayout createMonthView(Context context) {
         monthView = new WheelView(context);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         monthView.setLayoutParams(lp);
@@ -216,7 +216,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
     }
 
 
-    private LinearLayout createDayPickerView(Context context) {
+    private LinearLayout createDayView(Context context) {
         dayView = new WheelView(context);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dayView.setLayoutParams(lp);
@@ -373,6 +373,7 @@ public class DatePicker extends LinearLayout implements FactoryListener {
 
     private void notifyDateSelect() {
         DateModel date = factory.getSelectedDate();
-        dataSelectListener.onDateSelected(date.getDate(), date.getDay(), date.getMonth(), date.getYear());
+        if (dataSelectListener != null)
+            dataSelectListener.onDateSelected(date.getDate(), date.getDay(), date.getMonth(), date.getYear());
     }
 }

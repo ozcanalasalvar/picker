@@ -12,12 +12,12 @@ public class DatePickerFactory {
     private DateModel maxDate;
     private DateModel minDate;
     private DateModel selectedDate;
-    private FactoryListener listener;
+    private DateFactoryListener listener;
     private int monthMin;
 
     private static final DateFormatSymbols dfs = new DateFormatSymbols();
 
-    public DatePickerFactory(FactoryListener listener) {
+    public DatePickerFactory(DateFactoryListener listener) {
         this.listener = listener;
         monthMin = 0;
         minDate = new DateModel(DateUtils.getTimeMiles(FactoryConstant.MIN_YEAR, FactoryConstant.MIN_MONTH, 1));
@@ -27,10 +27,12 @@ public class DatePickerFactory {
 
     public void setSelectedYear(int year) {
         selectedDate.setYear(year);
-        if (selectedDate.getMonth() < minDate.getMonth()) {
-            selectedDate.setMonth(minDate.getMonth());
-        } else if (selectedDate.getMonth() > maxDate.getMonth()) {
-            selectedDate.setMonth(maxDate.getMonth());
+        if (selectedDate.getYear() == minDate.getYear()) {
+            if (selectedDate.getMonth() < minDate.getMonth()) {
+                selectedDate.setMonth(minDate.getMonth());
+            } else if (selectedDate.getMonth() > maxDate.getMonth()) {
+                selectedDate.setMonth(maxDate.getMonth());
+            }
         }
         selectedDate.updateModel();
         listener.onYearChanged();

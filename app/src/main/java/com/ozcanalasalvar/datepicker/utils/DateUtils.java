@@ -52,4 +52,17 @@ public class DateUtils {
         int year = calendar.get(Calendar.YEAR);
         return year;
     }
+
+
+    public static int getCurrentHour() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        return hour;
+    }
+
+    public static int getCurrentMinute() {
+        Calendar calendar = Calendar.getInstance();
+        int minute = calendar.get(Calendar.MINUTE);
+        return minute;
+    }
 }

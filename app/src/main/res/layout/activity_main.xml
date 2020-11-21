@@ -9,9 +9,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-        <com.ozcanalasalvar.datepicker.view.DatePicker
+        <com.ozcanalasalvar.datepicker.view.timePicker.TimePicker
+            android:id="@+id/numberPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.ozcanalasalvar.datepicker.view.datePicker.DatePicker
             android:id="@+id/date_picker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

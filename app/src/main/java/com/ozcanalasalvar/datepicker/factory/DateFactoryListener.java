@@ -1,6 +1,6 @@
 package com.ozcanalasalvar.datepicker.factory;
 
-public interface FactoryListener {
+public interface DateFactoryListener {
     void onYearChanged();
 
     void onMonthChanged();
