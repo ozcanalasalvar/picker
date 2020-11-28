@@ -17,13 +17,36 @@ import com.ozcanalasalvar.datepicker.view.timePicker.TimePicker;
 
 public class MainActivity extends AppCompatActivity {
 
+    private TimePickerPopup pickerPopup;
+    private DatePickerPopup datePickerPopup;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
-//
+//        datePickerPopup = new DatePickerPopup(this);
+
+        datePickerPopup = new DatePickerPopup.Builder()
+                .from(this)
+                .offset(3)
+                .darkModeEnabled(true)
+                .textSize(20)
+                .endDate(DateUtils.getTimeMiles(2050, 10, 25))
+                .currentDate(DateUtils.getCurrentTime())
+                .startDate(DateUtils.getTimeMiles(1995, 0, 1))
+                .listener((dp, date, day, month, year) -> Toast.makeText(getApplicationContext(), "" + day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show())
+                .build();
+
+        pickerPopup = new TimePickerPopup.Builder()
+                .from(this)
+                .offset(3)
+                .textSize(19)
+                .setTime(12, 12)
+                .listener((timePicker, hour, minute) -> Toast.makeText(getApplicationContext(), "" + hour + ":" + minute, Toast.LENGTH_SHORT).show())
+                .build();
+//+1
 //        DatePicker datePicker = findViewById(R.id.date_picker);
 //        datePicker.setOffset(3);
 //        datePicker.setDarkModeEnabled(true);
@@ -43,32 +66,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openDatePicker(View view) {
-        DatePickerPopup popup = new DatePickerPopup.Builder()
-                .from(this)
-                .offset(3)
-                .darkModeEnabled(true)
-                .textSize(20)
-                .endDate(DateUtils.getTimeMiles(2050, 10, 25))
-                .currentDate(DateUtils.getCurrentTime())
-                .startDate(DateUtils.getTimeMiles(1995, 0, 1))
-                .listener((dp, date, day, month, year) -> Toast.makeText(getApplicationContext(), "" + day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show())
-                .build();
-        popup.show();
+        datePickerPopup.show();
     }
 
     public void openTimePicker(View view) {
-        TimePickerPopup popup = new TimePickerPopup.Builder()
-                .from(this)
-                .offset(3)
-                .textSize(19)
-                .setTime(12, 12)
-                .listener(new TimePickerPopup.OnTimeSelectListener() {
-                    @Override
-                    public void onTimeSelected(TimePicker timePicker, int hour, int minute) {
-                        Toast.makeText(getApplicationContext(), "" + hour + ":" + minute, Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .build();
-        popup.show();
+        pickerPopup.show();
     }
 }

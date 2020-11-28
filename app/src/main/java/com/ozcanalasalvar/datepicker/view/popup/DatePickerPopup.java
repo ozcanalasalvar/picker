@@ -11,6 +11,11 @@ public class DatePickerPopup extends PickerPopup {
 
     private OnDateSelectListener listener;
 
+    public DatePickerPopup(@NonNull Context context) {
+        super(context);
+        DatePicker picker=new DatePicker(context);
+        init(picker);
+    }
 
     public DatePickerPopup(@NonNull Context context, @NonNull DatePicker picker) {
         super(context);

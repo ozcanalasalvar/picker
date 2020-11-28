@@ -10,6 +10,12 @@ public class TimePickerPopup extends PickerPopup {
 
     private OnTimeSelectListener listener;
 
+    public TimePickerPopup(@NonNull Context context) {
+        super(context);
+        TimePicker timePicker = new TimePicker(context);
+        init(timePicker);
+    }
+
     public TimePickerPopup(@NonNull Context context, @NonNull TimePicker timePicker) {
         super(context);
         init(timePicker);
