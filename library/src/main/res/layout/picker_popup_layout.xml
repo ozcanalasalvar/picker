@@ -19,8 +19,7 @@
             android:layout_gravity="start|center"
             android:text="@android:string/cancel"
             android:textColor="@color/color_grey"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/text_confirm"
