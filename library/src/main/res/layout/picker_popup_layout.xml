@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:text="@android:string/cancel"
-            android:textColor="@color/color_grey"
+            android:textColor="@color/color_text"
             android:textSize="15sp" />
 
         <TextView
@@ -41,6 +41,8 @@
         android:id="@+id/popup_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingTop="5dp" />

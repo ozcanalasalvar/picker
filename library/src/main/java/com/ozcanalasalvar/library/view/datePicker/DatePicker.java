@@ -160,7 +160,7 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
         DateModel date = factory.getSelectedDate();
         monthView.isNightTheme = isNightTheme;
         monthView.setTextSize(textSize);
-        monthView.setGravity(Gravity.START);
+        monthView.setGravity(Gravity.CENTER);
         monthView.setAlignment(View.TEXT_ALIGNMENT_TEXT_START);
         monthView.setOffset(offset);
         monthView.setItems(months);
