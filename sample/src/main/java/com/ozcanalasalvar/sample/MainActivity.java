@@ -36,7 +36,12 @@ public class MainActivity extends AppCompatActivity {
                 .endDate(DateUtils.getTimeMiles(2050, 10, 25))
                 .currentDate(DateUtils.getCurrentTime())
                 .startDate(DateUtils.getTimeMiles(1995, 0, 1))
-                .listener((dp, date, day, month, year) -> Toast.makeText(getApplicationContext(), "" + day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show())
+                .listener(new DatePickerPopup.OnDateSelectListener() {
+                    @Override
+                    public void onDateSelected(DatePicker dp, long date, int day, int month, int year) {
+                        Toast.makeText(getApplicationContext(), "" + day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show();
+                    }
+                })
                 .build();
 
         pickerPopup = new TimePickerPopup.Builder()
@@ -44,7 +49,12 @@ public class MainActivity extends AppCompatActivity {
                 .offset(3)
                 .textSize(17)
                 .setTime(12, 12)
-                .listener((timePicker, hour, minute) -> Toast.makeText(getApplicationContext(), "" + hour + ":" + minute, Toast.LENGTH_SHORT).show())
+                .listener(new TimePickerPopup.OnTimeSelectListener() {
+                    @Override
+                    public void onTimeSelected(TimePicker timePicker, int hour, int minute) {
+                        Toast.makeText(getApplicationContext(), "" + hour + ":" + minute, Toast.LENGTH_SHORT).show();
+                    }
+                })
                 .build();
 
         DatePicker datePicker = findViewById(R.id.datepicker);
