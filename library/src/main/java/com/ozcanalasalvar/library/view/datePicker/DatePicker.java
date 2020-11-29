@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.datepicker.view.datePicker;
+package com.ozcanalasalvar.library.view.datePicker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -13,11 +13,11 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 
-import com.ozcanalasalvar.datepicker.R;
-import com.ozcanalasalvar.datepicker.model.DateModel;
-import com.ozcanalasalvar.datepicker.factory.DatePickerFactory;
-import com.ozcanalasalvar.datepicker.factory.DateFactoryListener;
-import com.ozcanalasalvar.datepicker.view.WheelView;
+import com.ozcanalasalvar.library.R;
+import com.ozcanalasalvar.library.factory.DateFactoryListener;
+import com.ozcanalasalvar.library.factory.DatePickerFactory;
+import com.ozcanalasalvar.library.model.DateModel;
+import com.ozcanalasalvar.library.view.WheelView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,16 +70,12 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
         final int N = a.getIndexCount();
         for (int i = 0; i < N; ++i) {
             int attr = a.getIndex(i);
-            switch (attr) {
-                case R.styleable.Picker_offset:
-                    this.offset = Math.min(a.getInteger(attr, 3), MAX_OFFSET);
-                    break;
-                case R.styleable.Picker_darkModeEnabled:
-                    this.darkModeEnabled = a.getBoolean(attr, true);
-                    break;
-                case R.styleable.Picker_textSize:
-                    this.textSize = Math.min(a.getInt(attr, MAX_TEXT_SIZE), MAX_TEXT_SIZE);
-                    break;
+            if (attr == R.styleable.Picker_offset) {
+                this.offset = Math.min(a.getInteger(attr, 3), MAX_OFFSET);
+            } else if (attr == R.styleable.Picker_darkModeEnabled) {
+                this.darkModeEnabled = a.getBoolean(attr, true);
+            } else if (attr == R.styleable.Picker_textSize) {
+                this.textSize = Math.min(a.getInt(attr, MAX_TEXT_SIZE), MAX_TEXT_SIZE);
             }
         }
         a.recycle();
