@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
                 .offset(3)
                 .darkModeEnabled(true)
                 .textSize(20)
+                .endDate(DateUtils.getTimeMiles(2050, 10, 25))
+                .currentDate(DateUtils.getCurrentTime())
+                .startDate(DateUtils.getTimeMiles(1995, 0, 1))
                 .listener((dp, date, day, month, year) -> Toast.makeText(getApplicationContext(), "" + day + "/" + (month + 1) + "/" + year, Toast.LENGTH_SHORT).show())
                 .build();
 

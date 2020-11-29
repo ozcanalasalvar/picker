@@ -7,17 +7,29 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="15dp"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/text_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:text="@android:string/cancel"
+            android:textColor="@color/color_grey"
+            android:textSize="15sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:layout_marginEnd="15dp"
-            android:padding="10dp"
             android:text="@android:string/ok"
             android:textColor="@color/blue"
+            android:textSize="15sp"
             android:textStyle="bold" />
     </FrameLayout>
 
