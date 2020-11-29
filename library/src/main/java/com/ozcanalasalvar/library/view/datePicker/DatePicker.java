@@ -34,6 +34,10 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
     private WheelView emptyView1;
     private WheelView emptyView2;
     private int textSize = 19;
+    private int pickerMode = 0;
+
+    public static final int MONTH_ON_FIRST = 0;
+    public static final int DAY_ON_FIRST = 1;
 
     private final static int MAX_TEXT_SIZE = 20;
     private final static int MAX_OFFSET = 3;
@@ -76,6 +80,8 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
                 this.darkModeEnabled = a.getBoolean(attr, true);
             } else if (attr == R.styleable.Picker_textSize) {
                 this.textSize = Math.min(a.getInt(attr, MAX_TEXT_SIZE), MAX_TEXT_SIZE);
+            } else if (attr == R.styleable.Picker_pickerMode) {
+                this.pickerMode = a.getInt(attr, 0);
             }
         }
         a.recycle();
@@ -109,9 +115,15 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
     }
 
     private void setUpInitialViews() {
+        container.removeAllViews();
         container.addView(createEmptyView1(context));
-        container.addView(createMonthView(context));
-        container.addView(createDayView(context));
+        if (pickerMode == MONTH_ON_FIRST) {
+            container.addView(createMonthView(context));
+            container.addView(createDayView(context));
+        } else {
+            container.addView(createDayView(context));
+            container.addView(createMonthView(context));
+        }
         container.addView(createYearView(context));
         container.addView(createEmptyView2(context));
         setUpCalendar();
@@ -174,7 +186,7 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
         dayView.setOffset(offset);
         dayView.setTextSize(textSize);
         dayView.setGravity(Gravity.END);
-        dayView.setAlignment(View.TEXT_ALIGNMENT_TEXT_END);
+        dayView.setAlignment((pickerMode == DAY_ON_FIRST) ? View.TEXT_ALIGNMENT_CENTER : View.TEXT_ALIGNMENT_TEXT_END);
         dayView.setOffset(offset);
         dayView.setItems(days);
         dayView.setSelection((date.getDay() - 1)); //Day start from 1
@@ -302,6 +314,11 @@ public class DatePicker extends LinearLayout implements DateFactoryListener {
     public void setTextSize(int textSize) {
         this.textSize = Math.min(textSize, MAX_TEXT_SIZE);
         setUpCalendar();
+    }
+
+    public void setPickerMode(int pickerMode) {
+        this.pickerMode = pickerMode;
+        setUpInitialViews();
     }
 
     @Override

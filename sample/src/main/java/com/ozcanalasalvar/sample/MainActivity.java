@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                 .from(this)
                 .offset(3)
                 .darkModeEnabled(true)
+                .pickerMode(DatePicker.MONTH_ON_FIRST)
                 .textSize(19)
                 .endDate(DateUtils.getTimeMiles(2050, 10, 25))
                 .currentDate(DateUtils.getCurrentTime())
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         datePicker.setMaxDate(DateUtils.getTimeMiles(2050, 10, 25));
         datePicker.setDate(DateUtils.getCurrentTime());
         datePicker.setMinDate(DateUtils.getTimeMiles(1995, 1, 12));
+        datePicker.setPickerMode(DatePicker.DAY_ON_FIRST);
 
 
         datePicker.setDataSelectListener(new DatePicker.DataSelectListener() {

@@ -14,7 +14,7 @@ public class DatePickerPopup extends PickerPopup {
 
     public DatePickerPopup(@NonNull Context context) {
         super(context);
-        DatePicker picker=new DatePicker(context);
+        DatePicker picker = new DatePicker(context);
         init(picker);
     }
 
@@ -86,6 +86,11 @@ public class DatePickerPopup extends PickerPopup {
 
         public Builder darkModeEnabled(boolean darkModeEnabled) {
             this.datePicker.setDarkModeEnabled(darkModeEnabled);
+            return this;
+        }
+
+        public Builder pickerMode(int appearanceMode) {
+            this.datePicker.setPickerMode(appearanceMode);
             return this;
         }
 
