@@ -3,7 +3,7 @@ Datepicker is an IOS datepicker widget-like date and time picker library.
 
 The library has many different feature options to customize your widget.
 
-## Features and Usage
+## Features
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/66948288/100557708-ee1bbb00-32bb-11eb-9905-80c8c775d705.gif" width="250">
@@ -13,7 +13,7 @@ The library has many different feature options to customize your widget.
 <br>
 
 
-## DarkMode Support
+### DarkMode Support
 
 
 <p align="center">
@@ -22,6 +22,8 @@ The library has many different feature options to customize your widget.
 </p>
 <br>
 
+
+## Usage
 
 #### Date Picker 
 
