@@ -8,7 +8,7 @@ The library has many different feature options to customize your widget.
 <p align="center">
   <img src="https://user-images.githubusercontent.com/66948288/100557708-ee1bbb00-32bb-11eb-9905-80c8c775d705.gif" width="250">
   <img src="https://user-images.githubusercontent.com/66948288/100557710-f1af4200-32bb-11eb-8472-e64a3882f85e.gif" width="250">
-   <img src="https://user-images.githubusercontent.com/66948288/100557680-c9274800-32bb-11eb-8b1a-f53e4a01d413.gif" width="250">
+   <img src="https://user-images.githubusercontent.com/66948288/100558035-941bf500-32bd-11eb-9b27-53cb02809e7c.gif" width="250">
 </p>
 <br>
 
