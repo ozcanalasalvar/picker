@@ -14,6 +14,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -420,6 +421,18 @@ public class WheelView extends ScrollView {
         int expandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
         view.measure(width, expandSpec);
         return view.getMeasuredHeight();
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        // Stop ScrollView from getting involved once you interact with the View
+        if (ev.getActionMasked() == MotionEvent.ACTION_DOWN) {
+            ViewParent p = getParent();
+            if (p != null) {
+                p.requestDisallowInterceptTouchEvent(true);
+            }
+        }
+        return super.onInterceptTouchEvent(ev);
     }
 
 }
