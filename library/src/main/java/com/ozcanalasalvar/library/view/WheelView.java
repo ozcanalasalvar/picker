@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -100,7 +101,10 @@ public class WheelView extends ScrollView {
         this.setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         views = new LinearLayout(context);
+        FrameLayout.LayoutParams vLp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight * displayItemCount);
+        vLp.gravity = Gravity.CENTER;
         views.setOrientation(LinearLayout.VERTICAL);
+        views.setLayoutParams(vLp);
         this.addView(views);
 
 
