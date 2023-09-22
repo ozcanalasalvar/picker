@@ -1,6 +1,7 @@
 package com.ozcanalasalvar.library.compose
 
 import android.util.Log
+import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,6 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -36,19 +41,20 @@ fun InfiniteWheelView(
     isEndless: Boolean = true
 ) {
 
+    val coroutineScope = rememberCoroutineScope()
+    val haptic = LocalHapticFeedback.current
+
     val count = if (isEndless) itemCount else itemCount + 2 * rowOffset
+    val rowOffsetCount = maxOf(1, minOf(rowOffset, 4))
+    val rowCount = ((rowOffsetCount * 2) + 1)
 
     val lazyListState =
         rememberLazyListState(if (isEndless) startIndex + (itemCount * 1000) else startIndex)
     val isScrollInProgress = lazyListState.isScrollInProgress
-    val rowOffsetCount = maxOf(1, minOf(rowOffset, 4))
-    val rowCount = ((rowOffsetCount * 2) + 1)
-
     val spannedIndex = remember {
         derivedStateOf { lazyListState.firstVisibleItemIndex + rowOffsetCount }
     }
 
-    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(key1 = isScrollInProgress) {
         if (!isScrollInProgress) {
@@ -67,6 +73,13 @@ fun InfiniteWheelView(
                 }
             }
         }
+    }
+
+    LaunchedEffect(lazyListState) {
+        snapshotFlow { lazyListState.firstVisibleItemIndex }
+            .collect {
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            }
     }
 
 
