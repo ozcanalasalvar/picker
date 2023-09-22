@@ -55,7 +55,7 @@ fun DatePicker() {
         )
 
         val days = mutableListOf<String>().apply {
-            for (index in 1..31) {
+            for (index in 1..21) {
                 add(index.toString())
             }
         }
@@ -76,6 +76,7 @@ fun DatePicker() {
                 startIndex = spannedIndexOfDay,
                 itemCount = days.size,
                 rowOffset = 4,
+                isEndless = false,
                 onFocusItem = {
                     Log.d("SpannedIndex", "$it")
                 }, content = {
