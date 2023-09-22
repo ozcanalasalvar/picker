@@ -3,6 +3,7 @@ package com.ozcanalasalvar.library.compose
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
@@ -26,7 +28,9 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun DatePicker() {
+fun DatePicker(
+    offset: Int = 4
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,6 +38,8 @@ fun DatePicker() {
             .background(Color.White),
         contentAlignment = Alignment.Center
     ) {
+
+        val height = (2 * offset * 26 + 1).dp
 
         var spannedIndexOfDay by remember {
             mutableStateOf(3)
@@ -70,16 +76,16 @@ fun DatePicker() {
         Row(modifier = Modifier.fillMaxSize()) {
 
 
-            InfiniteWheelView(
-                modifier = Modifier,
-                size = DpSize(150.dp, 225.dp),
+            InfiniteWheelView(modifier = Modifier,
+                size = DpSize(150.dp, height),
                 startIndex = spannedIndexOfDay,
                 itemCount = days.size,
-                rowOffset = 4,
+                rowOffset = offset,
                 isEndless = false,
                 onFocusItem = {
                     Log.d("SpannedIndex", "$it")
-                }, content = {
+                },
+                content = {
                     Text(
                         text = days[it],
                         textAlign = TextAlign.End,
@@ -87,15 +93,15 @@ fun DatePicker() {
                     )
                 })
 
-            InfiniteWheelView(
-                modifier = Modifier,
-                size = DpSize(150.dp, 225.dp),
+            InfiniteWheelView(modifier = Modifier,
+                size = DpSize(150.dp, height),
                 startIndex = 0,
                 itemCount = months.size,
-                rowOffset = 4,
+                rowOffset = offset,
                 onFocusItem = {
                     Log.d("SpannedIndex", "$it")
-                }, content = {
+                },
+                content = {
                     Text(
                         text = months[it],
                         textAlign = TextAlign.Start,
@@ -103,15 +109,15 @@ fun DatePicker() {
                     )
                 })
 
-            InfiniteWheelView(
-                modifier = Modifier,
-                size = DpSize(150.dp, 225.dp),
+            InfiniteWheelView(modifier = Modifier,
+                size = DpSize(150.dp, height),
                 startIndex = 0,
                 itemCount = years.size,
-                rowOffset = 4,
+                rowOffset = offset,
                 onFocusItem = {
 
-                }, content = {
+                },
+                content = {
                     Text(
                         text = years[it],
                         textAlign = TextAlign.Start,
@@ -122,33 +128,47 @@ fun DatePicker() {
 
 
         Column(
-            Modifier
-                .fillMaxSize()
+            Modifier.fillMaxSize()
         ) {
 
             Box(
                 modifier = Modifier
-                    .height(97.dp)
+                    .weight(offset.toFloat())
                     .fillMaxWidth()
-                    .background(Color(0x80FFFFFF)),
-            )
-
-            Box(
-                modifier = Modifier
-                    .border(
-                        width = 0.5.dp,
-                        color = Color(0x80000000),
-                    )
-                    .height(31.dp)
-                    .fillMaxWidth()
+                    .background(Color(0x99FFFFFF)),
             )
 
 
+            Column(
+                modifier = Modifier
+                    .weight(1.10f)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
+                Box(
+                    modifier = Modifier
+                        .height(0.5.dp)
+                        .alpha(0.5f)
+                        .background(Color.Black)
+                        .fillMaxWidth()
+                )
+                Box(
+                    modifier = Modifier
+                        .height(0.5.dp)
+                        .alpha(0.5f)
+                        .background(Color.Black)
+                        .fillMaxWidth()
+                )
+
+            }
+
+
+
             Box(
                 modifier = Modifier
-                    .height(97.dp)
+                    .weight(offset.toFloat())
                     .fillMaxWidth()
-                    .background(Color(0x80FFFFFF)),
+                    .background(Color(0x99FFFFFF)),
             )
         }
 
