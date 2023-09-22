@@ -3,7 +3,6 @@ package com.ozcanalasalvar.library.compose
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -37,6 +36,7 @@ fun InfiniteWheelView(
     isEndless: Boolean = true
 ) {
 
+    val count = if (isEndless) itemCount else itemCount + 2 * rowOffset
 
     val lazyListState =
         rememberLazyListState(if (isEndless) startIndex + (itemCount * 1000) else startIndex)
@@ -45,9 +45,7 @@ fun InfiniteWheelView(
     val rowCount = ((rowOffsetCount * 2) + 1)
 
     val spannedIndex = remember {
-        derivedStateOf {
-            if (isEndless) lazyListState.firstVisibleItemIndex + rowOffsetCount else lazyListState.firstVisibleItemIndex + rowOffsetCount - rowOffset
-        }
+        derivedStateOf { lazyListState.firstVisibleItemIndex + rowOffsetCount }
     }
 
     val coroutineScope = rememberCoroutineScope()
@@ -55,10 +53,12 @@ fun InfiniteWheelView(
     LaunchedEffect(key1 = isScrollInProgress) {
         if (!isScrollInProgress) {
             calculateSnappedItemIndex(lazyListState, size.height).let {
-                var focusedIndex = (it + rowOffsetCount) % itemCount
-                if (!isEndless) {
-                    focusedIndex -= rowOffset
+                val focusedIndex = if (isEndless) {
+                    (it + rowOffsetCount) % itemCount
+                } else {
+                    ((it + rowOffsetCount) % count) - rowOffset
                 }
+
                 onFocusItem(focusedIndex)
                 if (lazyListState.firstVisibleItemScrollOffset != 0) {
                     coroutineScope.launch {
@@ -81,14 +81,10 @@ fun InfiniteWheelView(
                 .height(size.height)
                 .width(size.width),
             state = lazyListState,
-            contentPadding = PaddingValues(
-                top = if (!isEndless) size.height / rowCount * rowOffsetCount else 0.dp,
-                bottom = if (!isEndless) size.height / rowCount * rowOffsetCount else 0.dp
-            )
         ) {
 
 
-            items(if (isEndless) Int.MAX_VALUE else itemCount + rowOffset - 1) {
+            items(if (isEndless) Int.MAX_VALUE else count) {
 
                 val rotateDegree = calculateItemRotation(spannedIndex.value, it)
                 Box(
@@ -102,8 +98,8 @@ fun InfiniteWheelView(
                 ) {
                     if (isEndless) {
                         content(it % itemCount)
-                    } else if (it < itemCount) {
-                        content(it % itemCount)
+                    } else if (it >= rowOffsetCount && it < itemCount + rowOffsetCount) {
+                        content(it - rowOffsetCount % itemCount)
                     }
                 }
 
