@@ -94,7 +94,7 @@ fun DatePicker() {
                 itemCount = months.size,
                 rowOffset = 4,
                 onFocusItem = {
-
+                    Log.d("SpannedIndex", "$it")
                 }, content = {
                     Text(
                         text = months[it],
