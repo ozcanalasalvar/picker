@@ -1,13 +1,10 @@
 package com.ozcanalasalvar.library.compose
 
-import android.util.Log
-import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListState
@@ -21,9 +18,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
@@ -34,12 +29,12 @@ import kotlinx.coroutines.launch
 fun InfiniteWheelView(
     modifier: Modifier = Modifier,
     size: DpSize = DpSize(256.dp, 200.dp),
-    startIndex: Int = 3,
-    itemCount: Int = 28,//TODO will be array of element,
+    selection: Int = 3,
+    itemCount: Int = 28,
     rowOffset: Int = 4,
-    content: @Composable LazyItemScope.(index: Int) -> Unit,
+    isEndless: Boolean = true,
     onFocusItem: (Int) -> Unit,
-    isEndless: Boolean = true
+    content: @Composable LazyItemScope.(index: Int) -> Unit,
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -50,23 +45,23 @@ fun InfiniteWheelView(
     val rowCount = ((rowOffsetCount * 2) + 1)
 
     val lazyListState =
-        rememberLazyListState(if (isEndless) startIndex + (itemCount * 1000) else startIndex)
+        rememberLazyListState(if (isEndless) selection + (itemCount * 1000) else selection)
     val isScrollInProgress = lazyListState.isScrollInProgress
-    val spannedIndex = remember {
+    val focusedIndex = remember {
         derivedStateOf { lazyListState.firstVisibleItemIndex + rowOffsetCount }
     }
 
 
     LaunchedEffect(key1 = isScrollInProgress) {
         if (!isScrollInProgress) {
-            calculateSnappedItemIndex(lazyListState, size.height).let {
-                val focusedIndex = if (isEndless) {
+            calculateIndexToFocus(lazyListState, size.height).let {
+                val indexToFocus = if (isEndless) {
                     (it + rowOffsetCount) % itemCount
                 } else {
                     ((it + rowOffsetCount) % count) - rowOffset
                 }
 
-                onFocusItem(focusedIndex)
+                onFocusItem(indexToFocus)
                 if (lazyListState.firstVisibleItemScrollOffset != 0) {
                     coroutineScope.launch {
                         lazyListState.animateScrollToItem(it, 0)
@@ -77,10 +72,9 @@ fun InfiniteWheelView(
     }
 
     LaunchedEffect(lazyListState) {
-        snapshotFlow { lazyListState.firstVisibleItemIndex }
-            .collect {
-                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
-            }
+        snapshotFlow { lazyListState.firstVisibleItemIndex }.collect {
+            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+        }
     }
 
 
@@ -99,8 +93,7 @@ fun InfiniteWheelView(
 
 
             items(if (isEndless) Int.MAX_VALUE else count) {
-
-                val rotateDegree = calculateItemRotation(spannedIndex.value, it)
+                val rotateDegree = calculateIndexRotation(focusedIndex.value, it)
                 Box(
                     modifier = Modifier
                         .height(size.height / rowCount)
@@ -154,7 +147,7 @@ fun InfiniteWheelView(
 }
 
 
-private fun calculateSnappedItemIndex(listState: LazyListState, height: Dp): Int {
+private fun calculateIndexToFocus(listState: LazyListState, height: Dp): Int {
     val currentItem = listState.layoutInfo.visibleItemsInfo.firstOrNull()
     var index = currentItem?.index ?: 0
 
@@ -163,11 +156,10 @@ private fun calculateSnappedItemIndex(listState: LazyListState, height: Dp): Int
             index++
         }
     }
-    Log.d("spanned", "$index")
     return index
 }
 
 @Composable
-private fun calculateItemRotation(spannedIndex: Int, index: Int): Float {
-    return -15f * (spannedIndex - index)
+private fun calculateIndexRotation(focusedIndex: Int, index: Int): Float {
+    return -15f * (focusedIndex - index)
 }

@@ -2,7 +2,6 @@ package com.ozcanalasalvar.library.compose
 
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -80,7 +79,7 @@ fun DatePicker(
 
             InfiniteWheelView(modifier = Modifier.weight(1f),
                 size = DpSize(150.dp, height),
-                startIndex = spannedIndexOfDay,
+                selection = spannedIndexOfDay,
                 itemCount = days.size,
                 rowOffset = offset,
                 isEndless = false,
@@ -98,7 +97,7 @@ fun DatePicker(
 
             InfiniteWheelView(modifier = Modifier.weight(2f),
                 size = DpSize(150.dp, height),
-                startIndex = 0,
+                selection = 0,
                 itemCount = months.size,
                 rowOffset = offset,
                 onFocusItem = {
@@ -115,7 +114,7 @@ fun DatePicker(
 
             InfiniteWheelView(modifier = Modifier.weight(1f),
                 size = DpSize(150.dp, height),
-                startIndex = 0,
+                selection = 0,
                 itemCount = years.size,
                 rowOffset = offset,
                 onFocusItem = {
