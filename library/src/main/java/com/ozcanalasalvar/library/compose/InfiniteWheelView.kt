@@ -5,6 +5,7 @@ import android.view.HapticFeedbackConstants
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
@@ -86,13 +87,13 @@ fun InfiniteWheelView(
     Box(
         modifier = modifier
             .height(size.height)
-            .width(size.width),
+            .fillMaxWidth(),
     ) {
 
         LazyColumn(
             modifier = Modifier
                 .height(size.height)
-                .width(size.width),
+                .fillMaxWidth(),
             state = lazyListState,
         ) {
 
@@ -103,7 +104,7 @@ fun InfiniteWheelView(
                 Box(
                     modifier = Modifier
                         .height(size.height / rowCount)
-                        .width(size.width)
+                        .fillMaxWidth()
                         .graphicsLayer {
                             this.rotationX = rotateDegree
                         },

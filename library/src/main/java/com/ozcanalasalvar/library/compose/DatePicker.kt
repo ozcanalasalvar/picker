@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -73,10 +75,10 @@ fun DatePicker(
         }
 
 
-        Row(modifier = Modifier.fillMaxSize()) {
+        Row(modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp)) {
 
 
-            InfiniteWheelView(modifier = Modifier,
+            InfiniteWheelView(modifier = Modifier.weight(1f),
                 size = DpSize(150.dp, height),
                 startIndex = spannedIndexOfDay,
                 itemCount = days.size,
@@ -89,11 +91,12 @@ fun DatePicker(
                     Text(
                         text = days[it],
                         textAlign = TextAlign.End,
-                        modifier = Modifier.width(100.dp)
+                        modifier = Modifier.width(50.dp),
+                        fontSize = 16.sp
                     )
                 })
 
-            InfiniteWheelView(modifier = Modifier,
+            InfiniteWheelView(modifier = Modifier.weight(2f),
                 size = DpSize(150.dp, height),
                 startIndex = 0,
                 itemCount = months.size,
@@ -105,11 +108,12 @@ fun DatePicker(
                     Text(
                         text = months[it],
                         textAlign = TextAlign.Start,
-                        modifier = Modifier.width(100.dp)
+                        modifier = Modifier.width(100.dp),
+                        fontSize = 16.sp
                     )
                 })
 
-            InfiniteWheelView(modifier = Modifier,
+            InfiniteWheelView(modifier = Modifier.weight(1f),
                 size = DpSize(150.dp, height),
                 startIndex = 0,
                 itemCount = years.size,
@@ -121,7 +125,8 @@ fun DatePicker(
                     Text(
                         text = years[it],
                         textAlign = TextAlign.Start,
-                        modifier = Modifier.width(100.dp)
+                        modifier = Modifier.width(100.dp),
+                        fontSize = 16.sp
                     )
                 })
         }
