@@ -26,12 +26,29 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ozcanalasalvar.library.factory.DatePickerFactory
+import com.ozcanalasalvar.library.model.DateModel
 
 
 @Composable
 fun DatePicker(
-    offset: Int = 4
+    offset: Int = 4,
+    minDate: DateModel = DateModel(year = 1970, month = 1, day = 1),
+    maxDate: DateModel = DateModel(year = 2050, month = 1, day = 1),
+    selectedDate: DateModel = DateModel(year = 2023, month = 10, day = 13),
 ) {
+
+    val factory = DatePickerFactory()
+    factory.maxDate = maxDate
+    factory.minDate = minDate
+    factory.selectedDate = selectedDate
+
+    val months = factory.monthList
+
+    val days = factory.dayList
+
+    val years = factory.yearList
+
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -42,44 +59,17 @@ fun DatePicker(
 
         val height = (2 * offset * 26 + 1).dp
 
-        var spannedIndexOfDay by remember {
-            mutableStateOf(3)
-        }
 
-        val months = listOf<String>(
-            "January",
-            "February",
-            "March",
-            "April",
-            "May",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"
-        )
-
-        val days = mutableListOf<String>().apply {
-            for (index in 1..21) {
-                add(index.toString())
-            }
-        }
-
-        val years = mutableListOf<String>().apply {
-            for (index in 1..50) {
-                add((1995 + index).toString())
-            }
-        }
-
-
-        Row(modifier = Modifier.fillMaxSize().padding(start = 20.dp, end = 20.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(start = 20.dp, end = 20.dp)
+        ) {
 
 
             InfiniteWheelView(modifier = Modifier.weight(1f),
                 size = DpSize(150.dp, height),
-                selection = spannedIndexOfDay,
+                selection = 8,
                 itemCount = days.size,
                 rowOffset = offset,
                 isEndless = false,

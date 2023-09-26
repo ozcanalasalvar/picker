@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void openDatePicker(View view) {
-        datePickerPopup.show();
+        datePickerPopup.show(getSupportFragmentManager(),"sad");
     }
 
     public void openTimePicker(View view) {

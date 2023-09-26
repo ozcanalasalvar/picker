@@ -1,377 +1,403 @@
-package com.ozcanalasalvar.library.view.datePicker;
+package com.ozcanalasalvar.library.view.datePicker
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.TypedArray;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.res.Configuration
+import android.util.AttributeSet
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import com.ozcanalasalvar.library.R
+import com.ozcanalasalvar.library.factory.DateFactoryListener
+import com.ozcanalasalvar.library.factory.DatePickerFactory
+import com.ozcanalasalvar.library.view.WheelView
 
-import androidx.annotation.Nullable;
+class DatePicker : LinearLayout, DateFactoryListener {
+    private var context: Context? = null
+    private var container: LinearLayout? = null
+    private var offset = 3
+    private var factory: DatePickerFactory =DatePickerFactory()
+    private var dayView: WheelView? = null
+    private var monthView: WheelView? = null
+    private var yearView: WheelView? = null
+    private var emptyView1: WheelView? = null
+    private var emptyView2: WheelView? = null
+    private var textSize = 19
+    private var pickerMode = 0
+    private var darkModeEnabled = true
+    private var isNightTheme = false
 
-import com.ozcanalasalvar.library.R;
-import com.ozcanalasalvar.library.factory.DateFactoryListener;
-import com.ozcanalasalvar.library.factory.DatePickerFactory;
-import com.ozcanalasalvar.library.model.DateModel;
-import com.ozcanalasalvar.library.view.WheelView;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class DatePicker extends LinearLayout implements DateFactoryListener {
-
-    private Context context;
-    private LinearLayout container;
-    private int offset = 3;
-    private DatePickerFactory factory;
-    private WheelView dayView;
-    private WheelView monthView;
-    private WheelView yearView;
-    private WheelView emptyView1;
-    private WheelView emptyView2;
-    private int textSize = 19;
-    private int pickerMode = 0;
-
-    public static final int MONTH_ON_FIRST = 0;
-    public static final int DAY_ON_FIRST = 1;
-
-    private final static int MAX_TEXT_SIZE = 20;
-    private final static int MAX_OFFSET = 3;
-    private boolean darkModeEnabled = true;
-
-    private boolean isNightTheme = false;
-
-    public DatePicker(Context context) {
-        super(context);
-        init(context);
+    constructor(context: Context) : super(context) {
+        init(context)
+        this.addView(
+            DatePickerView(
+                context = context,
+                attrs = null,
+                defStyle = 0,
+            )
+        )
     }
 
-    public DatePicker(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        setAttributes(context, attrs);
-        init(context);
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+        setAttributes(context, attrs)
+        this.addView(
+            DatePickerView(
+                context = context,
+                attrs = attrs,
+                defStyle = 0,
+            )
+        )
     }
 
-    public DatePicker(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        setAttributes(context, attrs);
-        init(context);
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        this.addView(
+            DatePickerView(
+                context = context,
+                attrs = attrs,
+                defStyle = defStyleAttr,
+            )
+        )
+      //  init(context)
     }
 
-    public DatePicker(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        setAttributes(context, attrs);
-        init(context);
+    constructor(
+        context: Context,
+        attrs: AttributeSet?,
+        defStyleAttr: Int,
+        defStyleRes: Int
+    ) : super(context, attrs, defStyleAttr, defStyleRes) {
+        setAttributes(context, attrs)
+       // init(context)
+
+        this.addView(
+            DatePickerView(
+                context = context,
+                attrs = attrs,
+                defStyle = defStyleAttr,
+            )
+        )
     }
 
     @SuppressLint("NonConstantResourceId")
-    private void setAttributes(Context context, @Nullable AttributeSet attrs) {
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.Picker);
-        final int N = a.getIndexCount();
-        for (int i = 0; i < N; ++i) {
-            int attr = a.getIndex(i);
+    private fun setAttributes(context: Context, attrs: AttributeSet?) {
+        val a = context.obtainStyledAttributes(attrs, R.styleable.Picker)
+        val N = a.indexCount
+        for (i in 0 until N) {
+            val attr = a.getIndex(i)
             if (attr == R.styleable.Picker_offset) {
-                this.offset = Math.min(a.getInteger(attr, 3), MAX_OFFSET);
+                offset = Math.min(a.getInteger(attr, 3), MAX_OFFSET)
             } else if (attr == R.styleable.Picker_darkModeEnabled) {
-                this.darkModeEnabled = a.getBoolean(attr, true);
+                darkModeEnabled = a.getBoolean(attr, true)
             } else if (attr == R.styleable.Picker_textSize) {
-                this.textSize = Math.min(a.getInt(attr, MAX_TEXT_SIZE), MAX_TEXT_SIZE);
+                textSize = Math.min(a.getInt(attr, MAX_TEXT_SIZE), MAX_TEXT_SIZE)
             } else if (attr == R.styleable.Picker_pickerMode) {
-                this.pickerMode = a.getInt(attr, 0);
+                pickerMode = a.getInt(attr, 0)
             }
         }
-        a.recycle();
+        a.recycle()
     }
 
-    private void init(Context context) {
-        this.context = context;
-        this.setOrientation(LinearLayout.HORIZONTAL);
-        factory = new DatePickerFactory(this);
-        container = new LinearLayout(context);
-        LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        container.setLayoutParams(layoutParams);
-        container.setOrientation(LinearLayout.HORIZONTAL);
-        this.addView(container);
-        setUpInitialViews();
+    private fun init(context: Context) {
+        this.context = context
+//        this.orientation = HORIZONTAL
+//        this.addView(DatePickerView())
+        /*factory = DatePickerFactory(this)
+        container = LinearLayout(context)
+        val layoutParams =
+            LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        container!!.layoutParams = layoutParams
+        container!!.orientation = HORIZONTAL
+        this.addView(container)
+        setUpInitialViews()*/
     }
 
-    private void checkDarkMode() {
-        int nightModeFlags =
-                getContext().getResources().getConfiguration().uiMode &
-                        Configuration.UI_MODE_NIGHT_MASK;
-        switch (nightModeFlags) {
-            case Configuration.UI_MODE_NIGHT_YES:
-                isNightTheme = true;
-                break;
-            case Configuration.UI_MODE_NIGHT_NO:
-            case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                isNightTheme = false;
-                break;
+    private fun checkDarkMode() {
+        val nightModeFlags = getContext().resources.configuration.uiMode and
+                Configuration.UI_MODE_NIGHT_MASK
+        when (nightModeFlags) {
+            Configuration.UI_MODE_NIGHT_YES -> isNightTheme = true
+            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> isNightTheme =
+                false
         }
     }
 
-    private void setUpInitialViews() {
-        container.removeAllViews();
-        container.addView(createEmptyView1(context));
+    private fun setUpInitialViews() {
+        /*container!!.removeAllViews()
+        container!!.addView(createEmptyView1(context))
         if (pickerMode == MONTH_ON_FIRST) {
-            container.addView(createMonthView(context));
-            container.addView(createDayView(context));
+            container!!.addView(createMonthView(context))
+            container!!.addView(createDayView(context))
         } else {
-            container.addView(createDayView(context));
-            container.addView(createMonthView(context));
+            container!!.addView(createDayView(context))
+            container!!.addView(createMonthView(context))
         }
-        container.addView(createYearView(context));
-        container.addView(createEmptyView2(context));
-        setUpCalendar();
+        container!!.addView(createYearView(context))
+        container!!.addView(createEmptyView2(context))
+        setUpCalendar()*/
     }
 
-    public void setUpCalendar() {
-        Log.i("Calendar", "setUp = " + factory.getSelectedDate().toString());
+    fun setUpCalendar() {
+      /*  Log.i("Calendar", "setUp = " + factory?.selectedDate.toString())
         if (darkModeEnabled) {
-            checkDarkMode();
+            checkDarkMode()
         } else {
-            isNightTheme = false;
+            isNightTheme = false
         }
-        setUpYearView();
-        setUpMonthView();
-        setUpDayView();
-        setupEmptyViews();
+        setUpYearView()
+        setUpMonthView()
+        setUpDayView()
+        setupEmptyViews()*/
     }
 
-    private void setupEmptyViews() {
-        List<String> array = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
-            array.add("");
-        }
-        emptyView1.setTextSize(textSize);
-        emptyView2.setTextSize(textSize);
-        emptyView1.setOffset(offset);
-        emptyView2.setOffset(offset);
-        emptyView1.setItems(array);
-        emptyView2.setItems(array);
+    private fun setupEmptyViews() {
+//        val array: MutableList<String> = ArrayList()
+//        for (i in 0..29) {
+//            array.add("")
+//        }
+//        emptyView1!!.setTextSize(textSize)
+//        emptyView2!!.setTextSize(textSize)
+//        emptyView1!!.setOffset(offset)
+//        emptyView2!!.setOffset(offset)
+//        emptyView1!!.items = array
+//        emptyView2!!.items = array
     }
 
-    private void setUpYearView() {
-        DateModel date = factory.getSelectedDate();
-        List<String> years = factory.getYearList();
-        yearView.isNightTheme = isNightTheme;
-        yearView.setOffset(offset);
-        yearView.setTextSize(textSize);
-        yearView.setAlignment(View.TEXT_ALIGNMENT_CENTER);
-        yearView.setGravity(Gravity.CENTER);
-        yearView.setItems(years);
-        yearView.setSelection(years.indexOf("" + date.getYear()));
+    private fun setUpYearView() {
+//        val date = factory!!.selectedDate
+//        val years = factory!!.yearList
+//        yearView!!.isNightTheme = isNightTheme
+//        yearView!!.setOffset(offset)
+//        yearView!!.setTextSize(textSize)
+//        yearView!!.setAlignment(TEXT_ALIGNMENT_CENTER)
+//        yearView!!.setGravity(Gravity.CENTER)
+//        yearView!!.items = years
+//        yearView!!.setSelection(years.indexOf("" + date.year))
     }
 
-    private void setUpMonthView() {
-        List<String> months = factory.getMonthList();
-        DateModel date = factory.getSelectedDate();
-        monthView.isNightTheme = isNightTheme;
-        monthView.setTextSize(textSize);
-        monthView.setGravity(Gravity.CENTER);
-        monthView.setAlignment(View.TEXT_ALIGNMENT_CENTER);
-        monthView.setOffset(offset);
-        monthView.setItems(months);
-        monthView.setSelection(date.getMonth() - factory.getMonthMin());
+    private fun setUpMonthView() {
+//        val months = factory!!.monthList
+//        val date = factory!!.selectedDate
+//        monthView!!.isNightTheme = isNightTheme
+//        monthView!!.setTextSize(textSize)
+//        monthView!!.setGravity(Gravity.CENTER)
+//        monthView!!.setAlignment(TEXT_ALIGNMENT_CENTER)
+//        monthView!!.setOffset(offset)
+//        monthView!!.items = months
+//        monthView!!.setSelection(date.month - factory!!.monthMin)
     }
 
-    private void setUpDayView() {
-        DateModel date = factory.getSelectedDate();
-        List<String> days = factory.getDayList();
-        dayView.isNightTheme = isNightTheme;
-        dayView.setOffset(offset);
-        dayView.setTextSize(textSize);
-        dayView.setGravity(Gravity.END);
-        dayView.setAlignment((pickerMode == DAY_ON_FIRST) ? View.TEXT_ALIGNMENT_CENTER : View.TEXT_ALIGNMENT_TEXT_END);
-        dayView.setOffset(offset);
-        dayView.setItems(days);
-        dayView.setSelection((date.getDay() - 1)); //Day start from 1
+    private fun setUpDayView() {
+//        val date = factory!!.selectedDate
+//        val days = factory!!.dayList
+//        dayView!!.isNightTheme = isNightTheme
+//        dayView!!.setOffset(offset)
+//        dayView!!.setTextSize(textSize)
+//        dayView!!.setGravity(Gravity.END)
+//        dayView!!.setAlignment(if (pickerMode == DAY_ON_FIRST) TEXT_ALIGNMENT_CENTER else TEXT_ALIGNMENT_TEXT_END)
+//        dayView!!.setOffset(offset)
+//        dayView!!.items = days
+//        dayView!!.setSelection(date.day - 1) //Day start from 1
     }
 
-    private LinearLayout createYearView(Context context) {
-        yearView = new WheelView(context);
-        LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        yearView.setLayoutParams(lp);
-        yearView.setOnWheelViewListener((selectedIndex, item) -> factory.setSelectedYear(Integer.parseInt(item)));
-        LinearLayout ly = wheelContainerView(3.0f);
-        ly.addView(yearView);
-        return ly;
+    private fun createYearView(context: Context?): LinearLayout {
+//        yearView = WheelView(context)
+//        val lp =
+//            LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//        yearView!!.layoutParams = lp
+//        yearView!!.setOnWheelViewListener { selectedIndex: Int, item: String ->
+//            factory!!.setSelectedYear(
+//                item.toInt()
+//            )
+//        }
+//        val ly = wheelContainerView(3.0f)
+//        ly.addView(yearView)
+        return LinearLayout(context)
     }
 
+    private fun createMonthView(context: Context?): LinearLayout {
+//        monthView = WheelView(context)
+//        val lp =
+//            LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//        monthView!!.layoutParams = lp
+//        monthView!!.setOnWheelViewListener { selectedIndex: Int, item: String? ->
+//            factory!!.setSelectedMonth(
+//                factory!!.monthMin + selectedIndex
+//            )
+//        }
+//        val ly = wheelContainerView(3.0f)
+//        ly.addView(monthView)
+//        return ly
 
-    private LinearLayout createMonthView(Context context) {
-        monthView = new WheelView(context);
-        LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        monthView.setLayoutParams(lp);
-        monthView.setOnWheelViewListener((selectedIndex, item) -> factory.setSelectedMonth(factory.getMonthMin() + selectedIndex));
-        LinearLayout ly = wheelContainerView(3.0f);
-        ly.addView(monthView);
-        return ly;
+        return LinearLayout(context)
     }
 
+    private fun createDayView(context: Context?): LinearLayout {
+//        dayView = WheelView(context)
+//        val lp =
+//            LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+//        dayView!!.layoutParams = lp
+//        dayView!!.setOnWheelViewListener { selectedIndex: Int, item: String? ->
+//            factory!!.setSelectedDay(
+//                selectedIndex + 1
+//            )
+//        }
+//        val ly = wheelContainerView(2.0f)
+//        ly.addView(dayView)
+//        return ly
 
-    private LinearLayout createDayView(Context context) {
-        dayView = new WheelView(context);
-        LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dayView.setLayoutParams(lp);
-        dayView.setOnWheelViewListener((selectedIndex, item) -> factory.setSelectedDay(selectedIndex + 1));
-        LinearLayout ly = wheelContainerView(2.0f);
-        ly.addView(dayView);
-        return ly;
+        return LinearLayout(context)
     }
 
-
-    private LinearLayout createEmptyView1(Context context) {
-        emptyView1 = createEmptyWheel(context);
-        LinearLayout ly = wheelContainerView(1.5f);
-        ly.addView(emptyView1);
-        return ly;
+    private fun createEmptyView1(context: Context?): LinearLayout {
+//        emptyView1 = createEmptyWheel(context)
+//        val ly = wheelContainerView(1.5f)
+//        ly.addView(emptyView1)
+//        return ly
+        return LinearLayout(context)
     }
 
-    private LinearLayout createEmptyView2(Context context) {
-        emptyView2 = createEmptyWheel(context);
-        LinearLayout ly = wheelContainerView(1.0f);
-        ly.addView(emptyView2);
-        return ly;
+    private fun createEmptyView2(context: Context?): LinearLayout {
+//        emptyView2 = createEmptyWheel(context)
+//        val ly = wheelContainerView(1.0f)
+//        ly.addView(emptyView2)
+//        return ly
+        return LinearLayout(context)
     }
 
-    private WheelView createEmptyWheel(Context context) {
-        WheelView view = new WheelView(context);
-        LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        view.setLayoutParams(lp);
-        return view;
+    private fun createEmptyWheel(context: Context?): WheelView {
+        val view = WheelView(context)
+        val lp =
+            LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        view.layoutParams = lp
+        return view
     }
 
-    private LinearLayout wheelContainerView(float weight) {
-        LinearLayout layout = new LinearLayout(context);
-        LayoutParams layoutParams = new LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, weight);
-        layout.setLayoutParams(layoutParams);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        return layout;
+    private fun wheelContainerView(weight: Float): LinearLayout {
+        val layout = LinearLayout(context)
+        val layoutParams = LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, weight)
+        layout.layoutParams = layoutParams
+        layout.orientation = VERTICAL
+        return layout
     }
-
+    /**
+     * @return minDate
+     */
     /**
      * Implement current min date
      *
      * @param date
      */
-    public void setMinDate(long date) {
-        factory.setMinDate(date);
-    }
-
+    var minDate: Long
+        get() = factory!!.minDate.date
+        set(date) {
+            factory!!.setMinDate(date)
+        }
+    /**
+     * @return maxDate
+     */
     /**
      * Implement current max date
      *
      * @param date
      */
-    public void setMaxDate(long date) {
-        factory.setMaxDate(date);
-    }
-
+    var maxDate: Long
+        get() = factory!!.maxDate.date
+        set(date) {
+            factory!!.setMaxDate(date)
+        }
+    /**
+     * @return date
+     */
     /**
      * Implement current selected date
      *
      * @param date
      */
-    public void setDate(long date) {
-        factory.setSelectedDate(date);
+    var date: Long
+        get() = factory!!.selectedDate.date
+        set(date) {
+            factory!!.setSelectedDate(date)
+        }
+
+    fun getOffset(): Int {
+        return offset
     }
 
-    /**
-     * @return minDate
-     */
-    public long getMinDate() {
-        return factory.getMinDate().getDate();
+    fun setOffset(offset: Int) {
+        this.offset = offset
+        setUpCalendar()
     }
 
-    /**
-     * @return maxDate
-     */
-    public long getMaxDate() {
-        return factory.getMaxDate().getDate();
+    fun setTextSize(textSize: Int) {
+        this.textSize = Math.min(textSize, MAX_TEXT_SIZE)
+        setUpCalendar()
     }
 
-    /**
-     * @return date
-     */
-    public long getDate() {
-        return factory.getSelectedDate().getDate();
+    fun setPickerMode(pickerMode: Int) {
+        this.pickerMode = pickerMode
+        setUpInitialViews()
     }
 
-    public int getOffset() {
-        return offset;
+    override fun onYearChanged() {
+        setUpMonthView()
+        setUpDayView()
+        notifyDateSelect()
     }
 
-    public void setOffset(int offset) {
-        this.offset = offset;
-        setUpCalendar();
+    override fun onMonthChanged() {
+        setUpDayView()
+        notifyDateSelect()
     }
 
-    public void setTextSize(int textSize) {
-        this.textSize = Math.min(textSize, MAX_TEXT_SIZE);
-        setUpCalendar();
+    override fun onDayChanged() {
+        notifyDateSelect()
     }
 
-    public void setPickerMode(int pickerMode) {
-        this.pickerMode = pickerMode;
-        setUpInitialViews();
-    }
-
-    @Override
-    public void onYearChanged() {
-        setUpMonthView();
-        setUpDayView();
-        notifyDateSelect();
-    }
-
-    @Override
-    public void onMonthChanged() {
-        setUpDayView();
-        notifyDateSelect();
-    }
-
-    @Override
-    public void onDayChanged() {
-        notifyDateSelect();
-    }
-
-    @Override
-    public void onConfigsChanged() {
-        setUpCalendar();
+    override fun onConfigsChanged() {
+        setUpCalendar()
     }
 
     /**
      * @return
      */
-    public boolean isDarkModeEnabled() {
-        return darkModeEnabled;
+    fun isDarkModeEnabled(): Boolean {
+        return darkModeEnabled
     }
 
     /**
      * @param darkModeEnabled
      */
-    public void setDarkModeEnabled(boolean darkModeEnabled) {
-        this.darkModeEnabled = darkModeEnabled;
-        setUpCalendar();
+    fun setDarkModeEnabled(darkModeEnabled: Boolean) {
+        this.darkModeEnabled = darkModeEnabled
+        setUpCalendar()
     }
 
-    public interface DataSelectListener {
-        void onDateSelected(long date, int day, int month, int year);
+    interface DataSelectListener {
+        fun onDateSelected(date: Long, day: Int, month: Int, year: Int)
     }
 
-    private DataSelectListener dataSelectListener;
-
-    public void setDataSelectListener(DataSelectListener dataSelectListener) {
-        this.dataSelectListener = dataSelectListener;
+    private var dataSelectListener: DataSelectListener? = null
+    fun setDataSelectListener(dataSelectListener: DataSelectListener) {
+        this.dataSelectListener = dataSelectListener
     }
 
-    private void notifyDateSelect() {
-        DateModel date = factory.getSelectedDate();
-        if (dataSelectListener != null)
-            dataSelectListener.onDateSelected(date.getDate(), date.getDay(), date.getMonth(), date.getYear());
+    private fun notifyDateSelect() {
+        val date = factory!!.selectedDate
+        if (dataSelectListener != null) dataSelectListener!!.onDateSelected(
+            date.date,
+            date.day,
+            date.month,
+            date.year
+        )
+    }
+
+    companion object {
+        const val MONTH_ON_FIRST = 0
+        const val DAY_ON_FIRST = 1
+        private const val MAX_TEXT_SIZE = 20
+        private const val MAX_OFFSET = 3
     }
 }
