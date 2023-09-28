@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -28,8 +30,6 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ozcanalasalvar.library.compose.util.daysOfDate
-import com.ozcanalasalvar.library.compose.util.isFullDayOfMonth
-import com.ozcanalasalvar.library.compose.util.isFullMonthOfYear
 import com.ozcanalasalvar.library.compose.util.monthsOfDate
 import com.ozcanalasalvar.library.compose.util.withDay
 import com.ozcanalasalvar.library.compose.util.withMonth
@@ -41,21 +41,25 @@ import java.text.DateFormatSymbols
 @Composable
 fun DatePicker(
     offset: Int = 4,
-    minDate: DateModel = DateModel(year = 2019, month = 8, day = 1),
-    maxDate: DateModel = DateModel(year = 2025, month = 1, day = 1),
+    yearsRange: IntRange = IntRange(1923, 2121),
     startDate: DateModel = DateModel(year = 2023, month = 1, day = 13),
+    onDateSelected: (Int, Int, Int, Long) -> Unit = { _, _, _, _ -> }
 ) {
 
     var selectedDate by remember { mutableStateOf(startDate) }
 
-    val months = selectedDate.monthsOfDate(minDate, maxDate)
+    val months = selectedDate.monthsOfDate()
 
-    val days = selectedDate.daysOfDate(minDate, maxDate)
+    val days = selectedDate.daysOfDate()
 
     val years = mutableListOf<Int>().apply {
-        for (year in minDate.year..maxDate.year) {
+        for (year in yearsRange) {
             add(year)
         }
+    }
+
+    LaunchedEffect(selectedDate) {
+        onDateSelected(selectedDate.day, selectedDate.month, selectedDate.year, selectedDate.date)
     }
 
 
@@ -77,33 +81,31 @@ fun DatePicker(
         ) {
 
 
-            InfiniteWheelView(modifier = Modifier.weight(1f),
-                size = DpSize(150.dp, height),
-                selection = maxOf(days.indexOf(selectedDate.day),0),
-                itemCount = days.size,
-                rowOffset = offset,
-                isEndless = selectedDate.isFullDayOfMonth(minDate, maxDate),
-                onFocusItem = {
-                    Log.d("SpannedIndex", "$it")
-                    selectedDate = selectedDate.withDay(days[it])
-                },
-                content = {
-                    Text(
-                        text = days[it].toString(),
-                        textAlign = TextAlign.End,
-                        modifier = Modifier.width(50.dp),
-                        fontSize = 16.sp
-                    )
-                })
+            key(days.size) {
+                InfiniteWheelView(modifier = Modifier.weight(1f),
+                    size = DpSize(150.dp, height),
+                    selection = maxOf(days.indexOf(selectedDate.day), 0),
+                    itemCount = days.size,
+                    rowOffset = offset,
+                    onFocusItem = {
+                        selectedDate = selectedDate.withDay(days[it])
+                    },
+                    content = {
+                        Text(
+                            text = days[it].toString(),
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.width(50.dp),
+                            fontSize = 16.sp
+                        )
+                    })
+            }
 
             InfiniteWheelView(modifier = Modifier.weight(2f),
                 size = DpSize(150.dp, height),
                 selection = maxOf(months.indexOf(selectedDate.month), 0),
                 itemCount = months.size,
                 rowOffset = offset,
-                isEndless = selectedDate.isFullMonthOfYear(minDate, maxDate),
                 onFocusItem = {
-                    Log.d("SpannedMonth", "$it")
                     selectedDate = selectedDate.withMonth(months[it])
                 },
                 content = {
@@ -115,6 +117,7 @@ fun DatePicker(
                     )
                 })
 
+
             InfiniteWheelView(modifier = Modifier.weight(1f),
                 size = DpSize(150.dp, height),
                 selection = years.indexOf(selectedDate.year),
@@ -122,7 +125,6 @@ fun DatePicker(
                 rowOffset = offset,
                 isEndless = years.size > offset * 2,
                 onFocusItem = {
-                    Log.d("SpannedYear", "$it")
                     selectedDate = selectedDate.withYear(years[it])
                 },
                 content = {
@@ -189,5 +191,5 @@ fun DatePicker(
 @Preview
 @Composable
 fun DatePickerPreview() {
-    DatePicker()
+    DatePicker(onDateSelected = { _, _, _, _ -> })
 }

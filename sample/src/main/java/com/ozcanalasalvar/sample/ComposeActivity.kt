@@ -36,7 +36,9 @@ class ComposeActivity : ComponentActivity() {
         setContent {
             DatePickerTheme {
                 // A surface container using the 'background' color from the theme
-                DatePicker()
+                DatePicker(onDateSelected = { day, month, year, date ->
+                    Log.d("SelectedDate", "$day / $month / $year")
+                })
 
 
 //                InfiniteWheelView(modifier = Modifier,
