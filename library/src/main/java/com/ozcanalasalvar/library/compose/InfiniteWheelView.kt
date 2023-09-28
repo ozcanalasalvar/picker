@@ -22,6 +22,8 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 
 
@@ -43,14 +45,20 @@ fun InfiniteWheelView(
     val count = if (isEndless) itemCount else itemCount + 2 * rowOffset
     val rowOffsetCount = maxOf(1, minOf(rowOffset, 4))
     val rowCount = ((rowOffsetCount * 2) + 1)
+    val startIndex=
+       if (isEndless) selection + (itemCount * 1000) - rowOffset else selection
 
-    val lazyListState =
-        rememberLazyListState(if (isEndless) selection + (itemCount * 1000) else selection)
+    val lazyListState = rememberLazyListState(startIndex)
     val isScrollInProgress = lazyListState.isScrollInProgress
     val focusedIndex = remember {
         derivedStateOf { lazyListState.firstVisibleItemIndex + rowOffsetCount }
     }
 
+    LaunchedEffect(key1 = itemCount) {
+        coroutineScope.launch {
+            lazyListState.scrollToItem(startIndex)
+        }
+    }
 
     LaunchedEffect(key1 = isScrollInProgress) {
         if (!isScrollInProgress) {
@@ -106,7 +114,7 @@ fun InfiniteWheelView(
                     if (isEndless) {
                         content(it % itemCount)
                     } else if (it >= rowOffsetCount && it < itemCount + rowOffsetCount) {
-                        content(it - rowOffsetCount % itemCount)
+                        content((it - rowOffsetCount) % itemCount)
                     }
                 }
 

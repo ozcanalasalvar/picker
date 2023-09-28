@@ -1,5 +1,6 @@
 package com.ozcanalasalvar.library.model
 
+import android.util.Log
 import com.ozcanalasalvar.library.utils.DateUtils
 
 class DateModel {
@@ -15,12 +16,13 @@ class DateModel {
         day: Int,
     ) {
         this.date = DateUtils.getTimeMiles(year, month, day)
+        updateDate(this.date)
     }
 
     constructor(date: Long) {
         updateDate(date)
     }
-    
+
 
     private fun updateDate(date: Long) {
         this.date = date

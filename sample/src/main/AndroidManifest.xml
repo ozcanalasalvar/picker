@@ -12,7 +12,6 @@
         <activity
             android:name=".ComposeActivity"
             android:exported="true"
-            android:label="@string/title_activity_compose"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +22,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="uiMode"
-            android:exported="true">
+            android:exported="false">
 
         </activity>
     </application>
