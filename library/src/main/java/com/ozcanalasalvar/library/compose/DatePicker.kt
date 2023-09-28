@@ -1,6 +1,5 @@
 package com.ozcanalasalvar.library.compose
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -42,7 +41,7 @@ import java.text.DateFormatSymbols
 fun DatePicker(
     offset: Int = 4,
     yearsRange: IntRange = IntRange(1923, 2121),
-    startDate: DateModel = DateModel(year = 2023, month = 1, day = 13),
+    startDate: DateModel = DateModel(DateUtils.getCurrentTime()),
     onDateSelected: (Int, Int, Int, Long) -> Unit = { _, _, _, _ -> }
 ) {
 
