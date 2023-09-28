@@ -43,6 +43,7 @@ fun DatePicker(
     offset: Int = 4,
     yearsRange: IntRange = IntRange(1923, 2121),
     startDate: DateModel = DateModel(DateUtils.getCurrentTime()),
+    selectorEffectEnabled: Boolean = true,
     onDateSelected: (Int, Int, Int, Long) -> Unit = { _, _, _, _ -> }
 ) {
 
@@ -87,6 +88,7 @@ fun DatePicker(
                     selection = maxOf(days.indexOf(selectedDate.day), 0),
                     itemCount = days.size,
                     rowOffset = offset,
+                    selectorEffectEnabled = selectorEffectEnabled,
                     onFocusItem = {
                         selectedDate = selectedDate.withDay(days[it])
                     },
@@ -105,6 +107,7 @@ fun DatePicker(
                 selection = maxOf(months.indexOf(selectedDate.month), 0),
                 itemCount = months.size,
                 rowOffset = offset,
+                selectorEffectEnabled = selectorEffectEnabled,
                 onFocusItem = {
                     selectedDate = selectedDate.withMonth(months[it])
                 },
@@ -124,6 +127,7 @@ fun DatePicker(
                 itemCount = years.size,
                 rowOffset = offset,
                 isEndless = years.size > offset * 2,
+                selectorEffectEnabled = selectorEffectEnabled,
                 onFocusItem = {
                     selectedDate = selectedDate.withYear(years[it])
                 },

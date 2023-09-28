@@ -36,6 +36,7 @@ fun InfiniteWheelView(
     rowOffset: Int = 4,
     isEndless: Boolean = true,
     onFocusItem: (Int) -> Unit,
+    selectorEffectEnabled: Boolean = true,
     content: @Composable LazyItemScope.(index: Int) -> Unit,
 ) {
 
@@ -45,8 +46,8 @@ fun InfiniteWheelView(
     val count = if (isEndless) itemCount else itemCount + 2 * rowOffset
     val rowOffsetCount = maxOf(1, minOf(rowOffset, 4))
     val rowCount = ((rowOffsetCount * 2) + 1)
-    val startIndex=
-       if (isEndless) selection + (itemCount * 1000) - rowOffset else selection
+    val startIndex =
+        if (isEndless) selection + (itemCount * 1000) - rowOffset else selection
 
     val lazyListState = rememberLazyListState(startIndex)
     val isScrollInProgress = lazyListState.isScrollInProgress
@@ -81,7 +82,8 @@ fun InfiniteWheelView(
 
     LaunchedEffect(lazyListState) {
         snapshotFlow { lazyListState.firstVisibleItemIndex }.collect {
-            haptic.performHapticFeedback(HapticFeedbackType.LongPress)
+            if (selectorEffectEnabled)
+                haptic.performHapticFeedback(HapticFeedbackType.LongPress)
         }
     }
 
