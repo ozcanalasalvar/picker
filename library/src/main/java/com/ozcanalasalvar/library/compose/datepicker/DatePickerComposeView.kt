@@ -1,20 +1,17 @@
-package com.ozcanalasalvar.library.view.datePicker
+package com.ozcanalasalvar.library.compose.datepicker
 
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import com.ozcanalasalvar.library.compose.DatePicker
 import com.ozcanalasalvar.library.model.DateModel
 import com.ozcanalasalvar.library.utils.DateUtils
+import com.ozcanalasalvar.library.view.datepicker.DatePicker
 
-class DatePickerView @JvmOverloads constructor(
+class DatePickerComposeView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : AbstractComposeView(context, attrs, defStyle) {
 
@@ -59,7 +56,7 @@ class DatePickerView @JvmOverloads constructor(
     @Composable
     override fun Content() {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        DatePicker(offset = offsetState.value,
+        WheelDatePicker(offset = offsetState.value,
             yearsRange = yearsRangeState.value,
             startDate = startDateState.value,
             selectorEffectEnabled = selectorEffectEnabledState.value,

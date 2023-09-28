@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.library.compose
+package com.ozcanalasalvar.library.compose.datepicker
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,18 +28,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ozcanalasalvar.library.compose.util.daysOfDate
-import com.ozcanalasalvar.library.compose.util.monthsOfDate
-import com.ozcanalasalvar.library.compose.util.withDay
-import com.ozcanalasalvar.library.compose.util.withMonth
-import com.ozcanalasalvar.library.compose.util.withYear
+import com.ozcanalasalvar.library.compose.InfiniteWheelView
+import com.ozcanalasalvar.library.utils.daysOfDate
+import com.ozcanalasalvar.library.utils.monthsOfDate
+import com.ozcanalasalvar.library.utils.withDay
+import com.ozcanalasalvar.library.utils.withMonth
+import com.ozcanalasalvar.library.utils.withYear
 import com.ozcanalasalvar.library.model.DateModel
 import com.ozcanalasalvar.library.utils.DateUtils
 import java.text.DateFormatSymbols
 
 
 @Composable
-fun DatePicker(
+fun WheelDatePicker(
     offset: Int = 4,
     yearsRange: IntRange = IntRange(1923, 2121),
     startDate: DateModel = DateModel(DateUtils.getCurrentTime()),
@@ -195,5 +196,5 @@ fun DatePicker(
 @Preview
 @Composable
 fun DatePickerPreview() {
-    DatePicker(onDateSelected = { _, _, _, _ -> })
+    WheelDatePicker(onDateSelected = { _, _, _, _ -> })
 }

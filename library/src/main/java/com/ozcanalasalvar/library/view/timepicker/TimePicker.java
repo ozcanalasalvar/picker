@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.library.view.timePicker;
+package com.ozcanalasalvar.library.view.timepicker;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

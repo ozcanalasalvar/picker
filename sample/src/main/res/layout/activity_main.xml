@@ -20,7 +20,7 @@
             android:textSize="17sp"
             android:textStyle="bold" />
 
-        <com.ozcanalasalvar.library.view.datePicker.DatePicker
+        <com.ozcanalasalvar.library.view.datepicker.DatePicker
             android:id="@+id/datepicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
             android:textSize="17sp"
             android:textStyle="bold" />
 
-        <com.ozcanalasalvar.library.view.timePicker.TimePicker
+        <com.ozcanalasalvar.library.view.timepicker.TimePicker
             android:id="@+id/timepicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.library.view.datePicker
+package com.ozcanalasalvar.library.view.datepicker
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,12 +6,13 @@ import android.content.res.Configuration
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.ozcanalasalvar.library.R
+import com.ozcanalasalvar.library.compose.datepicker.DatePickerComposeView
 import com.ozcanalasalvar.library.model.DateModel
 import com.ozcanalasalvar.library.utils.DateUtils
 
 class DatePicker : LinearLayout {
     private var context: Context? = null
-    private var pickerView: DatePickerView? = null
+    private var pickerView: DatePickerComposeView? = null
 
     private var date: DateModel = DateModel(DateUtils.getCurrentTime())
     private var offset = 3
@@ -23,7 +24,7 @@ class DatePicker : LinearLayout {
     constructor(context: Context) : super(context) {
         init(context, null, 0)
         this.addView(
-            DatePickerView(
+            DatePickerComposeView(
                 context = context,
                 attrs = null,
                 defStyle = 0,
@@ -77,7 +78,7 @@ class DatePicker : LinearLayout {
     private fun init(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
         this.context = context
 
-        pickerView = DatePickerView(
+        pickerView = DatePickerComposeView(
             context = context,
             attrs = attrs,
             defStyle = defStyleAttr,

@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.library.compose.util
+package com.ozcanalasalvar.library.utils
 
 import com.ozcanalasalvar.library.model.DateModel
 import com.ozcanalasalvar.library.utils.DateUtils

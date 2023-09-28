@@ -9,10 +9,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ozcanalasalvar.library.utils.DateUtils;
-import com.ozcanalasalvar.library.view.datePicker.DatePicker;
+import com.ozcanalasalvar.library.view.datepicker.DatePicker;
 import com.ozcanalasalvar.library.view.popup.DatePickerPopup;
 import com.ozcanalasalvar.library.view.popup.TimePickerPopup;
-import com.ozcanalasalvar.library.view.timePicker.TimePicker;
+import com.ozcanalasalvar.library.view.timepicker.TimePicker;
 
 
 public class MainActivity extends AppCompatActivity {

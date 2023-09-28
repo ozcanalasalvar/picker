@@ -4,7 +4,7 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-import com.ozcanalasalvar.library.view.timePicker.TimePicker;
+import com.ozcanalasalvar.library.view.timepicker.TimePicker;
 
 public class TimePickerPopup extends PickerPopup {
 

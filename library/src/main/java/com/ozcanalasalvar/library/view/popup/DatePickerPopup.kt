@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ozcanalasalvar.library.R
 import com.ozcanalasalvar.library.model.DateModel
-import com.ozcanalasalvar.library.view.datePicker.DatePicker
+import com.ozcanalasalvar.library.view.datepicker.DatePicker
 
 class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment() {
     private var listener: OnDateSelectListener? = null
