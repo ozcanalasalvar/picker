@@ -16,7 +16,7 @@ class DatePicker : LinearLayout {
 
     private var date: DateModel = DateModel(DateUtils.getCurrentTime())
     private var offset = 3
-    private var textSize = 19
+    private var textSize = 16
     private var pickerMode = 0
     private var darkModeEnabled = true
     private var isNightTheme = false
@@ -38,19 +38,14 @@ class DatePicker : LinearLayout {
     }
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
+        context, attrs, defStyleAttr
     ) {
         setAttributes(context, attrs)
         init(context, attrs, 0)
     }
 
     constructor(
-        context: Context,
-        attrs: AttributeSet?,
-        defStyleAttr: Int,
-        defStyleRes: Int
+        context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int
     ) : super(context, attrs, defStyleAttr, defStyleRes) {
         setAttributes(context, attrs)
         init(context, attrs, 0)
@@ -95,12 +90,13 @@ class DatePicker : LinearLayout {
         pickerView?.yearsRange = IntRange(1922, 2128)
         pickerView?.startDate = date
         pickerView?.selectorEffectEnabled = true
+        pickerView?.textSize = textSize
         pickerView?.setDataSelectListener(dataSelectListener)
     }
 
     private fun checkDarkMode() {
-        val nightModeFlags = getContext().resources.configuration.uiMode and
-                Configuration.UI_MODE_NIGHT_MASK
+        val nightModeFlags =
+            getContext().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         when (nightModeFlags) {
             Configuration.UI_MODE_NIGHT_YES -> isNightTheme = true
             Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> isNightTheme =

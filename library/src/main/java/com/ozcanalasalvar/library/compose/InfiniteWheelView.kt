@@ -169,5 +169,5 @@ private fun calculateIndexToFocus(listState: LazyListState, height: Dp): Int {
 
 @Composable
 private fun calculateIndexRotation(focusedIndex: Int, index: Int): Float {
-    return -15f * (focusedIndex - index)
+    return -19f * (focusedIndex - index)
 }

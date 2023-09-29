@@ -38,6 +38,7 @@ fun WheelTimePicker(
     selectorEffectEnabled: Boolean = true,
     timeFormat: Int = TimeFormat.CLOCK_24H,
     startTime: TimeModel = TimeModel(DateUtils.getCurrentHour(), DateUtils.getCurrentMinute()),
+    textSize: Int = 16,
     onTimeSelected: (Int, Int, String?) -> Unit = { _, _, _ -> }
 ) {
 
@@ -57,7 +58,7 @@ fun WheelTimePicker(
             add(minute)
         }
     }
-
+    val fontSize = maxOf(13, minOf(19, textSize))
 
     LaunchedEffect(selectedTime) {
         onTimeSelected(selectedTime.hour, selectedTime.minute, selectedTime.format)
@@ -71,7 +72,7 @@ fun WheelTimePicker(
         contentAlignment = Alignment.Center
     ) {
 
-        val height = (2 * offset * 26 + 1).dp
+        val height = (2 * offset * (fontSize + 10) + 1).dp
 
 
         Row(
@@ -95,7 +96,7 @@ fun WheelTimePicker(
                         text = if (hours[it] < 10) "0${hours[it]}" else "${hours[it]}",
                         textAlign = TextAlign.Center,
                         modifier = Modifier.width(50.dp),
-                        fontSize = 16.sp
+                        fontSize = fontSize.sp
                     )
                 })
 
@@ -114,7 +115,7 @@ fun WheelTimePicker(
                         text = if (minutes[it] < 10) "0${minutes[it]}" else "${minutes[it]}",
                         textAlign = TextAlign.Center,
                         modifier = Modifier.width(100.dp),
-                        fontSize = 16.sp
+                        fontSize = fontSize.sp
                     )
                 })
 
@@ -134,7 +135,7 @@ fun WheelTimePicker(
                             text = formats[it].toString(),
                             textAlign = TextAlign.Center,
                             modifier = Modifier.width(100.dp),
-                            fontSize = 16.sp
+                            fontSize = fontSize.sp
                         )
                     })
             }

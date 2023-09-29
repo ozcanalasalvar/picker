@@ -44,6 +44,7 @@ fun WheelDatePicker(
     offset: Int = 4,
     yearsRange: IntRange = IntRange(1923, 2121),
     startDate: DateModel = DateModel(DateUtils.getCurrentTime()),
+    textSize: Int = 16,
     selectorEffectEnabled: Boolean = true,
     onDateSelected: (Int, Int, Int, Long) -> Unit = { _, _, _, _ -> }
 ) {
@@ -64,6 +65,8 @@ fun WheelDatePicker(
         onDateSelected(selectedDate.day, selectedDate.month, selectedDate.year, selectedDate.date)
     }
 
+    val fontSize = maxOf(13, minOf(19, textSize))
+
 
     Box(
         modifier = Modifier
@@ -73,7 +76,7 @@ fun WheelDatePicker(
         contentAlignment = Alignment.Center
     ) {
 
-        val height = (2 * offset * 26 + 1).dp
+        val height = (2 * offset * (fontSize + 11) + 1).dp
 
 
         Row(
@@ -98,7 +101,7 @@ fun WheelDatePicker(
                             text = days[it].toString(),
                             textAlign = TextAlign.End,
                             modifier = Modifier.width(50.dp),
-                            fontSize = 16.sp
+                            fontSize = fontSize.sp
                         )
                     })
             }
@@ -116,8 +119,8 @@ fun WheelDatePicker(
                     Text(
                         text = DateFormatSymbols().months[months[it]],
                         textAlign = TextAlign.Start,
-                        modifier = Modifier.width(100.dp),
-                        fontSize = 16.sp
+                        modifier = Modifier.width(120.dp),
+                        fontSize = fontSize.sp
                     )
                 })
 
@@ -137,7 +140,7 @@ fun WheelDatePicker(
                         text = years[it].toString(),
                         textAlign = TextAlign.Start,
                         modifier = Modifier.width(100.dp),
-                        fontSize = 16.sp
+                        fontSize = fontSize.sp
                     )
                 })
         }

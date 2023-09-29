@@ -20,6 +20,7 @@ class DatePickerComposeView @JvmOverloads constructor(
     private val yearsRangeState = mutableStateOf(IntRange(1923, 2121))
     private val startDateState = mutableStateOf(DateModel(DateUtils.getCurrentTime()))
     private val selectorEffectEnabledState = mutableStateOf(true)
+    private val textSizeState = mutableStateOf(17)
     var offset: Int
         get() = offsetState.value
         set(value) {
@@ -44,6 +45,12 @@ class DatePickerComposeView @JvmOverloads constructor(
             selectorEffectEnabledState.value = value
         }
 
+    var textSize: Int
+        get() = textSizeState.value
+        set(value) {
+            textSizeState.value = value
+        }
+
     private var dataSelectListener: DatePicker.DataSelectListener? = null
     fun setDataSelectListener(dataSelectListener: DatePicker.DataSelectListener?) {
         this.dataSelectListener = dataSelectListener
@@ -60,6 +67,7 @@ class DatePickerComposeView @JvmOverloads constructor(
             yearsRange = yearsRangeState.value,
             startDate = startDateState.value,
             selectorEffectEnabled = selectorEffectEnabledState.value,
+            textSize= textSizeState.value,
             onDateSelected = { day, month, year, date ->
                 dataSelectListener?.onDateSelected(date, day, month, year)
             })
