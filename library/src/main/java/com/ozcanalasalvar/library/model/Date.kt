@@ -1,9 +1,8 @@
 package com.ozcanalasalvar.library.model
 
-import android.util.Log
 import com.ozcanalasalvar.library.utils.DateUtils
 
-class DateModel {
+class Date {
     var year = 0
     var month = 0
     var day = 0

@@ -1,9 +1,7 @@
 package com.ozcanalasalvar.library.compose.timepicker
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,15 +18,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.material.timepicker.TimeFormat
 import com.ozcanalasalvar.library.compose.InfiniteWheelView
-import com.ozcanalasalvar.library.model.TimeModel
+import com.ozcanalasalvar.library.compose.component.ShadowView
+import com.ozcanalasalvar.library.model.Time
+import com.ozcanalasalvar.library.ui.theme.PickerTheme
+import com.ozcanalasalvar.library.ui.theme.colorLightPrimary
+import com.ozcanalasalvar.library.ui.theme.colorLightTextPrimary
 import com.ozcanalasalvar.library.utils.DateUtils
 
 
@@ -37,9 +37,10 @@ fun WheelTimePicker(
     offset: Int = 4,
     selectorEffectEnabled: Boolean = true,
     timeFormat: Int = TimeFormat.CLOCK_24H,
-    startTime: TimeModel = TimeModel(DateUtils.getCurrentHour(), DateUtils.getCurrentMinute()),
+    startTime: Time = Time(DateUtils.getCurrentHour(), DateUtils.getCurrentMinute()),
     textSize: Int = 16,
-    onTimeSelected: (Int, Int, String?) -> Unit = { _, _, _ -> }
+    onTimeSelected: (Int, Int, String?) -> Unit = { _, _, _ -> },
+    darkModeEnabled: Boolean = true,
 ) {
 
     var selectedTime by remember { mutableStateOf(startTime) }
@@ -68,7 +69,7 @@ fun WheelTimePicker(
         modifier = Modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Max)
-            .background(Color.White),
+            .background(if (darkModeEnabled) PickerTheme.colors.primary else colorLightPrimary),
         contentAlignment = Alignment.Center
     ) {
 
@@ -88,6 +89,7 @@ fun WheelTimePicker(
                 itemCount = hours.size,
                 rowOffset = offset,
                 selectorEffectEnabled = selectorEffectEnabled,
+                darkModeEnabled=darkModeEnabled,
                 onFocusItem = {
                     selectedTime = selectedTime.copy(hour = hours[it])
                 },
@@ -96,7 +98,8 @@ fun WheelTimePicker(
                         text = if (hours[it] < 10) "0${hours[it]}" else "${hours[it]}",
                         textAlign = TextAlign.Center,
                         modifier = Modifier.width(50.dp),
-                        fontSize = fontSize.sp
+                        fontSize = fontSize.sp,
+                        color = if (darkModeEnabled) PickerTheme.colors.textPrimary else colorLightTextPrimary
                     )
                 })
 
@@ -107,6 +110,7 @@ fun WheelTimePicker(
                 itemCount = minutes.size,
                 rowOffset = offset,
                 selectorEffectEnabled = selectorEffectEnabled,
+                darkModeEnabled=darkModeEnabled,
                 onFocusItem = {
                     selectedTime = selectedTime.copy(minute = minutes[it])
                 },
@@ -115,7 +119,8 @@ fun WheelTimePicker(
                         text = if (minutes[it] < 10) "0${minutes[it]}" else "${minutes[it]}",
                         textAlign = TextAlign.Center,
                         modifier = Modifier.width(100.dp),
-                        fontSize = fontSize.sp
+                        fontSize = fontSize.sp,
+                        color = if (darkModeEnabled) PickerTheme.colors.textPrimary else colorLightTextPrimary
                     )
                 })
 
@@ -127,6 +132,7 @@ fun WheelTimePicker(
                     rowOffset = offset,
                     isEndless = false,
                     selectorEffectEnabled = selectorEffectEnabled,
+                    darkModeEnabled=darkModeEnabled,
                     onFocusItem = {
                         selectedTime = selectedTime.copy(format = formats[it])
                     },
@@ -135,59 +141,15 @@ fun WheelTimePicker(
                             text = formats[it].toString(),
                             textAlign = TextAlign.Center,
                             modifier = Modifier.width(100.dp),
-                            fontSize = fontSize.sp
+                            fontSize = fontSize.sp,
+                            color = if (darkModeEnabled) PickerTheme.colors.textPrimary else colorLightTextPrimary
                         )
                     })
             }
 
         }
 
-
-        Column(
-            Modifier.fillMaxSize()
-        ) {
-
-            Box(
-                modifier = Modifier
-                    .weight(offset.toFloat())
-                    .fillMaxWidth()
-                    .background(Color(0x99FFFFFF)),
-            )
-
-
-            Column(
-                modifier = Modifier
-                    .weight(1.10f)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Box(
-                    modifier = Modifier
-                        .height(0.5.dp)
-                        .alpha(0.5f)
-                        .background(Color.Black)
-                        .fillMaxWidth()
-                )
-                Box(
-                    modifier = Modifier
-                        .height(0.5.dp)
-                        .alpha(0.5f)
-                        .background(Color.Black)
-                        .fillMaxWidth()
-                )
-
-            }
-
-
-
-            Box(
-                modifier = Modifier
-                    .weight(offset.toFloat())
-                    .fillMaxWidth()
-                    .background(Color(0x99FFFFFF)),
-            )
-        }
-
+        ShadowView(darkModeEnabled= darkModeEnabled, offset = offset)
 
     }
 }

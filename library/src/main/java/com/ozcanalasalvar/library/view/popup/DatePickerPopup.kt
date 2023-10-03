@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ozcanalasalvar.library.R
-import com.ozcanalasalvar.library.model.DateModel
+import com.ozcanalasalvar.library.model.Date
 import com.ozcanalasalvar.library.view.datepicker.DatePicker
 
 class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment() {
@@ -31,11 +31,11 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
         val cancel = view.findViewById<TextView>(R.id.text_cancel)
         val container = view.findViewById<LinearLayout>(R.id.popup_container)
 
-        confirm.setOnClickListener { view: View? ->
+        confirm.setOnClickListener { _: View? ->
             if (listener != null && selectedDate != null) {
-                val dateModel = DateModel(selectedDate!!)
+                val date = Date(selectedDate!!)
                 listener!!.onDateSelected(
-                    picker, dateModel.date, dateModel.day, dateModel.month, dateModel.year
+                    picker, date.date, date.day, date.month, date.year
                 )
             }
             dismiss()

@@ -1,9 +1,7 @@
 package com.ozcanalasalvar.library.compose.datepicker
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -21,20 +19,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ozcanalasalvar.library.compose.InfiniteWheelView
+import com.ozcanalasalvar.library.compose.component.ShadowView
 import com.ozcanalasalvar.library.utils.daysOfDate
 import com.ozcanalasalvar.library.utils.monthsOfDate
 import com.ozcanalasalvar.library.utils.withDay
 import com.ozcanalasalvar.library.utils.withMonth
 import com.ozcanalasalvar.library.utils.withYear
-import com.ozcanalasalvar.library.model.DateModel
+import com.ozcanalasalvar.library.model.Date
+import com.ozcanalasalvar.library.ui.theme.PickerTheme
+import com.ozcanalasalvar.library.ui.theme.colorLightPrimary
+import com.ozcanalasalvar.library.ui.theme.colorLightTextPrimary
 import com.ozcanalasalvar.library.utils.DateUtils
 import java.text.DateFormatSymbols
 
@@ -43,10 +43,11 @@ import java.text.DateFormatSymbols
 fun WheelDatePicker(
     offset: Int = 4,
     yearsRange: IntRange = IntRange(1923, 2121),
-    startDate: DateModel = DateModel(DateUtils.getCurrentTime()),
+    startDate: Date = Date(DateUtils.getCurrentTime()),
     textSize: Int = 16,
     selectorEffectEnabled: Boolean = true,
-    onDateSelected: (Int, Int, Int, Long) -> Unit = { _, _, _, _ -> }
+    onDateSelected: (Int, Int, Int, Long) -> Unit = { _, _, _, _ -> },
+    darkModeEnabled: Boolean = true,
 ) {
 
     var selectedDate by remember { mutableStateOf(startDate) }
@@ -72,7 +73,7 @@ fun WheelDatePicker(
         modifier = Modifier
             .fillMaxWidth()
             .height(IntrinsicSize.Max)
-            .background(Color.White),
+            .background(if (darkModeEnabled) PickerTheme.colors.primary else colorLightPrimary),
         contentAlignment = Alignment.Center
     ) {
 
@@ -93,6 +94,7 @@ fun WheelDatePicker(
                     itemCount = days.size,
                     rowOffset = offset,
                     selectorEffectEnabled = selectorEffectEnabled,
+                    darkModeEnabled=darkModeEnabled,
                     onFocusItem = {
                         selectedDate = selectedDate.withDay(days[it])
                     },
@@ -101,7 +103,8 @@ fun WheelDatePicker(
                             text = days[it].toString(),
                             textAlign = TextAlign.End,
                             modifier = Modifier.width(50.dp),
-                            fontSize = fontSize.sp
+                            fontSize = fontSize.sp,
+                            color = if (darkModeEnabled) PickerTheme.colors.textPrimary else colorLightTextPrimary
                         )
                     })
             }
@@ -112,6 +115,7 @@ fun WheelDatePicker(
                 itemCount = months.size,
                 rowOffset = offset,
                 selectorEffectEnabled = selectorEffectEnabled,
+                darkModeEnabled=darkModeEnabled,
                 onFocusItem = {
                     selectedDate = selectedDate.withMonth(months[it])
                 },
@@ -120,7 +124,8 @@ fun WheelDatePicker(
                         text = DateFormatSymbols().months[months[it]],
                         textAlign = TextAlign.Start,
                         modifier = Modifier.width(120.dp),
-                        fontSize = fontSize.sp
+                        fontSize = fontSize.sp,
+                        color = if (darkModeEnabled) PickerTheme.colors.textPrimary else colorLightTextPrimary
                     )
                 })
 
@@ -132,6 +137,7 @@ fun WheelDatePicker(
                 rowOffset = offset,
                 isEndless = years.size > offset * 2,
                 selectorEffectEnabled = selectorEffectEnabled,
+                darkModeEnabled=darkModeEnabled,
                 onFocusItem = {
                     selectedDate = selectedDate.withYear(years[it])
                 },
@@ -140,59 +146,18 @@ fun WheelDatePicker(
                         text = years[it].toString(),
                         textAlign = TextAlign.Start,
                         modifier = Modifier.width(100.dp),
-                        fontSize = fontSize.sp
+                        fontSize = fontSize.sp,
+                        color = if (darkModeEnabled) PickerTheme.colors.textPrimary else colorLightTextPrimary
                     )
                 })
         }
 
 
-        Column(
-            Modifier.fillMaxSize()
-        ) {
-
-            Box(
-                modifier = Modifier
-                    .weight(offset.toFloat())
-                    .fillMaxWidth()
-                    .background(Color(0x99FFFFFF)),
-            )
-
-
-            Column(
-                modifier = Modifier
-                    .weight(1.10f)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Box(
-                    modifier = Modifier
-                        .height(0.5.dp)
-                        .alpha(0.5f)
-                        .background(Color.Black)
-                        .fillMaxWidth()
-                )
-                Box(
-                    modifier = Modifier
-                        .height(0.5.dp)
-                        .alpha(0.5f)
-                        .background(Color.Black)
-                        .fillMaxWidth()
-                )
-
-            }
-
-
-
-            Box(
-                modifier = Modifier
-                    .weight(offset.toFloat())
-                    .fillMaxWidth()
-                    .background(Color(0x99FFFFFF)),
-            )
-        }
-
+        ShadowView(darkModeEnabled= darkModeEnabled, offset = offset)
 
     }
+
+
 }
 
 

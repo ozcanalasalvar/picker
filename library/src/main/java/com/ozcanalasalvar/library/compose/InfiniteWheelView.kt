@@ -15,13 +15,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import com.ozcanalasalvar.library.ui.theme.PickerTheme
+import com.ozcanalasalvar.library.ui.theme.lightPallet
 import kotlinx.coroutines.launch
 
 
@@ -36,6 +37,7 @@ fun InfiniteWheelView(
     onFocusItem: (Int) -> Unit,
     selectorEffectEnabled: Boolean = true,
     content: @Composable LazyItemScope.(index: Int) -> Unit,
+    darkModeEnabled: Boolean = true,
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -127,24 +129,7 @@ fun InfiniteWheelView(
                 .fillMaxSize()
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color(0xE6FFFFFF),
-                            Color(0xE6FFFFFF),
-                            Color(0xB3FFFFFF),
-                            Color(0xB3FFFFFF),
-                            Color(0x80FFFFFF),
-                            Color(0x80FFFFFF),
-                            Color.Transparent,
-                            Color.Transparent,
-                            Color.Transparent,
-                            Color.Transparent,
-                            Color(0x80FFFFFF),
-                            Color(0x80FFFFFF),
-                            Color(0xB3FFFFFF),
-                            Color(0xB3FFFFFF),
-                            Color(0xE6FFFFFF),
-                            Color(0xE6FFFFFF),
-                        )
+                        colors = if (darkModeEnabled) PickerTheme.pallets else lightPallet
                     )
                 ),
         ) {}

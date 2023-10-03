@@ -1,10 +1,9 @@
 package com.ozcanalasalvar.library.utils
 
-import com.ozcanalasalvar.library.model.DateModel
-import com.ozcanalasalvar.library.utils.DateUtils
+import com.ozcanalasalvar.library.model.Date
 
 
-fun DateModel.monthsOfDate(): List<Int> {
+fun Date.monthsOfDate(): List<Int> {
     val months = mutableListOf<Int>()
 //    if (this.year == minDate.year) {
 //        for (month in minDate.month..11) {
@@ -24,7 +23,7 @@ fun DateModel.monthsOfDate(): List<Int> {
 }
 
 
-fun DateModel.daysOfDate(): List<Int> {
+fun Date.daysOfDate(): List<Int> {
     val days = mutableListOf<Int>()
     val monthDayCount = DateUtils.getMonthDayCount(this.date)
 
@@ -46,10 +45,10 @@ fun DateModel.daysOfDate(): List<Int> {
 }
 
 
-fun DateModel.isFullMonthOfYear(minDate: DateModel, maxDate: DateModel): Boolean =
+fun Date.isFullMonthOfYear(minDate: Date, maxDate: Date): Boolean =
     !((this.year == minDate.year && minDate.month != 11) || (this.year == maxDate.year && maxDate.month != 0))
 
-fun DateModel.isFullDayOfMonth(minDate: DateModel, maxDate: DateModel): Boolean {
+fun Date.isFullDayOfMonth(minDate: Date, maxDate: Date): Boolean {
     val monthDayCount = DateUtils.getMonthDayCount(this.date)
     val isMin =
         (this.year == minDate.year && this.month == minDate.month && minDate.day != 1)
@@ -58,14 +57,14 @@ fun DateModel.isFullDayOfMonth(minDate: DateModel, maxDate: DateModel): Boolean 
     return !(isMin || isMax)
 }
 
-fun DateModel.withYear(year: Int): DateModel {
-    return DateModel(year, this.month, this.day)
+fun Date.withYear(year: Int): Date {
+    return Date(year, this.month, this.day)
 }
 
-fun DateModel.withMonth(month: Int): DateModel {
-    return DateModel(this.year, month, this.day)
+fun Date.withMonth(month: Int): Date {
+    return Date(this.year, month, this.day)
 }
 
-fun DateModel.withDay(day: Int): DateModel {
-    return DateModel(this.year, this.month, day)
+fun Date.withDay(day: Int): Date {
+    return Date(this.year, this.month, day)
 }

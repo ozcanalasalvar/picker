@@ -2,34 +2,24 @@ package com.ozcanalasalvar.library.view.datepicker
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.Configuration
 import android.util.AttributeSet
 import android.widget.LinearLayout
 import com.ozcanalasalvar.library.R
 import com.ozcanalasalvar.library.compose.datepicker.DatePickerComposeView
-import com.ozcanalasalvar.library.model.DateModel
+import com.ozcanalasalvar.library.model.Date
 import com.ozcanalasalvar.library.utils.DateUtils
 
 class DatePicker : LinearLayout {
     private var context: Context? = null
     private var pickerView: DatePickerComposeView? = null
 
-    private var date: DateModel = DateModel(DateUtils.getCurrentTime())
+    private var date: Date = Date(DateUtils.getCurrentTime())
     private var offset = 3
     private var textSize = 16
-    private var pickerMode = 0
     private var darkModeEnabled = true
-    private var isNightTheme = false
 
     constructor(context: Context) : super(context) {
         init(context, null, 0)
-        this.addView(
-            DatePickerComposeView(
-                context = context,
-                attrs = null,
-                defStyle = 0,
-            )
-        )
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -64,7 +54,7 @@ class DatePicker : LinearLayout {
             } else if (attr == R.styleable.Picker_textSize) {
                 textSize = Math.min(a.getInt(attr, MAX_TEXT_SIZE), MAX_TEXT_SIZE)
             } else if (attr == R.styleable.Picker_pickerMode) {
-                pickerMode = a.getInt(attr, 0)
+
             }
         }
         a.recycle()
@@ -91,17 +81,8 @@ class DatePicker : LinearLayout {
         pickerView?.startDate = date
         pickerView?.selectorEffectEnabled = true
         pickerView?.textSize = textSize
+        pickerView?.darkModeEnabled= darkModeEnabled
         pickerView?.setDataSelectListener(dataSelectListener)
-    }
-
-    private fun checkDarkMode() {
-        val nightModeFlags =
-            getContext().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        when (nightModeFlags) {
-            Configuration.UI_MODE_NIGHT_YES -> isNightTheme = true
-            Configuration.UI_MODE_NIGHT_NO, Configuration.UI_MODE_NIGHT_UNDEFINED -> isNightTheme =
-                false
-        }
     }
 
 
@@ -114,7 +95,7 @@ class DatePicker : LinearLayout {
 
 
     fun setDate(_date: Long) {
-        date = DateModel(_date)
+        date = Date(_date)
         setAttributes()
     }
 
@@ -129,15 +110,13 @@ class DatePicker : LinearLayout {
         setAttributes()
     }
 
-    @Deprecated("")
-    fun setPickerMode(pickerMode: Int) {
-        this.pickerMode = pickerMode
+    fun setdarkModeEnabled(darkModeEnabled: Boolean) {
+        this.darkModeEnabled = darkModeEnabled
+        setAttributes()
     }
 
-
-//    override fun onConfigsChanged() {
-//       setAttributes()
-//    }
+    @Deprecated("")
+    fun setPickerMode(pickerMode: Int) {}
 
     /**
      * @return

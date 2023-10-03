@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,13 +18,12 @@ import androidx.compose.ui.unit.dp
 import com.google.android.material.timepicker.TimeFormat
 import com.ozcanalasalvar.library.compose.datepicker.WheelDatePicker
 import com.ozcanalasalvar.library.compose.timepicker.WheelTimePicker
-import com.ozcanalasalvar.sample.ui.theme.DatePickerTheme
 
 class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DatePickerTheme {
+            MaterialTheme {
                 Content()
             }
         }
@@ -44,7 +44,7 @@ fun Content() {
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        WheelDatePicker(offset = 4, textSize = 16, onDateSelected = { day, month, year, date ->
+        WheelDatePicker(offset = 3, textSize = 16, onDateSelected = { day, month, year, date ->
             Log.d("SelectedDate", "$day / $month / $year")
         })
 

@@ -1,5 +1,4 @@
-package com.ozcanalasalvar.library.compose.datepicker
-
+package com.ozcanalasalvar.library.compose.timepicker
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,39 +6,29 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import com.ozcanalasalvar.library.model.Date
-import com.ozcanalasalvar.library.utils.DateUtils
-import com.ozcanalasalvar.library.view.datepicker.DatePicker
+import com.google.android.material.timepicker.TimeFormat
+import com.ozcanalasalvar.library.model.Time
+import com.ozcanalasalvar.library.view.timepicker.TimePicker
 
-class DatePickerComposeView @JvmOverloads constructor(
+class TimePickerComposeView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyle: Int = 0
 ) : AbstractComposeView(context, attrs, defStyle) {
 
 
     private val offsetState = mutableStateOf(4)
-    private val yearsRangeState = mutableStateOf(IntRange(1923, 2121))
-    private val startDateState = mutableStateOf(Date(DateUtils.getCurrentTime()))
+
     private val selectorEffectEnabledState = mutableStateOf(true)
     private val textSizeState = mutableStateOf(17)
     private val darkModeEnabledState = mutableStateOf(true)
+    private val timeFormatState = mutableStateOf(TimeFormat.CLOCK_24H)
+    private val startTimeState = mutableStateOf(Time(0, 0, "PM"))
+
+
     var offset: Int
         get() = offsetState.value
         set(value) {
             offsetState.value = value
         }
-
-    var yearsRange: IntRange
-        get() = yearsRangeState.value
-        set(value) {
-            yearsRangeState.value = value
-        }
-
-    var startDate: Date
-        get() = startDateState.value
-        set(value) {
-            startDateState.value = value
-        }
-
     var selectorEffectEnabled: Boolean
         get() = selectorEffectEnabledState.value
         set(value) {
@@ -58,9 +47,22 @@ class DatePickerComposeView @JvmOverloads constructor(
             darkModeEnabledState.value = value
         }
 
-    private var dataSelectListener: DatePicker.DataSelectListener? = null
-    fun setDataSelectListener(dataSelectListener: DatePicker.DataSelectListener?) {
-        this.dataSelectListener = dataSelectListener
+    var timeFormat: Int
+        get() = timeFormatState.value
+        set(value) {
+            timeFormatState.value = value
+        }
+
+    var startTime: Time
+        get() = startTimeState.value
+        set(value) {
+            startTimeState.value = value
+        }
+
+
+    private var timeSelectListener: TimePicker.TimeSelectListener? = null
+    fun setTimeSelectListener(dataSelectListener: TimePicker.TimeSelectListener?) {
+        timeSelectListener = dataSelectListener
     }
 
     @Suppress("RedundantVisibilityModifier")
@@ -70,15 +72,17 @@ class DatePickerComposeView @JvmOverloads constructor(
     @Composable
     override fun Content() {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        WheelDatePicker(offset = offsetState.value,
-            yearsRange = yearsRangeState.value,
-            startDate = startDateState.value,
+        WheelTimePicker(
+            offset = offsetState.value,
             selectorEffectEnabled = selectorEffectEnabledState.value,
-            textSize= textSizeState.value,
-            onDateSelected = { day, month, year, date ->
-                dataSelectListener?.onDateSelected(date, day, month, year)
+            timeFormat = timeFormatState.value,
+            startTime = startTimeState.value,
+            textSize = textSizeState.value,
+            darkModeEnabled = darkModeEnabledState.value,
+            onTimeSelected = { hour, minute, format ->
+                timeSelectListener?.onTimeSelected(hour, minute, format)
             },
-            darkModeEnabled = darkModeEnabledState.value)
+        )
     }
 
 
