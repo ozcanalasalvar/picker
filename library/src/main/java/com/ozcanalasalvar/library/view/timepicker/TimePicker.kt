@@ -59,7 +59,7 @@ class TimePicker : LinearLayout {
             } else if (attr == R.styleable.Picker_darkModeEnabled) {
                 darkModeEnabled = a.getBoolean(attr, true)
             } else if (attr == R.styleable.Picker_textSize) {
-                textSize = a.getInt(attr, MAX_TEXT_SIZE)
+                textSize = a.getInt(attr, 20)
             } else if (attr == R.styleable.Picker_is24HourViewEnabled) {
                 timeFormat =
                     if (a.getBoolean(attr, true)) TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
@@ -100,6 +100,7 @@ class TimePicker : LinearLayout {
     private var timeSelectListener: TimeSelectListener? = null
     fun setTimeSelectListener(dataSelectListener: TimeSelectListener) {
         timeSelectListener = dataSelectListener
+        setAttributes()
     }
 
 
@@ -141,10 +142,5 @@ class TimePicker : LinearLayout {
     fun setTime(hour: Int, minute: Int) {
         startTime = Time(hour, minute)
         setAttributes()
-    }
-
-    companion object {
-        private const val MAX_TEXT_SIZE = 20
-        private const val MAX_OFFSET = 3
     }
 }

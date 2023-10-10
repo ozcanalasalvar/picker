@@ -90,7 +90,13 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
             return this
         }
 
+        @Deprecated("")
         fun currentDate(currentDate: Long): Builder {
+            datePicker!!.setDate(currentDate)
+            return this
+        }
+
+        fun selectedDate(currentDate: Long): Builder {
             datePicker!!.setDate(currentDate)
             return this
         }
