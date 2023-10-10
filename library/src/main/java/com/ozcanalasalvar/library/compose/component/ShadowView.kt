@@ -16,7 +16,7 @@ import com.ozcanalasalvar.library.ui.theme.colorLightOnBackground
 import com.ozcanalasalvar.library.ui.theme.colorLightTextPrimary
 
 @Composable
-fun ShadowView(modifier: Modifier = Modifier, darkModeEnabled: Boolean,offset:Int) {
+fun ShadowView(modifier: Modifier = Modifier, darkModeEnabled: Boolean, offset: Int) {
     Column(
         modifier.fillMaxSize()
     ) {
@@ -31,7 +31,7 @@ fun ShadowView(modifier: Modifier = Modifier, darkModeEnabled: Boolean,offset:In
 
         Column(
             modifier = Modifier
-                .weight(1.10f)
+                .weight(1.13f)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
