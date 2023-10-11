@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'maven-publish'
 }
 
 android {
@@ -35,6 +36,17 @@ android {
         kotlinCompilerExtensionVersion compose_compiler_version
     }
 
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId 'com.ozcanalasalvar'
+            artifactId 'datepicker'
+            version '1.1.0'
+            artifact("$buildDir/outputs/aar/library-release.aar")
+        }
+    }
 }
 
 dependencies {
