@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.material.timepicker.TimeFormat
+import com.ozcanalasalvar.library.compose.InfiniteWheelView
+import com.ozcanalasalvar.library.compose.SelectorOptions
 import com.ozcanalasalvar.library.compose.component.SelectorView
 import com.ozcanalasalvar.library.model.Time
 import com.ozcanalasalvar.library.ui.theme.PickerTheme
@@ -31,8 +33,6 @@ import com.ozcanalasalvar.library.ui.theme.colorLightPrimary
 import com.ozcanalasalvar.library.ui.theme.colorLightTextPrimary
 import com.ozcanalasalvar.library.ui.theme.lightPallet
 import com.ozcanalasalvar.library.utils.DateUtils
-import com.ozcanalasalvar.wheelview.compose.InfiniteWheelView
-import com.ozcanalasalvar.wheelview.compose.SelectorOptions
 
 
 @Composable

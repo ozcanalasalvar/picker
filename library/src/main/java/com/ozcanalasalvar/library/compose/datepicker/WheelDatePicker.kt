@@ -25,6 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ozcanalasalvar.library.compose.InfiniteWheelView
+import com.ozcanalasalvar.library.compose.SelectorOptions
 import com.ozcanalasalvar.library.compose.component.SelectorView
 import com.ozcanalasalvar.library.utils.daysOfDate
 import com.ozcanalasalvar.library.utils.monthsOfDate
@@ -37,8 +39,6 @@ import com.ozcanalasalvar.library.ui.theme.colorLightPrimary
 import com.ozcanalasalvar.library.ui.theme.colorLightTextPrimary
 import com.ozcanalasalvar.library.ui.theme.lightPallet
 import com.ozcanalasalvar.library.utils.DateUtils
-import com.ozcanalasalvar.wheelview.compose.InfiniteWheelView
-import com.ozcanalasalvar.wheelview.compose.SelectorOptions
 import java.text.DateFormatSymbols
 
 
