@@ -19,13 +19,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ozcanalasalvar.library.compose.InfiniteWheelView
-import com.ozcanalasalvar.library.compose.component.ShadowView
+import com.ozcanalasalvar.library.compose.component.SelectorView
 import com.ozcanalasalvar.library.utils.daysOfDate
 import com.ozcanalasalvar.library.utils.monthsOfDate
 import com.ozcanalasalvar.library.utils.withDay
@@ -35,7 +35,10 @@ import com.ozcanalasalvar.library.model.Date
 import com.ozcanalasalvar.library.ui.theme.PickerTheme
 import com.ozcanalasalvar.library.ui.theme.colorLightPrimary
 import com.ozcanalasalvar.library.ui.theme.colorLightTextPrimary
+import com.ozcanalasalvar.library.ui.theme.lightPallet
 import com.ozcanalasalvar.library.utils.DateUtils
+import com.ozcanalasalvar.wheelview.compose.InfiniteWheelView
+import com.ozcanalasalvar.wheelview.compose.SelectorOptions
 import java.text.DateFormatSymbols
 
 
@@ -77,7 +80,7 @@ fun WheelDatePicker(
         contentAlignment = Alignment.Center
     ) {
 
-        val height = (2 * offset * (fontSize + 11) + 1).dp
+        val height = (fontSize + 11).dp
 
 
         Row(
@@ -89,12 +92,11 @@ fun WheelDatePicker(
 
             key(days.size) {
                 InfiniteWheelView(modifier = Modifier.weight(1f),
-                    size = DpSize(150.dp, height),
+                    itemSize = DpSize(150.dp, height),
                     selection = maxOf(days.indexOf(selectedDate.day), 0),
                     itemCount = days.size,
                     rowOffset = offset,
-                    selectorEffectEnabled = selectorEffectEnabled,
-                    darkModeEnabled=darkModeEnabled,
+                    selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
                     onFocusItem = {
                         selectedDate = selectedDate.withDay(days[it])
                     },
@@ -110,12 +112,11 @@ fun WheelDatePicker(
             }
 
             InfiniteWheelView(modifier = Modifier.weight(2f),
-                size = DpSize(150.dp, height),
+                itemSize = DpSize(150.dp, height),
                 selection = maxOf(months.indexOf(selectedDate.month), 0),
                 itemCount = months.size,
                 rowOffset = offset,
-                selectorEffectEnabled = selectorEffectEnabled,
-                darkModeEnabled=darkModeEnabled,
+                selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
                 onFocusItem = {
                     selectedDate = selectedDate.withMonth(months[it])
                 },
@@ -131,13 +132,12 @@ fun WheelDatePicker(
 
 
             InfiniteWheelView(modifier = Modifier.weight(1f),
-                size = DpSize(150.dp, height),
+                itemSize = DpSize(150.dp, height),
                 selection = years.indexOf(selectedDate.year),
                 itemCount = years.size,
                 rowOffset = offset,
                 isEndless = years.size > offset * 2,
-                selectorEffectEnabled = selectorEffectEnabled,
-                darkModeEnabled=darkModeEnabled,
+                selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
                 onFocusItem = {
                     selectedDate = selectedDate.withYear(years[it])
                 },
@@ -152,8 +152,19 @@ fun WheelDatePicker(
                 })
         }
 
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = if (darkModeEnabled) PickerTheme.pallets else lightPallet
+                    )
+                ),
+        ) {}
 
-        ShadowView(darkModeEnabled= darkModeEnabled, offset = offset)
+        SelectorView(darkModeEnabled= darkModeEnabled, offset = offset)
+
+
 
     }
 

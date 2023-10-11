@@ -16,7 +16,7 @@ import com.ozcanalasalvar.library.ui.theme.colorLightOnBackground
 import com.ozcanalasalvar.library.ui.theme.colorLightTextPrimary
 
 @Composable
-fun ShadowView(modifier: Modifier = Modifier, darkModeEnabled: Boolean, offset: Int) {
+fun SelectorView(modifier: Modifier = Modifier, darkModeEnabled: Boolean, offset: Int) {
     Column(
         modifier.fillMaxSize()
     ) {

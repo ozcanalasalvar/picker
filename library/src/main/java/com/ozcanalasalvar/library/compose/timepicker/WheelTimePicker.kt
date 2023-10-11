@@ -18,18 +18,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.material.timepicker.TimeFormat
-import com.ozcanalasalvar.library.compose.InfiniteWheelView
-import com.ozcanalasalvar.library.compose.component.ShadowView
+import com.ozcanalasalvar.library.compose.component.SelectorView
 import com.ozcanalasalvar.library.model.Time
 import com.ozcanalasalvar.library.ui.theme.PickerTheme
 import com.ozcanalasalvar.library.ui.theme.colorLightPrimary
 import com.ozcanalasalvar.library.ui.theme.colorLightTextPrimary
+import com.ozcanalasalvar.library.ui.theme.lightPallet
 import com.ozcanalasalvar.library.utils.DateUtils
+import com.ozcanalasalvar.wheelview.compose.InfiniteWheelView
+import com.ozcanalasalvar.wheelview.compose.SelectorOptions
 
 
 @Composable
@@ -73,7 +76,7 @@ fun WheelTimePicker(
         contentAlignment = Alignment.Center
     ) {
 
-        val height = (2 * offset * (fontSize + 10) + 1).dp
+        val height=( fontSize + 10) .dp
 
 
         Row(
@@ -84,12 +87,11 @@ fun WheelTimePicker(
 
 
             InfiniteWheelView(modifier = Modifier.weight(3f),
-                size = DpSize(150.dp, height),
+                itemSize = DpSize(150.dp, height),
                 selection = 0,
                 itemCount = hours.size,
                 rowOffset = offset,
-                selectorEffectEnabled = selectorEffectEnabled,
-                darkModeEnabled=darkModeEnabled,
+                selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
                 onFocusItem = {
                     selectedTime = selectedTime.copy(hour = hours[it])
                 },
@@ -105,12 +107,11 @@ fun WheelTimePicker(
 
 
             InfiniteWheelView(modifier = Modifier.weight(3f),
-                size = DpSize(150.dp, height),
+                itemSize = DpSize(150.dp, height),
                 selection = 0,
                 itemCount = minutes.size,
                 rowOffset = offset,
-                selectorEffectEnabled = selectorEffectEnabled,
-                darkModeEnabled=darkModeEnabled,
+                selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
                 onFocusItem = {
                     selectedTime = selectedTime.copy(minute = minutes[it])
                 },
@@ -126,13 +127,12 @@ fun WheelTimePicker(
 
             if (timeFormat == TimeFormat.CLOCK_12H) {
                 InfiniteWheelView(modifier = Modifier.weight(2f),
-                    size = DpSize(150.dp, height),
+                    itemSize = DpSize(150.dp, height),
                     selection = 0,
                     itemCount = formats.size,
                     rowOffset = offset,
                     isEndless = false,
-                    selectorEffectEnabled = selectorEffectEnabled,
-                    darkModeEnabled=darkModeEnabled,
+                    selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
                     onFocusItem = {
                         selectedTime = selectedTime.copy(format = formats[it])
                     },
@@ -149,7 +149,17 @@ fun WheelTimePicker(
 
         }
 
-        ShadowView(darkModeEnabled= darkModeEnabled, offset = offset)
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    brush = Brush.verticalGradient(
+                        colors = if (darkModeEnabled) PickerTheme.pallets else lightPallet
+                    )
+                ),
+        ) {}
+
+        SelectorView(darkModeEnabled= darkModeEnabled, offset = offset)
 
     }
 }
