@@ -136,6 +136,6 @@ The library has many different feature options to customize your widget.
 
 ```groovy
     dependencies {
-	    implementation 'com.github.OzcanAlasalvar:DatePicker:1.0.4'
+	    implementation 'com.github.ozcanalasalvar:DatePicker:1.0.4'
 	}
 ```
