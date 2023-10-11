@@ -43,7 +43,7 @@ publishing {
         release(MavenPublication) {
             groupId 'com.ozcanalasalvar'
             artifactId 'datepicker'
-            version '1.1.0'
+            version '1.1.1'
             artifact("$buildDir/outputs/aar/library-release.aar")
         }
     }
