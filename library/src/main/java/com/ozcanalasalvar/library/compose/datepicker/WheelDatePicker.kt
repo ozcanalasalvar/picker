@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ozcanalasalvar.library.compose.InfiniteWheelView
-import com.ozcanalasalvar.library.compose.SelectorOptions
 import com.ozcanalasalvar.library.compose.component.SelectorView
 import com.ozcanalasalvar.library.utils.daysOfDate
 import com.ozcanalasalvar.library.utils.monthsOfDate
@@ -96,7 +95,8 @@ fun WheelDatePicker(
                     selection = maxOf(days.indexOf(selectedDate.day), 0),
                     itemCount = days.size,
                     rowOffset = offset,
-                    selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
+                    selectEffectEnabled = selectorEffectEnabled,
+                    selectorEnabled = false,
                     onFocusItem = {
                         selectedDate = selectedDate.withDay(days[it])
                     },
@@ -116,7 +116,8 @@ fun WheelDatePicker(
                 selection = maxOf(months.indexOf(selectedDate.month), 0),
                 itemCount = months.size,
                 rowOffset = offset,
-                selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
+                selectEffectEnabled = selectorEffectEnabled,
+                selectorEnabled = false,
                 onFocusItem = {
                     selectedDate = selectedDate.withMonth(months[it])
                 },
@@ -137,7 +138,8 @@ fun WheelDatePicker(
                 itemCount = years.size,
                 rowOffset = offset,
                 isEndless = years.size > offset * 2,
-                selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
+                selectEffectEnabled = selectorEffectEnabled,
+                selectorEnabled = false,
                 onFocusItem = {
                     selectedDate = selectedDate.withYear(years[it])
                 },

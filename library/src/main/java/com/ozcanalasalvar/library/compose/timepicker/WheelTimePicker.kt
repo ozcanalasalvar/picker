@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.android.material.timepicker.TimeFormat
 import com.ozcanalasalvar.library.compose.InfiniteWheelView
-import com.ozcanalasalvar.library.compose.SelectorOptions
 import com.ozcanalasalvar.library.compose.component.SelectorView
 import com.ozcanalasalvar.library.model.Time
 import com.ozcanalasalvar.library.ui.theme.PickerTheme
@@ -91,7 +90,8 @@ fun WheelTimePicker(
                 selection = 0,
                 itemCount = hours.size,
                 rowOffset = offset,
-                selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
+                selectEffectEnabled = selectorEffectEnabled,
+                selectorEnabled = false,
                 onFocusItem = {
                     selectedTime = selectedTime.copy(hour = hours[it])
                 },
@@ -111,7 +111,8 @@ fun WheelTimePicker(
                 selection = 0,
                 itemCount = minutes.size,
                 rowOffset = offset,
-                selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
+                selectEffectEnabled = selectorEffectEnabled,
+                selectorEnabled = false,
                 onFocusItem = {
                     selectedTime = selectedTime.copy(minute = minutes[it])
                 },
@@ -132,7 +133,8 @@ fun WheelTimePicker(
                     itemCount = formats.size,
                     rowOffset = offset,
                     isEndless = false,
-                    selectorOption = SelectorOptions().copy(selectEffectEnabled = selectorEffectEnabled, enabled = false),
+                    selectEffectEnabled = selectorEffectEnabled,
+                    selectorEnabled = false,
                     onFocusItem = {
                         selectedTime = selectedTime.copy(format = formats[it])
                     },
