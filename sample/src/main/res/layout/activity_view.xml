@@ -12,7 +12,7 @@
         android:orientation="vertical">
 
 
-        <com.ozcanalasalvar.library.view.datepicker.DatePicker
+        <com.ozcanalasalvar.datepicker.view.datepicker.DatePicker
             android:id="@+id/datepicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             android:textStyle="normal" />
 
 
-        <com.ozcanalasalvar.library.view.timepicker.TimePicker
+        <com.ozcanalasalvar.datepicker.view.timepicker.TimePicker
             android:id="@+id/timepicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:textStyle="normal" />
 
 
-        <com.ozcanalasalvar.library.view.timepicker.TimePicker
+        <com.ozcanalasalvar.datepicker.view.timepicker.TimePicker
             android:id="@+id/timepicker_24"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
