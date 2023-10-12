@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">DatePicker</string>
+    <string name="app_name">picker</string>
+    <string name="title_activity_compose">ComposeActivity</string>
+    <string name="title_activity_view">ViewActivity</string>
 </resources>

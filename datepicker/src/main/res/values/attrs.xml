@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Picker">
+        <attr name="offset" format="integer" />
+        <attr name="darkModeEnabled" format="boolean" />
+        <attr name="is24HourViewEnabled" format="boolean" />
+        <attr name="textSize" format="integer" />
+        <attr name="pickerMode" format="enum">
+            <!-- {@deprecated Use foobar instead.} -->
+            <enum name="monthFirst" value="0" />
+            ....
+            <enum name="dayFirst" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

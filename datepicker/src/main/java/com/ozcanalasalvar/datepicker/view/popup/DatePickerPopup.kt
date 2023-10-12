@@ -1,0 +1,143 @@
+package com.ozcanalasalvar.datepicker.view.popup
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.ozcanalasalvar.library.R
+import com.ozcanalasalvar.datepicker.model.Date
+import com.ozcanalasalvar.datepicker.view.datepicker.DatePicker
+
+class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment() {
+    private var listener: OnDateSelectListener? = null
+
+    lateinit var picker: DatePicker
+
+    private var selectedDate: Long? = null
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+
+        val view = LayoutInflater.from(context).inflate(R.layout.picker_popup_layout, container)
+
+        val confirm = view.findViewById<TextView>(R.id.text_confirm)
+        val cancel = view.findViewById<TextView>(R.id.text_cancel)
+        val container = view.findViewById<LinearLayout>(R.id.popup_container)
+
+        confirm.setOnClickListener { _: View? ->
+            if (listener != null && selectedDate != null) {
+                val date = Date(selectedDate!!)
+                listener!!.onDateSelected(
+                    picker, date.date, date.day, date.month, date.year
+                )
+            }
+            dismiss()
+        }
+        cancel.setOnClickListener { view: View? ->
+            dismiss()
+        }
+
+
+        container.removeAllViews()
+        container.addView(picker)
+
+        picker.setDataSelectListener(object : DatePicker.DataSelectListener {
+            override fun onDateSelected(date: Long, day: Int, month: Int, year: Int) {
+                selectedDate = date
+            }
+        })
+
+        setCancelable(false)
+        return view
+    }
+
+
+    fun setListener(listener: OnDateSelectListener?) {
+        this.listener = listener
+    }
+
+    class Builder {
+        private var context: Context? = null
+        private var datePicker: DatePicker? = null
+        private var listener: OnDateSelectListener? = null
+        fun from(context: Context?): Builder {
+            this.context = context
+            datePicker = DatePicker(context!!)
+            return this
+        }
+
+        fun textSize(textSize: Int): Builder {
+            datePicker!!.setTextSize(textSize)
+            return this
+        }
+
+        @Deprecated("")
+        fun startDate(startDate: Long): Builder {
+            datePicker!!.minDate = startDate
+            return this
+        }
+
+        @Deprecated("")
+        fun endDate(endDate: Long): Builder {
+            datePicker!!.maxDate = endDate
+            return this
+        }
+
+        @Deprecated("")
+        fun currentDate(currentDate: Long): Builder {
+            datePicker!!.setDate(currentDate)
+            return this
+        }
+
+        fun selectedDate(currentDate: Long): Builder {
+            datePicker!!.setDate(currentDate)
+            return this
+        }
+
+        fun offset(offset: Int): Builder {
+            datePicker!!.setOffset(offset)
+            return this
+        }
+
+        fun darkModeEnabled(darkModeEnabled: Boolean): Builder {
+            datePicker!!.setDarkModeEnabled(darkModeEnabled)
+            return this
+        }
+
+        @Deprecated("")
+        fun pickerMode(appearanceMode: Int): Builder {
+            datePicker!!.setPickerMode(appearanceMode)
+            return this
+        }
+
+        fun listener(listener: OnDateSelectListener?): Builder {
+            this.listener = listener
+            return this
+        }
+
+        fun build(): DatePickerPopup {
+            val popup = DatePickerPopup(context!!)
+            datePicker?.let {
+                popup.picker = it
+            }
+            popup.setListener(listener)
+            return popup
+        }
+
+        fun build(theme: Int): DatePickerPopup {
+            val popup = DatePickerPopup(context!!)
+            popup.setListener(listener)
+            return popup
+        }
+    }
+
+    interface OnDateSelectListener {
+        fun onDateSelected(dp: DatePicker?, date: Long, day: Int, month: Int, year: Int)
+    }
+}

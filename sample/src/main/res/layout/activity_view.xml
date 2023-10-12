@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.ozcanalasalvar.library.view.datepicker.DatePicker
+            android:id="@+id/datepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:darkModeEnabled="true"
+            app:offset="3"
+            app:textSize="19" />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_bg"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="normal" />
+
+
+        <com.ozcanalasalvar.library.view.timepicker.TimePicker
+            android:id="@+id/timepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:darkModeEnabled="true"
+            app:is24HourViewEnabled="false"
+            app:offset="2"
+            app:textSize="17" />
+
+        <TextView
+            android:id="@+id/text_time"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_bg"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="normal" />
+
+
+        <com.ozcanalasalvar.library.view.timepicker.TimePicker
+            android:id="@+id/timepicker_24"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:darkModeEnabled="true"
+            app:is24HourViewEnabled="true"
+            app:offset="2"
+            app:textSize="17" />
+
+        <TextView
+            android:id="@+id/text_time_24"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_bg"
+            android:padding="5dp"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textStyle="normal" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="openDatePicker"
+                android:padding="10dp"
+                android:text="datePicker" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="openTimePicker"
+                android:padding="10dp"
+                android:text="timePicker" />
+
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

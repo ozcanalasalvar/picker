@@ -1,3 +1,19 @@
-include ':library'
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://jitpack.io") }
+    }
+}
+include ':datepicker'
 include ':sample'
-rootProject.name = "DatePicker"
+include ':wheelview'
+rootProject.name = "picker"

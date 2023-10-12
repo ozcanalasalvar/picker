@@ -1,74 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <Button
+        android:id="@+id/btnViewActivity"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:text="@string/title_activity_view"
+        app:layout_constraintBottom_toTopOf="@id/btnComposeActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/text_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textAlignment="center"
-            android:textColor="@color/blue"
-            android:textSize="17sp"
-            android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnComposeActivity"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        android:text="@string/title_activity_compose"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnViewActivity" />
 
-        <com.ozcanalasalvar.library.view.datePicker.DatePicker
-            android:id="@+id/datepicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:offset="3"
-            app:pickerMode="dayFirst"
-            app:textSize="19" />
-
-
-        <TextView
-            android:id="@+id/text_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:textAlignment="center"
-            android:textColor="@color/blue"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <com.ozcanalasalvar.library.view.timePicker.TimePicker
-            android:id="@+id/timepicker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:offset="2"
-            app:textSize="17" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="openDatePicker"
-                android:padding="10dp"
-                android:text="datePicker" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:onClick="openTimePicker"
-                android:padding="10dp"
-                android:text="timePicker" />
-
-        </LinearLayout>
-    </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
