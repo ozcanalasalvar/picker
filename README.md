@@ -188,11 +188,15 @@ pickerPopup.show(supportFragmentManager, TAG)
 
 ## Implementation Gradle
 
-###### Add it in your root build.gradle at the end of repositories
+###### Add it in your root build.gradle at the end of repositories:
 
 ```groovy
-repositories {
-	maven { url 'https://jitpack.io' }
+dependencyResolutionManagement {
+	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+	repositories {
+		mavenCentral()
+		maven { url 'https://jitpack.io' }
+	}
 }
 ```
 
