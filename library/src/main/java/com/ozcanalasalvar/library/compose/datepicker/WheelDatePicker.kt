@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.ozcanalasalvar.library.compose.InfiniteWheelView
-import com.ozcanalasalvar.library.compose.SelectorOptions
+import com.ozcanalasalvar.library.compose.wheelview.InfiniteWheelView
+import com.ozcanalasalvar.library.compose.wheelview.SelectorOptions
 import com.ozcanalasalvar.library.compose.component.SelectorView
 import com.ozcanalasalvar.library.utils.daysOfDate
 import com.ozcanalasalvar.library.utils.monthsOfDate
