@@ -36,7 +36,7 @@ The library has many different feature options to customize your widget.
 <br>
 
 
-# Compose Usage
+# Jetpack Compose Usage
 
 <br>
 
