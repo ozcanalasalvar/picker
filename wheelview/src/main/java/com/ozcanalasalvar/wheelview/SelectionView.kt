@@ -12,14 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 
 @Composable
-fun SelectionView(modifier: Modifier = Modifier,selectorOptions: SelectorOptions){
+fun SelectionView(
+    modifier: Modifier = Modifier,
+    selectorOptions: SelectorOptions,
+    rowOffset: Int,
+) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {
 
         Box(
             modifier = Modifier
-                .weight(2f)
+                .weight(rowOffset.toFloat())
                 .fillMaxWidth(),
         )
 
@@ -51,7 +55,7 @@ fun SelectionView(modifier: Modifier = Modifier,selectorOptions: SelectorOptions
 
         Box(
             modifier = Modifier
-                .weight(2f)
+                .weight(rowOffset.toFloat())
                 .fillMaxWidth(),
         )
     }
