@@ -37,6 +37,7 @@ fun Content() {
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
     ) {
+
         // A surface container using the 'background' color from the theme
         WheelDatePicker(onDateSelected = { day, month, year, date ->
             Log.d("SelectedDate", "$day / $month / $year")
