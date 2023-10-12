@@ -46,7 +46,7 @@ android {
 
 dependencies {
 
-    implementation project(path: ':library')
+  //  implementation project(path: ':library')
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.4.0'
