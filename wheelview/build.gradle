@@ -43,7 +43,7 @@ publishing {
         release(MavenPublication) {
             groupId 'com.ozcanalasalvar'
             artifactId 'wheelview2'
-            version '1.0.0-alpha01'
+            version '1.0.0-alpha02'
             artifact("$buildDir/outputs/aar/wheelview-release.aar")
         }
     }

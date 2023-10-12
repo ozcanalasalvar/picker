@@ -43,7 +43,7 @@ publishing {
         release(MavenPublication) {
             groupId 'com.ozcanalasalvar'
             artifactId 'datepicker'
-            version '2.0.0'
+            version '2.0.1'
             artifact("$buildDir/outputs/aar/library-release.aar")
         }
     }
@@ -64,5 +64,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.google.android.material:material:1.9.0'
 
-    implementation project(path: ':wheelview')
+    api project(path: ':wheelview')
 }
