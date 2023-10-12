@@ -66,6 +66,6 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
-    implementation 'com.github.ozcanalasalvar:DatePicker:1.1.6'
+    implementation 'com.github.ozcanalasalvar:DatePicker:1.1.9'
 
 }
