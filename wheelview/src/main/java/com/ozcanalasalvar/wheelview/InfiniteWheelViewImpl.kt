@@ -46,7 +46,7 @@ fun InfiniteWheelViewImpl(
     val rowCount = ((rowOffsetCount * 2) + 1)
     val startIndex = if (isEndless) selection + (itemCount * 1000) - rowOffset else selection
 
-    val state = lazyWheelState?: rememberLazyListState(startIndex)
+    val state = lazyWheelState ?: rememberLazyListState(startIndex)
 
     val size = DpSize(itemSize.width, itemSize.height * rowCount)
 
@@ -128,7 +128,7 @@ fun InfiniteWheelViewImpl(
             SelectionView(
                 modifier
                     .height(size.height)
-                    .fillMaxWidth(), selectorOptions = selectorOption
+                    .fillMaxWidth(), selectorOptions = selectorOption, rowOffset
             )
         }
 
