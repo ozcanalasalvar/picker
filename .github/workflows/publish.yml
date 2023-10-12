@@ -1,8 +1,10 @@
-name: Gradle Package
+name: Release APK
 
 on:
-  release:
-    types: [ created ]
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
@@ -17,7 +19,14 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew clean assembleRelease --info --warning-mode all
+      - name: Store android package
+        uses: actions/upload-artifact@v2
+        with:
+          name: artifact
+          path: app/build/outputs/apk/pub/release/*.apk
+          if-no-files-found: warn
+          retention-days: 7
       - name: Publish to mavenLocal()
         run: ./gradlew publishToMavenLocal --info --warning-mode all
       - name: Auto send a request to JitPack
