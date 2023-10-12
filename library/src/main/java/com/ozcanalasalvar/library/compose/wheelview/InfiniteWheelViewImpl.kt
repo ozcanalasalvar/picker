@@ -20,7 +20,6 @@ import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
-import com.ozcanalasalvar.library.compose.SelectionView
 import kotlinx.coroutines.launch
 
 
