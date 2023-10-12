@@ -13,7 +13,7 @@ dependencyResolutionManagement {
         maven { url = uri("https://jitpack.io") }
     }
 }
-include ':library'
+include ':datepicker'
 include ':sample'
-rootProject.name = "DatePicker"
 include ':wheelview'
+rootProject.name = "picker"
