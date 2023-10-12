@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.material.timepicker.TimeFormat
-//import com.ozcanalasalvar.library.compose.datepicker.WheelDatePicker
-//import com.ozcanalasalvar.library.compose.timepicker.WheelTimePicker
+import com.ozcanalasalvar.library.compose.datepicker.WheelDatePicker
+import com.ozcanalasalvar.library.compose.timepicker.WheelTimePicker
 
 class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,26 +38,26 @@ fun Content() {
             .verticalScroll(rememberScrollState())
     ) {
         // A surface container using the 'background' color from the theme
-//        WheelDatePicker(onDateSelected = { day, month, year, date ->
-//            Log.d("SelectedDate", "$day / $month / $year")
-//        })
-//
-//        Spacer(modifier = Modifier.height(20.dp))
-//
-//        WheelDatePicker(offset = 3, textSize = 16, onDateSelected = { day, month, year, date ->
-//            Log.d("SelectedDate", "$day / $month / $year")
-//        })
-//
-//        Spacer(modifier = Modifier.height(20.dp))
-//        WheelTimePicker(offset = 3, onTimeSelected = { hour, minute, format ->
-//            Log.d("SelectedDate", "$hour : $minute  $format")
-//        })
-//        Spacer(modifier = Modifier.height(20.dp))
-//
-//        WheelTimePicker(timeFormat = TimeFormat.CLOCK_12H,
-//            onTimeSelected = { hour, minute, format ->
-//                Log.d("SelectedDate", "$hour : $minute  $format")
-//            })
+        WheelDatePicker(onDateSelected = { day, month, year, date ->
+            Log.d("SelectedDate", "$day / $month / $year")
+        })
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        WheelDatePicker(offset = 3, textSize = 16, onDateSelected = { day, month, year, date ->
+            Log.d("SelectedDate", "$day / $month / $year")
+        })
+
+        Spacer(modifier = Modifier.height(20.dp))
+        WheelTimePicker(offset = 3, onTimeSelected = { hour, minute, format ->
+            Log.d("SelectedDate", "$hour : $minute  $format")
+        })
+        Spacer(modifier = Modifier.height(20.dp))
+
+        WheelTimePicker(timeFormat = TimeFormat.CLOCK_12H,
+            onTimeSelected = { hour, minute, format ->
+                Log.d("SelectedDate", "$hour : $minute  $format")
+            })
     }
 }
 

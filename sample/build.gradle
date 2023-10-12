@@ -46,8 +46,6 @@ android {
 
 dependencies {
 
-  //  implementation project(path: ':library')
-
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
@@ -67,5 +65,7 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+    implementation 'com.github.ozcanalasalvar:DatePicker:1.1.6'
 
 }
