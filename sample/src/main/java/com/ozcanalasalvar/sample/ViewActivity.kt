@@ -46,7 +46,7 @@ class ViewActivity : AppCompatActivity() {
 
         timePicker.apply {
             setOffset(2)
-            setTextSize(19)
+            setTextSize(17)
             setTimeFormat(TimeFormat.CLOCK_12H)
             setTime(9, 12)
             setDarkModeEnabled(true)
@@ -61,7 +61,7 @@ class ViewActivity : AppCompatActivity() {
 
         timePicker24.apply {
             setOffset(2)
-            setTextSize(19)
+            setTextSize(17)
             setTimeFormat(TimeFormat.CLOCK_24H)
             setTime(9, 12)
             setDarkModeEnabled(true)
@@ -79,7 +79,7 @@ class ViewActivity : AppCompatActivity() {
         val datePickerPopup = DatePickerPopup.Builder()
             .from(this)
             .offset(3)
-            .textSize(19)
+            .textSize(17)
             .selectedDate(getCurrentTime())
             .darkModeEnabled(true)
             .listener(object : OnDateSelectListener {

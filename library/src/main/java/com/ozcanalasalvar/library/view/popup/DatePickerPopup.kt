@@ -15,7 +15,7 @@ import com.ozcanalasalvar.library.view.datepicker.DatePicker
 class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment() {
     private var listener: OnDateSelectListener? = null
 
-    private lateinit var picker: DatePicker
+    lateinit var picker: DatePicker
 
     private var selectedDate: Long? = null
 
@@ -25,7 +25,6 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
     ): View? {
 
         val view = LayoutInflater.from(context).inflate(R.layout.picker_popup_layout, container)
-        picker = DatePicker(context = context)
 
         val confirm = view.findViewById<TextView>(R.id.text_confirm)
         val cancel = view.findViewById<TextView>(R.id.text_cancel)
@@ -124,6 +123,9 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
 
         fun build(): DatePickerPopup {
             val popup = DatePickerPopup(context!!)
+            datePicker?.let {
+                popup.picker = it
+            }
             popup.setListener(listener)
             return popup
         }

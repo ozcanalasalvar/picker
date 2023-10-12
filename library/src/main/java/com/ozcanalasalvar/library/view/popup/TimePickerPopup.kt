@@ -16,7 +16,7 @@ class TimePickerPopup(private val context: Context) : BottomSheetDialogFragment(
 
     private var listener: OnTimeSelectListener? = null
 
-    private lateinit var picker: TimePicker
+    lateinit var picker: TimePicker
 
     private var selectedTime: Time? = null
 
@@ -25,7 +25,6 @@ class TimePickerPopup(private val context: Context) : BottomSheetDialogFragment(
     ): View? {
 
         val view = LayoutInflater.from(context).inflate(R.layout.picker_popup_layout, container)
-        picker = TimePicker(context = context)
 
         val confirm = view.findViewById<TextView>(R.id.text_confirm)
         val cancel = view.findViewById<TextView>(R.id.text_cancel)
@@ -107,6 +106,9 @@ class TimePickerPopup(private val context: Context) : BottomSheetDialogFragment(
 
         fun build(): TimePickerPopup {
             val popup = TimePickerPopup(context!!)
+            timePicker?.let {
+                popup.picker = it
+            }
             popup.setListener(listener)
             return popup
         }
