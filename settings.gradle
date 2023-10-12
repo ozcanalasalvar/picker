@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 include ':library'
 include ':sample'
 rootProject.name = "DatePicker"
+include ':wheelview'

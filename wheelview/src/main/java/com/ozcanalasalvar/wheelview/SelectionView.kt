@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.library.compose.wheelview
+package com.ozcanalasalvar.wheelview
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -5,13 +5,11 @@ plugins {
 }
 
 android {
+    namespace 'com.ozcanalasalvar.wheelview'
+    compileSdk 34
 
     defaultConfig {
-        compileSdk 34
-        minSdkVersion 21
-        targetSdkVersion 34
-        versionCode 1
-        versionName "1.0"
+        minSdk 21
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -27,6 +25,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 
     buildFeatures {
         compose true
@@ -35,16 +36,15 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion compose_compiler_version
     }
-
 }
 
 publishing {
     publications {
         release(MavenPublication) {
             groupId 'com.ozcanalasalvar'
-            artifactId 'datepicker'
-            version '1.1.9'
-            artifact("$buildDir/outputs/aar/library-release.aar")
+            artifactId 'wheelview2'
+            version '1.0.0-alpha01'
+            artifact("$buildDir/outputs/aar/wheelview-release.aar")
         }
     }
 }
@@ -57,12 +57,9 @@ dependencies {
     implementation "androidx.compose.material3:material3:1.0.0-alpha15"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
 
-    implementation("androidx.activity:activity-compose:1.4.0")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
     implementation 'com.google.android.material:material:1.9.0'
-
-    implementation project(path: ':wheelview')
 }

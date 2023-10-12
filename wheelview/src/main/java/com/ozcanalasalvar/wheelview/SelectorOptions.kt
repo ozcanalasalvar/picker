@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.library.compose.wheelview
+package com.ozcanalasalvar.wheelview
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp

@@ -1,4 +1,4 @@
-package com.ozcanalasalvar.library.compose.wheelview
+package com.ozcanalasalvar.wheelview
 
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListState
