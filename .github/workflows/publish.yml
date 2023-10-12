@@ -17,8 +17,8 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build with Gradle
-        run: ./gradlew assemble
+        run: ./gradlew build
       - name: Publish to mavenLocal()
-        run: ./gradlew publishReleasePublicationToMavenLocal --info --warning-mode all
+        run: ./gradlew publishToMavenLocal --info --warning-mode all
       - name: Auto send a request to JitPack
         uses: badasintended/autojitpack@v0
