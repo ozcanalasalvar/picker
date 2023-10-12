@@ -7,15 +7,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.timepicker.TimeFormat
-import com.ozcanalasalvar.library.utils.DateUtils.getCurrentTime
-import com.ozcanalasalvar.library.view.datepicker.DatePicker
-import com.ozcanalasalvar.library.view.datepicker.DatePicker.DataSelectListener
-import com.ozcanalasalvar.library.view.popup.DatePickerPopup
-import com.ozcanalasalvar.library.view.popup.DatePickerPopup.OnDateSelectListener
-import com.ozcanalasalvar.library.view.popup.TimePickerPopup
-import com.ozcanalasalvar.library.view.popup.TimePickerPopup.OnTimeSelectListener
-import com.ozcanalasalvar.library.view.timepicker.TimePicker
-import com.ozcanalasalvar.library.view.timepicker.TimePicker.TimeSelectListener
+import com.ozcanalasalvar.datepicker.utils.DateUtils.getCurrentTime
+import com.ozcanalasalvar.datepicker.view.datepicker.DatePicker
+import com.ozcanalasalvar.datepicker.view.popup.DatePickerPopup
+import com.ozcanalasalvar.datepicker.view.popup.TimePickerPopup
+import com.ozcanalasalvar.datepicker.view.timepicker.TimePicker
 
 class ViewActivity : AppCompatActivity() {
 
@@ -34,7 +30,7 @@ class ViewActivity : AppCompatActivity() {
             setTextSize(17)
             setDate(getCurrentTime())
             setDarkModeEnabled(true)
-            setDataSelectListener(object : DataSelectListener {
+            setDataSelectListener(object : DatePicker.DataSelectListener {
                 @SuppressLint("SetTextI18n")
                 override fun onDateSelected(date: Long, day: Int, month: Int, year: Int) {
                     textDate.text = "" + day + "/" + (month + 1) + "/" + year
@@ -50,7 +46,7 @@ class ViewActivity : AppCompatActivity() {
             setTimeFormat(TimeFormat.CLOCK_12H)
             setTime(9, 12)
             setDarkModeEnabled(true)
-            setTimeSelectListener(object : TimeSelectListener {
+            setTimeSelectListener(object : TimePicker.TimeSelectListener {
                 override fun onTimeSelected(hour: Int, minute: Int, timeFormat: String?) {
                     textTime.text = "$hour:$minute ${timeFormat?:""}"
                 }
@@ -65,7 +61,7 @@ class ViewActivity : AppCompatActivity() {
             setTimeFormat(TimeFormat.CLOCK_24H)
             setTime(9, 12)
             setDarkModeEnabled(true)
-            setTimeSelectListener(object : TimeSelectListener {
+            setTimeSelectListener(object : TimePicker.TimeSelectListener {
                 override fun onTimeSelected(hour: Int, minute: Int, timeFormat: String?) {
                     textTime24.text = "$hour:$minute ${timeFormat?:""}"
                 }
@@ -82,7 +78,7 @@ class ViewActivity : AppCompatActivity() {
             .textSize(17)
             .selectedDate(getCurrentTime())
             .darkModeEnabled(true)
-            .listener(object : OnDateSelectListener {
+            .listener(object : DatePickerPopup.OnDateSelectListener {
                 override fun onDateSelected(
                     dp: DatePicker?,
                     date: Long,
@@ -110,7 +106,7 @@ class ViewActivity : AppCompatActivity() {
             .setTime(12, 12)
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .darkModeEnabled(true)
-            .listener(object : OnTimeSelectListener {
+            .listener(object : TimePickerPopup.OnTimeSelectListener {
                 override fun onTimeSelected(
                     timePicker: TimePicker?,
                     hour: Int,

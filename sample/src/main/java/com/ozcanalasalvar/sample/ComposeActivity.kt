@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.material.timepicker.TimeFormat
-import com.ozcanalasalvar.library.compose.datepicker.WheelDatePicker
-import com.ozcanalasalvar.library.compose.timepicker.WheelTimePicker
+import com.ozcanalasalvar.datepicker.compose.datepicker.WheelDatePicker
+import com.ozcanalasalvar.datepicker.compose.timepicker.WheelTimePicker
 
 class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
