@@ -69,5 +69,6 @@ dependencies {
 
     implementation 'com.github.ozcanalasalvar.picker:wheelview:2.0.2'
     implementation 'com.github.ozcanalasalvar.picker:datepicker:2.0.2'
+    implementation project(path: ':datepicker')
 
 }
