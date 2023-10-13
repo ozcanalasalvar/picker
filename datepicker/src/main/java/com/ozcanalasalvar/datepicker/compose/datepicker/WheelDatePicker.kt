@@ -37,7 +37,7 @@ import com.ozcanalasalvar.datepicker.ui.theme.colorLightPrimary
 import com.ozcanalasalvar.datepicker.ui.theme.colorLightTextPrimary
 import com.ozcanalasalvar.datepicker.ui.theme.lightPallet
 import com.ozcanalasalvar.datepicker.utils.DateUtils
-import com.ozcanalasalvar.wheelview.InfiniteWheelView
+import com.ozcanalasalvar.wheelview.WheelView
 import com.ozcanalasalvar.wheelview.SelectorOptions
 import java.text.DateFormatSymbols
 
@@ -91,7 +91,7 @@ fun WheelDatePicker(
 
 
             key(days.size) {
-                InfiniteWheelView(modifier = Modifier.weight(1f),
+                WheelView(modifier = Modifier.weight(1f),
                     itemSize = DpSize(150.dp, height),
                     selection = maxOf(days.indexOf(selectedDate.day), 0),
                     itemCount = days.size,
@@ -111,7 +111,7 @@ fun WheelDatePicker(
                     })
             }
 
-            InfiniteWheelView(modifier = Modifier.weight(2f),
+            WheelView(modifier = Modifier.weight(2f),
                 itemSize = DpSize(150.dp, height),
                 selection = maxOf(months.indexOf(selectedDate.month), 0),
                 itemCount = months.size,
@@ -131,7 +131,7 @@ fun WheelDatePicker(
                 })
 
 
-            InfiniteWheelView(modifier = Modifier.weight(1f),
+            WheelView(modifier = Modifier.weight(1f),
                 itemSize = DpSize(150.dp, height),
                 selection = years.indexOf(selectedDate.year),
                 itemCount = years.size,

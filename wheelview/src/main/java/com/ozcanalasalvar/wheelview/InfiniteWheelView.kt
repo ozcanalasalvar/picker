@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun InfiniteWheelView(
+fun WheelView(
     modifier: Modifier = Modifier,
     itemSize: DpSize = DpSize(256.dp, 256.dp),
     selection: Int = 3,

@@ -31,7 +31,7 @@ import com.ozcanalasalvar.datepicker.ui.theme.colorLightPrimary
 import com.ozcanalasalvar.datepicker.ui.theme.colorLightTextPrimary
 import com.ozcanalasalvar.datepicker.ui.theme.lightPallet
 import com.ozcanalasalvar.datepicker.utils.DateUtils
-import com.ozcanalasalvar.wheelview.InfiniteWheelView
+import com.ozcanalasalvar.wheelview.WheelView
 import com.ozcanalasalvar.wheelview.SelectorOptions
 
 
@@ -86,7 +86,7 @@ fun WheelTimePicker(
         ) {
 
 
-            InfiniteWheelView(modifier = Modifier.weight(3f),
+            WheelView(modifier = Modifier.weight(3f),
                 itemSize = DpSize(150.dp, height),
                 selection = 0,
                 itemCount = hours.size,
@@ -106,7 +106,7 @@ fun WheelTimePicker(
                 })
 
 
-            InfiniteWheelView(modifier = Modifier.weight(3f),
+            WheelView(modifier = Modifier.weight(3f),
                 itemSize = DpSize(150.dp, height),
                 selection = 0,
                 itemCount = minutes.size,
@@ -126,7 +126,7 @@ fun WheelTimePicker(
                 })
 
             if (timeFormat == TimeFormat.CLOCK_12H) {
-                InfiniteWheelView(modifier = Modifier.weight(2f),
+                WheelView(modifier = Modifier.weight(2f),
                     itemSize = DpSize(150.dp, height),
                     selection = 0,
                     itemCount = formats.size,
