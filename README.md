@@ -43,7 +43,7 @@ The library has many different feature options to customize your widget.
 ```java
 WheelDatePicker(
 	offset =/*offset*/,
-	yearsRange =/*yearsRange*/,
+	yearsRange = IntRange(/*minYear*/,/*maxYear*/),
 	startDate =/*startDate*/,
 	textSize =/*textSize*/,
 	selectorEffectEnabled =/*selectorEffectEnabled*/,
@@ -54,20 +54,47 @@ WheelDatePicker(
 )
 ```
 
+#### Parameters
+Parameter | Description | Type
+------ | ----- | --
+offset | Int | Count of items to be shown on picker 
+yearsRange | IntRange | Min and max date of picker 
+startDate | Long | Selected date of picker by default today date 
+textSize | Int | Size of text on picker 
+selectorEffectEnabled | Boolean | Uses to enable or disable the selection effect
+darkModeEnabled | Boolean | Uses to  enable or disable dark mode. If you disable it, although you set display settings dark, component stay light mode
+onDateSelected |  | Called when the values in the picker date picker are updated 
+
+<br>
+<br>
+
 
 ```java
 WheelTimePicker(
 	offset =/*offset*/,
-	selectorEffectEnabled =/*selectorEffectEnabled*/,
 	timeFormat = TimeFormat.CLOCK_12H,
 	startTime =/*startTime*/,
 	textSize =/*textSize*/,
+        selectorEffectEnabled =/*selectorEffectEnabled*/, 
 	darkModeEnabled =/*darkModeEnabled*/,
 	onTimeSelected = { hour, minute, format ->
 	  /*Handle time changes*/       
 	}
 )
 ```
+
+#### Parameters
+Parameter | Description | Type
+------ | ----- | --
+offset | Int | Count of items to be shown on picker 
+timeFormat | TimeFormat | Time format of picker. TimeFormat.CLOCK_12H or TimeFormat.CLOCK_24H
+startTime | Time | Selected time of picker by default current time
+textSize | Int | Size of text on picker 
+selectorEffectEnabled | Boolean | Uses to enable or disable the selection effect
+darkModeEnabled | Boolean | Uses to  enable or disable dark mode. If you disable it, although you set display settings dark, component stay light mode
+onTimeSelected |  | Called when the values in the picker date picker are updated
+
+
 <br>
 <br>
 <br>
@@ -105,6 +132,17 @@ datePicker.apply {
             app:offset="3"
             app:textSize="19" />
 ```
+<br>
+<br>
+
+#### XML attributes
+Parameter | Description | Type
+------ | ----- | --
+offset | Int | Count of items to be shown on picker 
+textSize | Int | Size of text on picker 
+darkModeEnabled | Boolean | Uses to  enable or disable dark mode. If you disable it, although you set display settings dark, component stay light mode
+
+
 ##### Popup Usage
 
 ```java
@@ -160,6 +198,17 @@ timePicker.apply {
             app:offset="2"
             app:textSize="17" />
 ```
+
+#### XML attributes
+Parameter | Description | Type
+------ | ----- | --
+ooffset | Int | Count of items to be shown on picker 
+is24HourViewEnabled | Boolen | Time format of picker. If true TimeFormat.CLOCK_24H else TimeFormat.CLOCK_24H
+textSize | Int | Size of text on picker 
+darkModeEnabled | Boolean | Uses to  enable or disable dark mode. If you disable it, although you set display settings dark, component stay light mode
+<br>
+<br>
+
 ##### Popup Usage
 
 ```java
@@ -208,6 +257,6 @@ dependencies {
 	implementation 'com.github.ozcanalasalvar.picker:wheelview:2.0.3'
 
 	//For view based UI's
-	implementation 'androidx.compose.material3:material3:1.1.2'
+	implementation 'androidx.compose.material3:material3:Tag'
 }
 ```
