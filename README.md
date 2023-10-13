@@ -55,7 +55,7 @@ WheelDatePicker(
 ```
 
 #### Parameters
-Parameter | Description | Type
+Parameter | Type | Description
 ------ | ----- | --
 offset | Int | Count of items to be shown on picker 
 yearsRange | IntRange | Min and max date of picker 
@@ -84,7 +84,7 @@ WheelTimePicker(
 ```
 
 #### Parameters
-Parameter | Description | Type
+Parameter | Type | Description
 ------ | ----- | --
 offset | Int | Count of items to be shown on picker 
 timeFormat | TimeFormat | Time format of picker. TimeFormat.CLOCK_12H or TimeFormat.CLOCK_24H
@@ -136,7 +136,7 @@ datePicker.apply {
 <br>
 
 #### XML attributes
-Parameter | Description | Type
+Parameter | Type | Description
 ------ | ----- | --
 offset | Int | Count of items to be shown on picker 
 textSize | Int | Size of text on picker 
@@ -200,7 +200,7 @@ timePicker.apply {
 ```
 
 #### XML attributes
-Parameter | Description | Type
+Parameter | Type | Description
 ------ | ----- | --
 ooffset | Int | Count of items to be shown on picker 
 is24HourViewEnabled | Boolen | Time format of picker. If true TimeFormat.CLOCK_24H else TimeFormat.CLOCK_24H
