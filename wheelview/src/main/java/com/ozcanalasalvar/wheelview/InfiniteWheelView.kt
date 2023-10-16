@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 fun WheelView(
     modifier: Modifier = Modifier,
     itemSize: DpSize = DpSize(256.dp, 256.dp),
-    selection: Int = 3,
+    selection: Int = 0,
     itemCount: Int = 28,
     rowOffset: Int = 4,
     isEndless: Boolean = true,
