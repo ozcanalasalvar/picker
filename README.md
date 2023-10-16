@@ -253,8 +253,8 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-	implementation 'com.github.ozcanalasalvar.picker:datepicker:2.0.3'
-	implementation 'com.github.ozcanalasalvar.picker:wheelview:2.0.3'
+	implementation 'com.github.ozcanalasalvar.picker:datepicker:2.0.5'
+	implementation 'com.github.ozcanalasalvar.picker:wheelview:2.0.5'
 
 	//For view based UI's
 	implementation 'androidx.compose.material3:material3:Tag'
