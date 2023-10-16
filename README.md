@@ -11,25 +11,25 @@ The library has many different feature options to customize your widget. Also ch
 <br>
 
 <p align="start">
-  <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/datepicker_record.gif" width="300">
+  <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/popupgif.gif" width="300">
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/datepicker_dark.gif" width="300">
+  <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/popupdark.gif" width="300">
 </p>
 <br>
 
 <p align="start">
-  <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/datepicker_image.jpg" width="300">
+  <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/datepickergif.gif" width="300">
 	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/datepicker_image_dark.jpg" width="300">
+  <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/datepickerdarkgif.gif" width="300">
 </p>
 
 <br>
 
 <br>
 <p align="start">
-   <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/timepicker_image.jpg" width="300">
+   <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/timepickergif.gif" width="300">
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-   <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/timepicker_image2.jpg" width="300">
+   <img src="https://github.com/ozcanalasalvar/picker/blob/master/art/timepickerdarkgif.gif" width="300">
 </p>
 <br>
 <br>
