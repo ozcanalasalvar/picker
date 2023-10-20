@@ -77,15 +77,13 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
             return this
         }
 
-        @Deprecated("")
+        @Deprecated("Unused method")
         fun startDate(startDate: Long): Builder {
-            datePicker!!.minDate = startDate
             return this
         }
 
-        @Deprecated("")
+        @Deprecated("Unused method")
         fun endDate(endDate: Long): Builder {
-            datePicker!!.maxDate = endDate
             return this
         }
 

@@ -131,11 +131,11 @@ class TimePicker : LinearLayout {
         setAttributes()
     }
 
-    @Deprecated("")
+    @Deprecated("Unused method")
     fun setHour(hour: Int) {
     }
 
-    @Deprecated("")
+    @Deprecated("Unused method")
     fun setMinute(minute: Int) {
     }
 

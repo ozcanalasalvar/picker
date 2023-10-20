@@ -86,11 +86,11 @@ class DatePicker : LinearLayout {
     }
 
 
-    @Deprecated("")
+    @Deprecated("Unused parameter")
     var minDate: Long = 0
 
 
-    @Deprecated("")
+    @Deprecated("Unused parameter")
     var maxDate: Long = 0
 
 
@@ -110,12 +110,7 @@ class DatePicker : LinearLayout {
         setAttributes()
     }
 
-    fun setdarkModeEnabled(darkModeEnabled: Boolean) {
-        this.darkModeEnabled = darkModeEnabled
-        setAttributes()
-    }
-
-    @Deprecated("")
+    @Deprecated("Unused method")
     fun setPickerMode(pickerMode: Int) {}
 
     /**
