@@ -46,7 +46,7 @@ WheelDatePicker(
 	textSize =/*textSize*/,
 	selectorEffectEnabled =/*selectorEffectEnabled*/,
 	darkModeEnabled =/*darkModeEnabled*/,
-	onDateSelected = day, month, year, date -> {
+	onDateChanged = { day, month, year, date ->
 	  /*Handle date changes*/
 	}
 )
@@ -75,7 +75,7 @@ WheelTimePicker(
 	textSize =/*textSize*/,
         selectorEffectEnabled =/*selectorEffectEnabled*/, 
 	darkModeEnabled =/*darkModeEnabled*/,
-	onTimeSelected = { hour, minute, format ->
+	onTimeChanged = { hour, minute, format ->
 	  /*Handle time changes*/       
 	}
 )
@@ -113,8 +113,8 @@ datePicker.apply {
             setTextSize(/*textSize*/)
             setDate(getCurrentTime())
             setDarkModeEnabled(/*darkModeEnabled*/)
-            setDataSelectListener(object : DatePicker.DataSelectListener {
-                override fun onDateSelected(date: Long, day: Int, month: Int, year: Int) {
+            setDateChangeListener(object : DatePicker.DateChangeListener {
+                override fun onDateChanged(date: Long, day: Int, month: Int, year: Int) {
                     //Handle date changes
                 }
             })
@@ -150,7 +150,7 @@ darkModeEnabled | Boolean | Uses to  enable or disable dark mode. If you disable
             .textSize(/*textSize*/)
             .selectedDate(getCurrentTime())
             .darkModeEnabled(/*darkModeEnabled*/)
-            .listener(object : DatePickerPopup.OnDateSelectListener {
+            .listener(object : DatePickerPopup.DateSelectListener {
                 override fun onDateSelected(
                     dp: DatePicker?,
                     date: Long,
@@ -177,8 +177,8 @@ timePicker.apply {
             setTimeFormat(TimeFormat.CLOCK_12H)
             setTime(/*hour*/, /*minute*/)
             setDarkModeEnabled(/*darkModeEnabled*/)
-            setTimeSelectListener(object : TimePicker.TimeSelectListener {
-                override fun onTimeSelected(hour: Int, minute: Int, timeFormat: String?) {
+            setTimeChangeListener(object : TimePicker.TimeChangeListener {
+                override fun onTimeChanged(hour: Int, minute: Int, timeFormat: String?) {
                     //Handle time changes
                 }
             })
@@ -217,7 +217,7 @@ val pickerPopup = TimePickerPopup.Builder()
             .setTime(/*hour*/, /*minute*/)
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .darkModeEnabled(/*darkModeEnabled*/)
-            .listener(object : TimePickerPopup.OnTimeSelectListener {
+            .listener(object : TimePickerPopup.TimeSelectListener {
                 override fun onTimeSelected(
                     timePicker: TimePicker?,
                     hour: Int,
