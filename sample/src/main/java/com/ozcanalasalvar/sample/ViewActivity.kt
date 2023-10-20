@@ -30,9 +30,9 @@ class ViewActivity : AppCompatActivity() {
             setTextSize(17)
             setDate(getCurrentTime())
             this.setDarkModeEnabled(true)
-            setDateChangeListener(object : DatePicker.DateChangeListener {
+            setDataSelectListener(object : DatePicker.DataSelectListener {
                 @SuppressLint("SetTextI18n")
-                override fun onDateChanged(date: Long, day: Int, month: Int, year: Int) {
+                override fun onDateSelected(date: Long, day: Int, month: Int, year: Int) {
                     textDate.text = "" + day + "/" + (month + 1) + "/" + year
                 }
             })
@@ -46,8 +46,8 @@ class ViewActivity : AppCompatActivity() {
             setTimeFormat(TimeFormat.CLOCK_12H)
             setTime(9, 12)
             setDarkModeEnabled(true)
-            setTimeChangeListener(object : TimePicker.TimeChangeListener {
-                override fun onTimeChanged(hour: Int, minute: Int, timeFormat: String?) {
+            setTimeSelectListener(object : TimePicker.TimeSelectListener {
+                override fun onTimeSelected(hour: Int, minute: Int, timeFormat: String?) {
                     textTime.text = "$hour:$minute ${timeFormat?:""}"
                 }
             })
@@ -61,8 +61,8 @@ class ViewActivity : AppCompatActivity() {
             setTimeFormat(TimeFormat.CLOCK_24H)
             setTime(9, 12)
             setDarkModeEnabled(true)
-            setTimeChangeListener(object : TimePicker.TimeChangeListener {
-                override fun onTimeChanged(hour: Int, minute: Int, timeFormat: String?) {
+            setTimeSelectListener(object : TimePicker.TimeSelectListener {
+                override fun onTimeSelected(hour: Int, minute: Int, timeFormat: String?) {
                     textTime24.text = "$hour:$minute ${timeFormat?:""}"
                 }
             })
@@ -78,7 +78,7 @@ class ViewActivity : AppCompatActivity() {
             .textSize(17)
             .selectedDate(getCurrentTime())
             .darkModeEnabled(true)
-            .listener(object : DatePickerPopup.DateSelectListener {
+            .listener(object : DatePickerPopup.OnDateSelectListener {
                 override fun onDateSelected(
                     dp: DatePicker?,
                     date: Long,
@@ -106,7 +106,7 @@ class ViewActivity : AppCompatActivity() {
             .setTime(12, 12)
             .setTimeFormat(TimeFormat.CLOCK_24H)
             .darkModeEnabled(true)
-            .listener(object : TimePickerPopup.TimeSelectListener {
+            .listener(object : TimePickerPopup.OnTimeSelectListener {
                 override fun onTimeSelected(
                     timePicker: TimePicker?,
                     hour: Int,
