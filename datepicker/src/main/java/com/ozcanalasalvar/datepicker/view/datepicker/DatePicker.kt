@@ -82,15 +82,15 @@ class DatePicker : LinearLayout {
         pickerView?.selectorEffectEnabled = true
         pickerView?.textSize = textSize
         pickerView?.darkModeEnabled= darkModeEnabled
-        pickerView?.setDataSelectListener(dataSelectListener)
+        pickerView?.setDataChangeListener(dateChangeListener)
     }
 
 
-    @Deprecated("")
+    @Deprecated("Unused parameter")
     var minDate: Long = 0
 
 
-    @Deprecated("")
+    @Deprecated("Unused parameter")
     var maxDate: Long = 0
 
 
@@ -110,12 +110,7 @@ class DatePicker : LinearLayout {
         setAttributes()
     }
 
-    fun setdarkModeEnabled(darkModeEnabled: Boolean) {
-        this.darkModeEnabled = darkModeEnabled
-        setAttributes()
-    }
-
-    @Deprecated("")
+    @Deprecated("Unused method")
     fun setPickerMode(pickerMode: Int) {}
 
     /**
@@ -133,13 +128,13 @@ class DatePicker : LinearLayout {
         setAttributes()
     }
 
-    interface DataSelectListener {
-        fun onDateSelected(date: Long, day: Int, month: Int, year: Int)
+    interface DateChangeListener {
+        fun onDateChanged(date: Long, day: Int, month: Int, year: Int)
     }
 
-    private var dataSelectListener: DataSelectListener? = null
-    fun setDataSelectListener(dataSelectListener: DataSelectListener) {
-        this.dataSelectListener = dataSelectListener
+    private var dateChangeListener: DateChangeListener? = null
+    fun setDateChangeListener(dateChangeListener: DateChangeListener) {
+        this.dateChangeListener = dateChangeListener
         setAttributes()
     }
 

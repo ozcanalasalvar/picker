@@ -42,7 +42,7 @@ fun WheelTimePicker(
     timeFormat: Int = TimeFormat.CLOCK_24H,
     startTime: Time = Time(DateUtils.getCurrentHour(), DateUtils.getCurrentMinute()),
     textSize: Int = 16,
-    onTimeSelected: (Int, Int, String?) -> Unit = { _, _, _ -> },
+    onTimeChanged: (Int, Int, String?) -> Unit = { _, _, _ -> },
     darkModeEnabled: Boolean = true,
 ) {
 
@@ -65,7 +65,7 @@ fun WheelTimePicker(
     val fontSize = maxOf(13, minOf(19, textSize))
 
     LaunchedEffect(selectedTime) {
-        onTimeSelected(selectedTime.hour, selectedTime.minute, selectedTime.format)
+        onTimeChanged(selectedTime.hour, selectedTime.minute, selectedTime.format)
     }
 
     Box(

@@ -29,7 +29,7 @@ class ViewActivity : AppCompatActivity() {
             setOffset(3)
             setTextSize(17)
             setDate(getCurrentTime())
-            setDarkModeEnabled(true)
+            this.setDarkModeEnabled(true)
             setDataSelectListener(object : DatePicker.DataSelectListener {
                 @SuppressLint("SetTextI18n")
                 override fun onDateSelected(date: Long, day: Int, month: Int, year: Int) {
