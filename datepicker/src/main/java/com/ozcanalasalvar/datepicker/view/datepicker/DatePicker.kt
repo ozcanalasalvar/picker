@@ -82,7 +82,7 @@ class DatePicker : LinearLayout {
         pickerView?.selectorEffectEnabled = true
         pickerView?.textSize = textSize
         pickerView?.darkModeEnabled= darkModeEnabled
-        pickerView?.setDataSelectListener(dataSelectListener)
+        pickerView?.setDataChangeListener(dateChangeListener)
     }
 
 
@@ -133,13 +133,13 @@ class DatePicker : LinearLayout {
         setAttributes()
     }
 
-    interface DataSelectListener {
-        fun onDateSelected(date: Long, day: Int, month: Int, year: Int)
+    interface DateChangeListener {
+        fun onDateChanged(date: Long, day: Int, month: Int, year: Int)
     }
 
-    private var dataSelectListener: DataSelectListener? = null
-    fun setDataSelectListener(dataSelectListener: DataSelectListener) {
-        this.dataSelectListener = dataSelectListener
+    private var dateChangeListener: DateChangeListener? = null
+    fun setDateChangeListener(dateChangeListener: DateChangeListener) {
+        this.dateChangeListener = dateChangeListener
         setAttributes()
     }
 

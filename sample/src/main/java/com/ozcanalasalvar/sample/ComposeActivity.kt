@@ -38,24 +38,24 @@ fun Content() {
             .verticalScroll(rememberScrollState())
     ) {
         // A surface container using the 'background' color from the theme
-        WheelDatePicker(onDateSelected = { day, month, year, date ->
+        WheelDatePicker(onDateChanged = { day, month, year, date ->
             Log.d("SelectedDate", "$day / $month / $year")
         })
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        WheelDatePicker(offset = 3, textSize = 16, onDateSelected = { day, month, year, date ->
+        WheelDatePicker(offset = 3, textSize = 16, onDateChanged = { day, month, year, date ->
             Log.d("SelectedDate", "$day / $month / $year")
         })
 
         Spacer(modifier = Modifier.height(20.dp))
-        WheelTimePicker(offset = 3, onTimeSelected = { hour, minute, format ->
+        WheelTimePicker(offset = 3, onTimeChanged = { hour, minute, format ->
             Log.d("SelectedDate", "$hour : $minute  $format")
         })
         Spacer(modifier = Modifier.height(20.dp))
 
         WheelTimePicker(timeFormat = TimeFormat.CLOCK_12H,
-            onTimeSelected = { hour, minute, format ->
+            onTimeChanged = { hour, minute, format ->
                 Log.d("SelectedDate", "$hour : $minute  $format")
             })
     }

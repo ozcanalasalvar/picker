@@ -67,8 +67,8 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
 
-    implementation 'com.github.ozcanalasalvar.picker:wheelview:2.0.4'
-    implementation 'com.github.ozcanalasalvar.picker:datepicker:2.0.4'
-    //implementation project(path: ':datepicker')
+//    implementation 'com.github.ozcanalasalvar.picker:wheelview:2.0.4'
+//    implementation 'com.github.ozcanalasalvar.picker:datepicker:2.0.4'
+    implementation project(path: ':datepicker')
 
 }

@@ -90,16 +90,16 @@ class TimePicker : LinearLayout {
         pickerView?.timeFormat = timeFormat
         pickerView?.startTime = startTime
 
-        pickerView?.setTimeSelectListener(timeSelectListener)
+        pickerView?.setTimeChangeListener(timeChangeListener)
     }
 
-    interface TimeSelectListener {
-        fun onTimeSelected(hour: Int, minute: Int, timeFormat: String?)
+    interface TimeChangeListener {
+        fun onTimeChanged(hour: Int, minute: Int, timeFormat: String?)
     }
 
-    private var timeSelectListener: TimeSelectListener? = null
-    fun setTimeSelectListener(dataSelectListener: TimeSelectListener) {
-        timeSelectListener = dataSelectListener
+    private var timeChangeListener: TimeChangeListener? = null
+    fun setTimeChangeListener(dataSelectListener: TimeChangeListener) {
+        timeChangeListener = dataSelectListener
         setAttributes()
     }
 

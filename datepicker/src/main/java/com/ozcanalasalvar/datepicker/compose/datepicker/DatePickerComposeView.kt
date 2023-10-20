@@ -58,9 +58,9 @@ class DatePickerComposeView @JvmOverloads constructor(
             darkModeEnabledState.value = value
         }
 
-    private var dataSelectListener: DatePicker.DataSelectListener? = null
-    fun setDataSelectListener(dataSelectListener: DatePicker.DataSelectListener?) {
-        this.dataSelectListener = dataSelectListener
+    private var dateChangeListener: DatePicker.DateChangeListener? = null
+    fun setDataChangeListener(dateChangeListener: DatePicker.DateChangeListener?) {
+        this.dateChangeListener = dateChangeListener
     }
 
     @Suppress("RedundantVisibilityModifier")
@@ -75,8 +75,8 @@ class DatePickerComposeView @JvmOverloads constructor(
             startDate = startDateState.value,
             selectorEffectEnabled = selectorEffectEnabledState.value,
             textSize= textSizeState.value,
-            onDateSelected = { day, month, year, date ->
-                dataSelectListener?.onDateSelected(date, day, month, year)
+            onDateChanged = { day, month, year, date ->
+                dateChangeListener?.onDateChanged(date, day, month, year)
             },
             darkModeEnabled = darkModeEnabledState.value)
     }

@@ -14,7 +14,7 @@ import com.ozcanalasalvar.datepicker.view.timepicker.TimePicker
 
 class TimePickerPopup(private val context: Context) : BottomSheetDialogFragment() {
 
-    private var listener: OnTimeSelectListener? = null
+    private var listener: TimeSelectListener? = null
 
     lateinit var picker: TimePicker
 
@@ -49,8 +49,8 @@ class TimePickerPopup(private val context: Context) : BottomSheetDialogFragment(
         container.removeAllViews()
         container.addView(picker)
 
-        picker.setTimeSelectListener(object : TimePicker.TimeSelectListener {
-            override fun onTimeSelected(hour: Int, minute: Int, timeFormat: String?) {
+        picker.setTimeChangeListener(object : TimePicker.TimeChangeListener {
+            override fun onTimeChanged(hour: Int, minute: Int, timeFormat: String?) {
                 selectedTime = Time(hour, minute, timeFormat)
             }
 
@@ -60,14 +60,14 @@ class TimePickerPopup(private val context: Context) : BottomSheetDialogFragment(
         return view
     }
 
-    fun setListener(listener: OnTimeSelectListener?) {
+    fun setListener(listener: TimeSelectListener?) {
         this.listener = listener
     }
 
     class Builder {
         private var context: Context? = null
         private var timePicker: TimePicker? = null
-        private var listener: OnTimeSelectListener? = null
+        private var listener: TimeSelectListener? = null
         fun from(context: Context?): Builder {
             this.context = context
             timePicker = TimePicker(context!!)
@@ -99,7 +99,7 @@ class TimePickerPopup(private val context: Context) : BottomSheetDialogFragment(
             return this
         }
 
-        fun listener(listener: OnTimeSelectListener?): Builder {
+        fun listener(listener: TimeSelectListener?): Builder {
             this.listener = listener
             return this
         }
@@ -120,7 +120,7 @@ class TimePickerPopup(private val context: Context) : BottomSheetDialogFragment(
         }
     }
 
-    interface OnTimeSelectListener {
+    interface TimeSelectListener {
         fun onTimeSelected(timePicker: TimePicker?, hour: Int, minute: Int, format: String?)
     }
 }

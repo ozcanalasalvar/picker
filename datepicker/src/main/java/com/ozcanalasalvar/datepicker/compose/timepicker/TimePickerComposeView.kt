@@ -60,9 +60,9 @@ class TimePickerComposeView @JvmOverloads constructor(
         }
 
 
-    private var timeSelectListener: TimePicker.TimeSelectListener? = null
-    fun setTimeSelectListener(dataSelectListener: TimePicker.TimeSelectListener?) {
-        timeSelectListener = dataSelectListener
+    private var timeChangeListener: TimePicker.TimeChangeListener? = null
+    fun setTimeChangeListener(dataSelectListener: TimePicker.TimeChangeListener?) {
+        timeChangeListener = dataSelectListener
     }
 
     @Suppress("RedundantVisibilityModifier")
@@ -79,8 +79,8 @@ class TimePickerComposeView @JvmOverloads constructor(
             startTime = startTimeState.value,
             textSize = textSizeState.value,
             darkModeEnabled = darkModeEnabledState.value,
-            onTimeSelected = { hour, minute, format ->
-                timeSelectListener?.onTimeSelected(hour, minute, format)
+            onTimeChanged = { hour, minute, format ->
+                timeChangeListener?.onTimeChanged(hour, minute, format)
             },
         )
     }

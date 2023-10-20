@@ -13,7 +13,7 @@ import com.ozcanalasalvar.datepicker.model.Date
 import com.ozcanalasalvar.datepicker.view.datepicker.DatePicker
 
 class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment() {
-    private var listener: OnDateSelectListener? = null
+    private var listener: DateSelectListener? = null
 
     lateinit var picker: DatePicker
 
@@ -47,8 +47,8 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
         container.removeAllViews()
         container.addView(picker)
 
-        picker.setDataSelectListener(object : DatePicker.DataSelectListener {
-            override fun onDateSelected(date: Long, day: Int, month: Int, year: Int) {
+        picker.setDateChangeListener(object : DatePicker.DateChangeListener {
+            override fun onDateChanged(date: Long, day: Int, month: Int, year: Int) {
                 selectedDate = date
             }
         })
@@ -58,14 +58,14 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
     }
 
 
-    fun setListener(listener: OnDateSelectListener?) {
+    fun setListener(listener: DateSelectListener?) {
         this.listener = listener
     }
 
     class Builder {
         private var context: Context? = null
         private var datePicker: DatePicker? = null
-        private var listener: OnDateSelectListener? = null
+        private var listener: DateSelectListener? = null
         fun from(context: Context?): Builder {
             this.context = context
             datePicker = DatePicker(context!!)
@@ -116,7 +116,7 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
             return this
         }
 
-        fun listener(listener: OnDateSelectListener?): Builder {
+        fun listener(listener: DateSelectListener?): Builder {
             this.listener = listener
             return this
         }
@@ -137,7 +137,7 @@ class DatePickerPopup(private val context: Context) : BottomSheetDialogFragment(
         }
     }
 
-    interface OnDateSelectListener {
+    interface DateSelectListener {
         fun onDateSelected(dp: DatePicker?, date: Long, day: Int, month: Int, year: Int)
     }
 }

@@ -49,7 +49,7 @@ fun WheelDatePicker(
     startDate: Date = Date(DateUtils.getCurrentTime()),
     textSize: Int = 16,
     selectorEffectEnabled: Boolean = true,
-    onDateSelected: (Int, Int, Int, Long) -> Unit = { _, _, _, _ -> },
+    onDateChanged: (Int, Int, Int, Long) -> Unit = { _, _, _, _ -> },
     darkModeEnabled: Boolean = true,
 ) {
 
@@ -66,7 +66,7 @@ fun WheelDatePicker(
     }
 
     LaunchedEffect(selectedDate) {
-        onDateSelected(selectedDate.day, selectedDate.month, selectedDate.year, selectedDate.date)
+        onDateChanged(selectedDate.day, selectedDate.month, selectedDate.year, selectedDate.date)
     }
 
     val fontSize = maxOf(13, minOf(19, textSize))
@@ -175,5 +175,5 @@ fun WheelDatePicker(
 @Preview
 @Composable
 fun DatePickerPreview() {
-    WheelDatePicker(onDateSelected = { _, _, _, _ -> })
+    WheelDatePicker(onDateChanged = { _, _, _, _ -> })
 }
