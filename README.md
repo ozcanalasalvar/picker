@@ -201,7 +201,7 @@ timePicker.apply {
 Parameter | Type | Description
 ------ | ----- | --
 offset | Int | Count of items to be shown on picker 
-is24HourViewEnabled | Boolen | Time format of picker. If true TimeFormat.CLOCK_24H else TimeFormat.CLOCK_24H
+is24HourViewEnabled | Boolen | Time format of picker. If true TimeFormat.CLOCK_24H else TimeFormat.CLOCK_12H
 textSize | Int | Size of text on picker 
 darkModeEnabled | Boolean | Uses to  enable or disable dark mode. If you disable it, although you set display settings dark, component stay light mode
 <br>
